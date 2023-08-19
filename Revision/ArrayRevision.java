@@ -10,13 +10,13 @@ public class ArrayRevision {
     }
 
     public static int largestNo(int arr[]) {
-        int maxNum = Integer.MIN_VALUE;
+        int max = Integer.MIN_VALUE;
         for (int i = 0; i < arr.length; i++) {
-            if (maxNum < arr[i]) {
-                maxNum = arr[i];
+            if (max < arr[i]) {
+                max = arr[i];
             }
         }
-        return maxNum;
+        return max;
     }
 
     public static int binarySearch(int arr[], int key) {
@@ -48,58 +48,60 @@ public class ArrayRevision {
     }
 
     public static void pairs(int arr[]) {
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = i; j < arr.length; j++) {
-                System.out.println("(" + arr[i] + "," + ")");
-            }
-        }
-    }
-
-    public static void subArrays(int arr[]) {
         for (int i = 0; i < arr.length - 1; i++) {
-            int start = i;
             for (int j = i + 1; j < arr.length; j++) {
-                int end = j;
-                for (int k = start; k <= end; k++) {
-                    System.out.print(arr[k] + " ");
-                }
-                System.out.println();
+                System.out.println("(" + arr[i] + "," + arr[j] + ")");
             }
             System.out.println();
         }
     }
 
-    public static void maxSubarraysSum(int arr[]) {
-        int maxSum = Integer.MIN_VALUE;
-        int currSum = 0;
+    public static void subArrays(int arr[]) {
+        int ts = 0;
         for (int i = 0; i < arr.length; i++) {
             int start = i;
             for (int j = i; j < arr.length; j++) {
-                currSum = 0;
                 int end = j;
+                for (int k = start; k <= end; k++) {
+                    System.out.println(arr[j] + " ");
+                }
+                ts++;
+                System.out.println();
+            }
+            System.out.println();
+            System.out.println("Total SubArrays : " + ts);
+        }
+
+    }
+
+    public static void maxSubarraysSum(int arr[]) {
+        int currSum = 0, maxSum = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            int start = 0;
+            for (int j = i; j < arr.length; j++) {
+                int end = j;
+                currSum = 0;
                 for (int k = start; k <= end; k++) {
                     currSum += arr[k];
                 }
-                System.out.println(currSum);
+                System.out.println("currSum is " + currSum);
                 maxSum = Math.max(currSum, maxSum);
             }
         }
-        System.out.println(maxSum);
+        System.out.println("MaxSum is " + maxSum);
     }
 
-    public static void prefixSum(int arr[]) {
+    public static int prefixSum(int arr[]) {
         int prefix[] = new int[arr.length];
         prefix[0] = arr[0];
         for (int i = 1; i < arr.length; i++) {
             prefix[i] = prefix[i - 1] + arr[i];
         }
-        int maxSum = Integer.MIN_VALUE;
-        int currSum = 0;
+        int currSum = 0, maxSum = Integer.MIN_VALUE;
         for (int i = 0; i < arr.length; i++) {
             int start = i;
             for (int j = i; j < arr.length; j++) {
                 int end = j;
-
                 currSum = start == 0 ? arr[end] : arr[end] - arr[start - 1];
                 maxSum = Math.max(currSum, maxSum);
             }
@@ -108,56 +110,57 @@ public class ArrayRevision {
     }
 
     public static void kadanesAlgo(int arr[]) {
-        int ms = 0, cs = 0;
+        int cs = 0, ms = 0;
         for (int i = 0; i < arr.length; i++) {
             cs += arr[i];
             if (cs < 0) {
                 cs = 0;
             }
-            ms = Math.max(cs, ms);
+            ms = Math.min(ms, cs);
         }
-        System.out.println("Max is " + ms);
+        System.out.println(ms);
     }
 
-    public static void trappedRainWater(int arr[]) {
-        int totalWater = 0;
+    public static int trappedRainWater(int height[]) {
+        int waterLevel = 0;
         /* leftMax */
-        int leftMax[] = new int[arr.length];
-        leftMax[0] = arr[0];
-        for (int i = 1; i < arr.length; i++) {
-            leftMax[i] = Math.max(leftMax[i - 1], arr[i]);
+        int leftMax[] = new int[height.length];
+        leftMax[0] = height[0];
+        for (int i = 1; i < height.length; i++) {
+            leftMax[i] = Math.max(leftMax[i - 1], height[i]);
         }
         /* rightMax */
-        int rightMax[] = new int[arr.length];
-        rightMax[rightMax.length - 1] = arr[arr.length - 1];
-        for (int i = arr.length - 2; i >= 0; i--) {
-            rightMax[i] = Math.max(rightMax[i + 1], arr[i]);
+        int rightMax[] = new int[height.length];
+        rightMax[rightMax.length - 1] = height[height.length - 1];
+        for (int i = rightMax.length - 2; i >= 0; i--) {
+            rightMax[i] = Math.max(rightMax[i + 1], height[i]);
         }
-        /* min among both and calculation */
-        for (int i = 0; i < arr.length; i++) {
-            totalWater += (Math.min(leftMax[i], rightMax[i])) - arr[i];
+        /* calculate min among both and also stored water */
+        for (int i = 0; i < height.length; i++) {
+            waterLevel += (Math.min(leftMax[i], rightMax[i])) - height[i];
         }
-        System.out.println(totalWater);
+        return waterLevel;
     }
 
-    public static void buyAndSellStocks(int arr[]) {
-        int buyPrice = 0, maxProfit = Integer.MIN_VALUE;
-        for (int i = 0; i < arr.length; i++) {
-            if (buyPrice < arr[i]) {
-                int profit = arr[i] - buyPrice;
+    public static int buyAndSellStocks(int stocks[]) {
+        int maxProfit = 0;
+        int buyPrice = Integer.MIN_VALUE;
+        for (int i = 0; i < stocks.length; i++) {
+            if (buyPrice < stocks[i]) {
+                int profit = stocks[i] - buyPrice;
                 maxProfit = Math.max(maxProfit, profit);
             } else {
-                buyPrice = arr[i];
+                buyPrice = stocks[i];
             }
         }
-        System.out.println(maxProfit);
+        return maxProfit;
     }
 
     public static void printSpiral(int matrix[][]) {
-        int startRow = 0, startCol = 0;
-        int endRow = matrix.length - 1, endCol = matrix[0].length - 1;
+        int startCol = 0, startRow = 0;
+        int endCol = matrix[0].length - 1, endRow = matrix.length - 1;
 
-        while (startRow <= endRow && startCol <= endCol) {
+        while (startCol <= endCol && startRow <= endRow) {
             for (int i = startCol; i <= endCol; i++) {
                 System.out.print(matrix[startRow][i] + " ");
             }
@@ -167,7 +170,7 @@ public class ArrayRevision {
             for (int i = endCol - 1; i >= startCol; i--) {
                 System.out.print(matrix[endRow][i] + " ");
             }
-            for (int i = endRow - 1; i >= startRow + 1; i--) {
+            for (int i = endRow - 1; i <= startRow + 1; i--) {
                 System.out.print(matrix[i][startRow] + " ");
             }
             startCol++;
@@ -179,18 +182,18 @@ public class ArrayRevision {
 
     public static void diagonalSum(int matrix[][]) {
         int sum = 0;
-        for (int i = 0; i < matrix.length; i++) {
+        for(int i=0; i<matrix.length; i++) {
             sum += matrix[i][i];
-            if (i != matrix.length - 1 - i) {
-                sum += matrix[i][matrix.length - i - 1];
+            if(i != matrix.length-i-1) {
+                sum += matrix[i][matrix.length-i-1];
             }
         }
-        System.out.println("Sum is " + sum);
+        System.out.println("Sum of Diagonal Element "+sum);
     }
 
     public static boolean staircaseSearch(int matrix[][], int key) {
         int row = 0, col = matrix[0].length-1;
-        while(row <= matrix.length-1 && col >=0) {
+        while(row <= matrix.length-1 && col >= 0) {
             if(matrix[row][col] == key) {
                 return true;
             } else if(matrix[row][col] > key) {
@@ -202,9 +205,9 @@ public class ArrayRevision {
         return false;
     }
 
-    public static boolean staircaseSearch1(int matrix[][], int key) {
-        int row = matrix.length-1, col = 0;
-        while(col <= matrix[0].length-1 && row >= 0) {
+    public static boolean staircaseSearch(int matrix[][], int key) {
+        int col = 0, row = matrix.length-1;
+        while(row >= 0 && col <= matrix[0].length-1) {
             if(matrix[row][col] == key) {
                 return true;
             } else if(matrix[row][col] > key) {
