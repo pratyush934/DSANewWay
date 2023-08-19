@@ -250,7 +250,7 @@ public class BinaryTreeTutRevision {
             }
         }
         for (Integer key : map.keySet()) {
-            System.out.print(map.get(key) + " ");
+            System.out.print(map.get(key) + " "+ " ");
         }
 
     }
