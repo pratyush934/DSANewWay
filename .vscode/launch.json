@@ -1,0 +1,175 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "SetsRevision",
+            "request": "launch",
+            "mainClass": "SetsRevision",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "MapsRevision",
+            "request": "launch",
+            "mainClass": "MapsRevision",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Array",
+            "request": "launch",
+            "mainClass": "Array",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "ArrayListRevision",
+            "request": "launch",
+            "mainClass": "ArrayListRevision",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "ArrayLists",
+            "request": "launch",
+            "mainClass": "ArrayLists",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "ArrayRevision",
+            "request": "launch",
+            "mainClass": "ArrayRevision",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "BST",
+            "request": "launch",
+            "mainClass": "BST",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "BinaryTreeTut",
+            "request": "launch",
+            "mainClass": "BinaryTreeTut",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "DoubleLL",
+            "request": "launch",
+            "mainClass": "DoubleLL",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "Graphs",
+            "request": "launch",
+            "mainClass": "Graphs",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "LinkedListRevision",
+            "request": "launch",
+            "mainClass": "LinkedListRevision",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "LinkedListUser",
+            "request": "launch",
+            "mainClass": "LinkedListUser",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "MapImplementation",
+            "request": "launch",
+            "mainClass": "MapImplementation",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "Maps",
+            "request": "launch",
+            "mainClass": "Maps",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "QueueRevision",
+            "request": "launch",
+            "mainClass": "QueueRevision",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "Queues",
+            "request": "launch",
+            "mainClass": "Queues",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "Sets",
+            "request": "launch",
+            "mainClass": "Sets",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "Sorting",
+            "request": "launch",
+            "mainClass": "Sorting",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "SortingRevision",
+            "request": "launch",
+            "mainClass": "SortingRevision",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "StackRevision",
+            "request": "launch",
+            "mainClass": "StackRevision",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "Stacks",
+            "request": "launch",
+            "mainClass": "Stacks",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "StringRevision",
+            "request": "launch",
+            "mainClass": "StringRevision",
+            "projectName": "DSA_49261308"
+        },
+        {
+            "type": "java",
+            "name": "Strings",
+            "request": "launch",
+            "mainClass": "Strings",
+            "projectName": "DSA_49261308"
+        }
+    ]
+}
