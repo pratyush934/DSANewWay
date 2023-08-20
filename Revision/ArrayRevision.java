@@ -91,7 +91,7 @@ public class ArrayRevision {
         System.out.println("MaxSum is " + maxSum);
     }
 
-    public static int prefixSum(int arr[]) {
+    public static void prefixSum(int arr[]) {
         int prefix[] = new int[arr.length];
         prefix[0] = arr[0];
         for (int i = 1; i < arr.length; i++) {
@@ -107,6 +107,7 @@ public class ArrayRevision {
             }
         }
         System.out.println(maxSum);
+    
     }
 
     public static void kadanesAlgo(int arr[]) {
@@ -205,7 +206,7 @@ public class ArrayRevision {
         return false;
     }
 
-    public static boolean staircaseSearch(int matrix[][], int key) {
+    public static boolean staircaseSearch1(int matrix[][], int key) {
         int col = 0, row = matrix.length-1;
         while(row >= 0 && col <= matrix[0].length-1) {
             if(matrix[row][col] == key) {
@@ -221,5 +222,6 @@ public class ArrayRevision {
 
     public static void main(String[] args) {
 
+        System.out.println("Hello");
     }
 }
