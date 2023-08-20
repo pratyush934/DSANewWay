@@ -2,21 +2,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ArrayListRevision {
-
-    public static void introductionToArrayList() {
+    public static void introductionArrayList() {
         ArrayList<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         list.add(3);
         System.out.println(list);
-        list.add(2, 20);
-        System.out.println(list);
-        list.remove(list.get(1));
-        System.out.println(list);
-
-        Collections.sort(list);
-        System.out.println(list);
-        Collections.sort(list, Collections.reverseOrder());
+        list.remove(1);
+        list.add(1, 10);
         System.out.println(list);
     }
 
@@ -27,8 +20,8 @@ public class ArrayListRevision {
         ArrayList<Integer> list3 = new ArrayList<>();
 
         for (int i = 1; i <= 10; i++) {
-            list1.add(i * 3);
-            list2.add(i * 4);
+            list1.add(i * 4);
+            list2.add(i * 5);
             list3.add(i * 7);
         }
 
@@ -36,53 +29,51 @@ public class ArrayListRevision {
         mainList.add(list2);
         mainList.add(list3);
 
-        for(int i=0; i<mainList.size(); i++) {
-            ArrayList<Integer> cuArrayList = mainList.get(i);
-            System.out.println(cuArrayList);
+        for (int i = 0; i < mainList.size(); i++) {
+            ArrayList<Integer> curr = mainList.get(i);
+            System.out.println(curr);
         }
-        System.out.println();
     }
 
-    public static int storeWater(ArrayList<Integer> list) {
-        int maxWater = 0;
-        for(int i=0; i<list.size(); i++) {
-            for(int j=i+1; j<list.size(); j++) {
-                int height = Math.min(list.get(i), list.get(j)) ;
+    public static void storeWater(ArrayList<Integer> list) {
+        int storeWater = 0;
+        int maxWater = Integer.MIN_VALUE;
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = i + 1; j < list.size(); j++) {
+                int ht = Math.min(list.get(i), list.get(j));
                 int width = j - i;
-                int storeWater = height * width;
+                storeWater = ht * width;
                 maxWater = Math.max(maxWater, storeWater);
             }
         }
-        return maxWater;
+        System.out.print(maxWater + " ");
     }
 
-    public static int storeWater1(ArrayList<Integer> list) {
-        int maxWater = 0;
-        int lp = 0;
-        int rp = list.size()-1;
-        while(lp != rp) {
+    public static void storeWater1(ArrayList<Integer> list) {
+        int storeWater = 0, maxWater = Integer.MIN_VALUE;
+        int lp = 0, rp = list.size() - 1;
+        while (lp != rp) {
             int height = Math.min(list.get(lp), list.get(rp));
             int width = rp - lp;
-            int currWater = height*width;
-            maxWater = Math.max(maxWater, currWater);
+            storeWater = height * width;
+            maxWater = Math.max(maxWater, storeWater);
 
-            if(list.get(lp) < list.get(rp)) {
+            if (list.get(lp) < list.get(rp)) {
                 lp++;
             } else {
                 rp--;
             }
         }
-        return maxWater;
+        System.out.println(maxWater);
     }
 
-    public static boolean pairSum1(ArrayList<Integer> list, int target) {
-        /* Only for sorted array */
+    public static boolean pairSum(ArrayList<Integer> list, int target) {
         Collections.sort(list);
-        int lp = 0, rp = list.size()-1;
-        while(lp != rp) {
-            if(list.get(lp) + list.get(rp) == target) {
+        int lp = 0, rp = list.size() - 1;
+        while (lp != rp) {
+            if (list.get(lp) + list.get(rp) == target) {
                 return true;
-            } else if(list.get(lp) + list.get(rp) < target) {
+            } else if (list.get(lp) + list.get(rp) < target) {
                 lp++;
             } else {
                 rp--;
@@ -91,30 +82,29 @@ public class ArrayListRevision {
         return false;
     }
 
-    public static boolean pairSumPivoted(ArrayList<Integer> list, int target) {
-        int bp = -1;
-        for(int i=0; i<list.size()-1; i++) {
-            if(list.get(i) > list.get(i+1)) {
+    public static boolean pairSum1(ArrayList<Integer> list, int target) {
+        int bp = 0;
+        for (int i = 0; i < list.size() - 1; i++) {
+            if (list.get(i) > list.get(i + 1)) {
                 bp = i;
                 break;
             }
         }
-        int lp = bp+1;
-        int rp = bp;
+        int lp = bp;
+        int rp = bp + 1;
         int n = list.size();
-        while(lp != rp) {
-            if(list.get(lp)+list.get(rp) == target) {
+        while (lp != rp) {
+            if (list.get(lp) + list.get(rp) == target) {
                 return true;
-            } else if(list.get(lp)+list.get(rp) < target) {
-                lp = (lp+1) % n;
+            } else if (list.get(lp) + list.get(rp) < target) {
+                lp = (lp + 1) % n;
             } else {
-                rp = (rp+n-1) % n;
+                rp = (rp + n - 1) % n;
             }
         }
         return false;
     }
-
     public static void main(String[] args) {
-                
+        multiDimensionalList();
     }
 }
