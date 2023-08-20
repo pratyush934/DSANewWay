@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class StackRevision {
-
     static class StacksArrayList {
         static ArrayList<Integer> list = new ArrayList<>();
 
@@ -16,18 +15,18 @@ public class StackRevision {
 
         public int pop() {
             if (isEmpty()) {
-                System.out.println("Sorry Stack is Empty");
+                System.out.println("Empty Stacks");
                 return Integer.MAX_VALUE;
             }
-            int val = list.get(list.size() - 1);
+            int value = list.get(list.size() - 1);
             list.remove(list.size() - 1);
-            return val;
+            return value;
         }
 
         public int peek() {
             if (isEmpty()) {
-                System.out.println("Sorry Stack is Emtpy");
-                return Integer.MIN_VALUE;
+                System.out.println("Empty Stacks");
+                return Integer.MAX_VALUE;
             }
             return list.get(list.size() - 1);
         }
@@ -44,6 +43,7 @@ public class StackRevision {
     }
 
     static class StacksLL {
+
         public static Node head = null;
         public static Node tail = null;
         public static int size = 0;
@@ -65,18 +65,22 @@ public class StackRevision {
 
         public int pop() {
             if (isEmpty()) {
-                System.out.println("Stack is Empty");
+                System.out.println("Empty Stacks");
                 return Integer.MAX_VALUE;
             }
-            int val = head.data;
+            if (size == 1) {
+                int value = head.data;
+                head = tail = null;
+                return value;
+            }
+            int value = head.data;
             head = head.next;
-            size--;
-            return val;
+            return value;
         }
 
         public int peek() {
             if (isEmpty()) {
-                System.out.println("Stack is Empty");
+                System.out.println("Empty Stacks");
                 return Integer.MAX_VALUE;
             }
             return head.data;
@@ -117,8 +121,8 @@ public class StackRevision {
 
     public static void stockSpan(int stocks[], int span[]) {
         Stack<Integer> s = new Stack<>();
-        s.push(0);
         span[0] = 1;
+        s.push(0);
         for (int i = 1; i < stocks.length; i++) {
             int curr = stocks[i];
             while (!s.isEmpty() && curr > stocks[s.peek()]) {
@@ -137,7 +141,7 @@ public class StackRevision {
         Stack<Integer> s = new Stack<>();
         for (int i = arr.length - 1; i >= 0; i--) {
             int curr = arr[i];
-            while (!s.isEmpty() && curr >= arr[s.peek()]) {
+            while (!s.isEmpty() && curr > arr[s.peek()]) {
                 s.pop();
             }
             if (s.isEmpty()) {
@@ -149,7 +153,7 @@ public class StackRevision {
         }
     }
 
-    public static boolean isValidParenthesis(String str) {
+    public static boolean validParenthesis(String str) {
         if (str.length() == 0 || str == null) {
             return true;
         }
@@ -162,14 +166,14 @@ public class StackRevision {
                 } else {
                     return false;
                 }
-            } else if (ch == '}') {
-                if (!s.isEmpty() && s.peek() == '{') {
+            } else if (ch == ')') {
+                if (!s.isEmpty() && s.peek() == '(') {
                     s.pop();
                 } else {
                     return false;
                 }
-            } else if (ch == ')') {
-                if (!s.isEmpty() && s.peek() == '(') {
+            } else if (ch == '}') {
+                if (!s.isEmpty() && s.peek() == '{') {
                     s.pop();
                 } else {
                     return false;
@@ -184,18 +188,18 @@ public class StackRevision {
             return false;
     }
 
-    public static boolean isValidParenthesis1(String str) {
+    public static boolean validParenthesis2(String str) {
         if (str.length() == 0 || str == null) {
             return true;
         }
         Stack<Character> s = new Stack<>();
         for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
-            if (ch == '[' || ch == '{' || ch == '(') {
+            if (ch == '(' || ch == '{' || ch == '[') {
                 s.push(ch);
             } else {
                 if (s.isEmpty()) {
-                    return false;
+                    return true;
                 } else {
                     if ((s.peek() == '[' && ch == ']') || (s.peek() == '{' && ch == '}')
                             || (s.peek() == '(' && ch == ')')) {
@@ -214,22 +218,20 @@ public class StackRevision {
 
     public static boolean isDuplicate(String str) {
         Stack<Character> s = new Stack<>();
-        int count = 0;
-        for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
-            if (ch == ')') {
-                count = 0;
-                while (s.peek() != '(') {
+        for(int i=0; i<str.length(); i++) {
+            if(str.charAt(i) == ')') {
+                int count = 0;
+                while(str.charAt(i) != '(') {
                     s.pop();
                     count++;
                 }
-                if (count < 1) {
+                if(count < 1) {
                     return true;
                 } else {
                     s.pop();
                 }
             } else {
-                s.push(ch);
+                s.push(str.charAt(i));
             }
         }
         return false;
@@ -237,47 +239,47 @@ public class StackRevision {
 
     public static void maxArea(int height[]) {
         Stack<Integer> s = new Stack<>();
-        int maxWater = 0;
-        /* nsr */
-        int nsr[] = new int[height.length];
-        for (int i = nsr.length - 1; i >= 0; i--) {
-            int curr = nsr[i];
-            while (!s.isEmpty() && curr <= height[s.peek()]) {
+        int maxArea = Integer.MIN_VALUE;
+        /* nsl */
+        int nsl[] = new int[height.length];
+        for(int i=0; i<height.length; i++) {
+            int curr = height[i];
+            while(!s.isEmpty() && curr < height[s.peek()]) {
                 s.pop();
             }
-            if (s.isEmpty()) {
-                nsr[i] = nsr.length;
+            if(s.isEmpty()) {
+                nsl[i] = -1;
             } else {
-                nsr[i] = s.peek();
+                nsl[i] = height[s.peek()];
             }
             s.push(i);
         }
         s = new Stack<>();
-        /* nsl */
-        int nsl[] = new int[height.length];
-        for (int i = 0; i < nsl.length; i++) {
-            int curr = nsl[i];
-            while (!s.isEmpty() && curr <= height[s.peek()]) {
+        /* nsr */
+        int nsr[] = new int[height.length];
+        for(int i=0; i<height.length; i++) {
+            int curr = height[i];
+            while(!s.isEmpty() && curr < height[s.peek()]) {
                 s.pop();
             }
-            if (s.isEmpty()) {
-                nsl[i] = -1;
+            if(s.isEmpty()) {
+                nsr[i] = height.length;
             } else {
-                nsl[i] = s.peek();
+                nsr[i] = height[s.peek()];
             }
             s.push(i);
         }
-        /* proper calculation */
+        /* calculation */
         for(int i=0; i<height.length; i++) {
-            int ht = height[i]
-            int wd = nsr[i]-nsl[i]-1;
-            int currWater = ht*wd;
-            maxWater = Math.max(maxWater, currWater);
+            int ht = height[i];
+            int width = nsr[i] - nsl[i] - 1;
+            int area = ht * width;
+            maxArea = Math.max(maxArea, area);
         }
-        System.out.println("Max Water is "+maxWater);
+        System.out.println(maxArea);
     }
 
     public static void main(String[] args) {
-        System.out.println(isValidParenthesis1("[[[(())]]]"));
+        System.out.println(validParenthesis2(""));
     }
 }
