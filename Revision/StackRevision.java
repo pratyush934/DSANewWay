@@ -218,14 +218,14 @@ public class StackRevision {
 
     public static boolean isDuplicate(String str) {
         Stack<Character> s = new Stack<>();
-        for(int i=0; i<str.length(); i++) {
-            if(str.charAt(i) == ')') {
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ')') {
                 int count = 0;
-                while(str.charAt(i) != '(') {
+                while (str.charAt(i) != '(') {
                     s.pop();
                     count++;
                 }
-                if(count < 1) {
+                if (count < 1) {
                     return true;
                 } else {
                     s.pop();
@@ -242,12 +242,12 @@ public class StackRevision {
         int maxArea = Integer.MIN_VALUE;
         /* nsl */
         int nsl[] = new int[height.length];
-        for(int i=0; i<height.length; i++) {
+        for (int i = 0; i < height.length; i++) {
             int curr = height[i];
-            while(!s.isEmpty() && curr < height[s.peek()]) {
+            while (!s.isEmpty() && curr < height[s.peek()]) {
                 s.pop();
             }
-            if(s.isEmpty()) {
+            if (s.isEmpty()) {
                 nsl[i] = -1;
             } else {
                 nsl[i] = height[s.peek()];
@@ -257,12 +257,12 @@ public class StackRevision {
         s = new Stack<>();
         /* nsr */
         int nsr[] = new int[height.length];
-        for(int i=0; i<height.length; i++) {
+        for (int i = height.length - 1; i >= 0; i--) {
             int curr = height[i];
-            while(!s.isEmpty() && curr < height[s.peek()]) {
+            while (!s.isEmpty() && curr < height[s.peek()]) {
                 s.pop();
             }
-            if(s.isEmpty()) {
+            if (s.isEmpty()) {
                 nsr[i] = height.length;
             } else {
                 nsr[i] = height[s.peek()];
@@ -270,7 +270,7 @@ public class StackRevision {
             s.push(i);
         }
         /* calculation */
-        for(int i=0; i<height.length; i++) {
+        for (int i = 0; i < height.length; i++) {
             int ht = height[i];
             int width = nsr[i] - nsl[i] - 1;
             int area = ht * width;
