@@ -1,6 +1,4 @@
-
 public class LinkedListRevision {
-
     static class Node {
         int data;
         Node next;
@@ -55,10 +53,9 @@ public class LinkedListRevision {
             addFirst(data);
             return;
         }
+        Node newNode = new Node(data);
         Node temp = head;
         int i = 0;
-        Node newNode = new Node(data);
-        size++;
         while (i < idx - 1) {
             temp = temp.next;
             i++;
@@ -69,7 +66,7 @@ public class LinkedListRevision {
 
     public static int removeFirst() {
         if (head == null) {
-            System.out.println("Sorry , LL is Empty");
+            System.out.println("LL is Empty");
             return Integer.MAX_VALUE;
         } else if (size == 1) {
             int value = head.data;
@@ -85,7 +82,7 @@ public class LinkedListRevision {
 
     public static int removeLast() {
         if (head == null) {
-            System.out.println("Sorry, LL is Empty");
+            System.out.println("LL is Empty");
             return Integer.MAX_VALUE;
         } else if (size == 1) {
             int value = head.data;
@@ -109,10 +106,10 @@ public class LinkedListRevision {
     public static int itrSearch(int key) {
         if (head == null) {
             System.out.println("LL is Empty");
-            return Integer.MIN_VALUE;
+            return Integer.MAX_VALUE;
         }
-        Node temp = head;
         int i = 0;
+        Node temp = head;
         while (temp != null) {
             if (temp.data == key) {
                 return i;
@@ -128,17 +125,13 @@ public class LinkedListRevision {
     }
 
     private static int recSearchUtil(LinkedListRevision.Node head, int key) {
-        if (head == null) {
-            System.out.println("LL is Empty");
-            return Integer.MAX_VALUE;
-        }
-        if (head.data == key) {
-            return 0;
-        }
-        int idx = recSearchUtil(head.next, key);
-        if (idx == -1) {
+        if (head == null)
             return -1;
-        }
+        if (head.data == key)
+            return 0;
+        int idx = recSearchUtil(head.next, key);
+        if (idx == -1)
+            return -1;
         return idx + 1;
     }
 
@@ -147,7 +140,7 @@ public class LinkedListRevision {
         Node curr = tail = head;
         Node next;
 
-        while (curr != null) {
+        while(curr != null) {
             next = curr.next;
             curr.next = prev;
             prev = curr;
@@ -159,48 +152,49 @@ public class LinkedListRevision {
     public static int deleteFromNthNode(int n) {
         Node temp = head;
         int sz = 0;
-        while (temp != null) {
+        while(temp != null) {
             sz++;
-            temp = temp.next;
         }
-        if (sz == n) {
-            int val = head.data;
+        if(sz == n) {
+            int value = head.data;
             head = tail = null;
             size--;
-            return val;
+            return value;
         }
-        int i = 1;
         temp = head;
-        while (i < sz - n) {
+        int i = 1;
+        while(i < sz-n) {
             temp = temp.next;
             i++;
         }
-        int val = temp.next.data;
+        int value = temp.next.data;
         temp.next = temp.next.next;
         size--;
-        return val;
+        return value;
     }
 
-    public static Node findMNode(Node head) {
+    public static Node findMidNode(Node head) {
         Node slow = head;
         Node fast = head;
-
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
+        while(fast != null && fast.next != null) {
             fast = fast.next.next;
+            slow = slow.next;
         }
         return slow;
     }
 
     public static boolean isPalindrome() {
+        if(head == null || head.next == null) {
+            return true;
+        }
         /* findMidNode */
-        Node mid = findMNode(head);
+        Node mid = findMidNode(head);
         /* reverse */
         Node prev = null;
         Node curr = mid;
         Node next;
 
-        while (curr != null) {
+        while(curr != null) {
             next = curr.next;
             curr.next = prev;
             prev = curr;
@@ -209,9 +203,8 @@ public class LinkedListRevision {
         Node left = head;
         Node right = prev;
 
-        /* checking */
-        while (right != null) {
-            if (left.data != right.data) {
+        while(right != null) {
+            if(left.data != right.data) {
                 return false;
             }
             left = left.next;
@@ -223,7 +216,6 @@ public class LinkedListRevision {
     public static boolean isCycle() {
         Node slow = head;
         Node fast = head;
-
         while(fast != null && fast.next != null) {
             fast = fast.next.next;
             slow = slow.next;
@@ -241,37 +233,38 @@ public class LinkedListRevision {
         boolean isCycle = false;
 
         while(fast != null && fast.next != null) {
-            slow = slow.next;
             fast = fast.next.next;
-            if(slow == fast) {
+            slow = slow.next;
+            if(fast == slow) {
                 isCycle = true;
-                break;
             }
         }
-        if(!isCycle) {
-            return ;
+        if(isCycle == false) {
+            return;
         }
         Node prev = null;
-        while(fast != null) {
+        slow = head;
+        while(slow != fast) {
             prev = fast;
-            slow = slow.next;
             fast = fast.next;
+            slow = slow.next;
         }
+
         prev.next = null;
     }
 
     public static void zigZag() {
-        /* findMidNode */
+        /* mid */
         Node slow = head;
         Node fast = head;
         while(fast != null && fast.next != null) {
-            fast = fast.next.next;
             slow = slow.next;
+            fast = fast.next.next;
         }
         Node mid = slow;
-        /* reverse and Break the palindrome */
+        /* reverse */
         Node curr = mid.next;
-        mid.next = null; /* breaking the ll */
+        mid.next = null;
         Node prev = null;
         Node next;
 
@@ -281,24 +274,22 @@ public class LinkedListRevision {
             prev = curr;
             curr = next;
         }
-
-        /* printing zigZag */
-
-        Node right = prev;
+        /* zigzag */
         Node left = head;
+        Node right = prev;
         Node nextR, nextL;
 
-        while(left.next != null && right.next != null) {
+        while(left != null && right != null) {
             nextL = left.next;
             left.next = right;
             nextR = right.next;
             right.next = nextL;
 
-            right = nextR;
             left = nextL;
+            right = nextR;
         }
-
     }
+
     public static void main(String[] args) {
 
     }
