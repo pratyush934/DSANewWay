@@ -1,4 +1,5 @@
 public class StringRevision {
+
     public static boolean isPalindrome(String str) {
         int start = 0, end = str.length() - 1;
         while (start <= end) {
@@ -25,14 +26,14 @@ public class StringRevision {
         int x = 0, y = 0;
         for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
-            if (ch == 'E')
-                x++;
-            else if (ch == 'W')
-                x--;
-            else if (ch == 'N')
+            if (ch == 'N')
                 y++;
-            else
+            else if (ch == 'S')
                 y--;
+            else if (ch == 'E')
+                x++;
+            else
+                x--;
         }
         return (float) (Math.sqrt(x * x + y * y));
     }
@@ -40,8 +41,8 @@ public class StringRevision {
     public static String upperCaseString(String str) {
         StringBuffer sb = new StringBuffer();
         sb.append(Character.toUpperCase(str.charAt(0)));
-        for(int i=1; i<str.length(); i++) {
-            if(str.charAt(i) == ' ' && i < str.length()-1) {
+        for (int i = 1; i < str.length(); i++) {
+            if (str.charAt(i) == ' ' && i < str.length() - 1) {
                 sb.append(str.charAt(i));
                 i++;
                 sb.append(Character.toUpperCase(str.charAt(i)));
@@ -52,14 +53,14 @@ public class StringRevision {
         return sb.toString();
     }
 
-    public static String comString(String str) {
+    public static String compressString(String str) {
         StringBuffer sb = new StringBuffer();
         Integer count = 1;
         for(int i=0; i<str.length(); i++) {
             count = 1;
-            while(i < str.length()-1 && str.charAt(i) == str.charAt(i+1)) {
-                count++;
+            while(i < str.length()-1 && str.charAt(i) == str.charAt(i+1) ) {
                 i++;
+                count++;
             }
             sb.append(str.charAt(i));
             if(count > 1) {
@@ -68,7 +69,8 @@ public class StringRevision {
         }
         return sb.toString();
     }
+
     public static void main(String[] args) {
-        System.out.println(comString("aaabccdefffh"));
+        System.out.println(compressString("aaannccc"));
     }
 }
