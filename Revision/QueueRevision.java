@@ -4,50 +4,45 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class QueueRevision {
-    static class staticArrayQueue {
+    static class StaticArrayQueue {
         static int arr[];
         static int size;
         static int rear;
 
-        public staticArrayQueue(int n) {
+        public StaticArrayQueue(int n) {
             arr = new int[n];
             size = n;
             rear = -1;
         }
-
         public boolean isEmpty() {
             return rear == -1;
         }
-
         public boolean isFull() {
             return rear == size - 1;
         }
-
         public void add(int data) {
-            if (isFull()) {
-                System.out.println("Sorry, Queue is Full");
+            if(isFull()) {
+                System.out.println("Queue is Full");
                 return;
             }
             rear++;
             arr[rear] = data;
         }
-
         public int remove() {
-            if (isEmpty()) {
-                System.out.println("Sorry, Queue is Empty");
+            if(isEmpty()) {
+                System.out.println("Queue is Empty");
                 return Integer.MAX_VALUE;
             }
-            int val = arr[0];
-            for (int i = 0; i < rear; i++) {
-                arr[i] = arr[i + 1];
+            int value = arr[0];
+            for(int i=0; i<rear; i++) {
+                arr[i] = arr[i+1];
             }
             rear--;
-            return val;
+            return value;
         }
-
         public int peek() {
-            if (isEmpty()) {
-                System.out.println("Sorry, Queue is Empty");
+            if(isEmpty()) {
+                System.out.println("Queue is Empty");
                 return Integer.MAX_VALUE;
             }
             return arr[0];
@@ -57,7 +52,7 @@ public class QueueRevision {
     static class CircularArrayQueue {
         static int arr[];
         static int size;
-        static int rear, front;
+        static int rear , front;
 
         public CircularArrayQueue(int n) {
             arr = new int[n];
@@ -68,40 +63,36 @@ public class QueueRevision {
         public boolean isEmpty() {
             return rear == -1 && front == -1;
         }
-
         public boolean isFull() {
-            return (rear + 1) % size == front;
+            return (rear+1) % size == front;
         }
-
         public void add(int data) {
-            if (isFull()) {
-                System.out.println("Sorry, Queue is Full");
-                return;
+            if(isFull()) {
+                System.out.println("Queue is Full");
+                return ;
             }
-            if (front == -1) {
+            if(front == -1) {
                 front = 0;
             }
-            rear = (rear + 1) % size;
+            rear = (rear+1) % size;
             arr[rear] = data;
         }
-
         public int remove() {
-            if (isEmpty()) {
-                System.out.println("Sorry, Queue is Empty");
+            if(isEmpty()) {
+                System.out.println("Queue is Empty");
                 return Integer.MAX_VALUE;
             }
-            int val = arr[front];
-            if (front == rear) {
-                front = rear = -1;
-            } else {
-                front = (front + 1) % size;
-            }
-            return val;
-        }
+            int value = arr[front];
+            if(rear == front) {
+                rear = front = -1;
+            } else
+            front = (front + 1) % size;
 
+            return value;
+        }
         public int peek() {
-            if (isEmpty()) {
-                System.out.println("Queue, is Emtpy");
+            if(isEmpty()) {
+                System.out.println("Queue is Empty");
                 return Integer.MAX_VALUE;
             }
             return arr[front];
@@ -126,36 +117,39 @@ public class QueueRevision {
         public boolean isEmpty() {
             return head == null;
         }
-
         public void add(int data) {
             Node newNode = new Node(data);
             size++;
-            if (head == null) {
+            if(head == null) {
                 head = tail = newNode;
                 return;
             }
             tail.next = newNode;
             tail = newNode;
         }
-
         public int remove() {
-            if (isEmpty()) {
+            if(isEmpty()) {
                 System.out.println("Queue is Empty");
                 return Integer.MAX_VALUE;
             }
-            int val = head.data;
+            if(size == 1) {
+                int value = head.data;
+                head = tail = null;
+                size--;
+                return value;
+            }
+            int value = head.data;
             head = head.next;
-            return val;
+            size--;
+            return value;
         }
-
         public int peek() {
-            if (isEmpty()) {
+            if(isEmpty()) {
                 System.out.println("Queue is Empty");
                 return Integer.MAX_VALUE;
             }
             return head.data;
         }
-
     }
 
     static class Queuewith2Stacks {
@@ -165,28 +159,28 @@ public class QueueRevision {
         public boolean isEmpty() {
             return s1.isEmpty() && s2.isEmpty();
         }
-
         public void add(int data) {
-            while (!s1.isEmpty()) {
+
+            while(!s1.isEmpty()) {
                 s2.push(s1.pop());
             }
+
             s1.push(data);
-            while (!s2.isEmpty()) {
+
+            while(!s2.isEmpty()) {
                 s1.push(s2.pop());
             }
         }
-
         public int remove() {
-            if (isEmpty()) {
-                System.out.println("Queue is Empty");
+            if(isEmpty()) {
+                System.out.println("Sorry");
                 return Integer.MAX_VALUE;
             }
             return s1.pop();
         }
-
         public int peek() {
-            if (isEmpty()) {
-                System.out.println("Queue is Empty");
+            if(isEmpty()) {
+                System.out.println("Sorry");
                 return Integer.MAX_VALUE;
             }
             return s1.peek();
@@ -194,22 +188,19 @@ public class QueueRevision {
     }
 
     public static void printNonReapeating(String str) {
-        /* JAHA PAR STREAM OF CHARACTERS JAISA KUCH HO THINK ABOUT QUEUE */
-        int freq[] = new int[26];
+        /* JAB BHI KAHI STREAM OF CHARACTERS DIKHE WAHA QUEUE KA CONCEPT LAGAO */
         Queue<Character> q = new LinkedList<>();
-
-        for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
-            q.add(ch);
-            freq[ch - 'a']++;
-
-            while (!q.isEmpty() && freq[q.peek() - 'a'] > 1) {
+        int freq[] = new int[26];
+        for(int i=0; i<str.length(); i++) {
+            q.add(str.charAt(i));
+            freq[str.charAt(i)-'a']++;
+            while(!q.isEmpty() && freq[q.peek()-'a'] > 1) {
                 q.remove();
             }
-            if (q.isEmpty()) {
-                System.out.print(-1 + " ");
+            if(q.isEmpty()) {
+                System.out.println(-1);
             } else {
-                System.out.print(q.peek() + " ");
+                System.out.println(q.peek());
             }
         }
         System.out.println();
@@ -225,25 +216,14 @@ public class QueueRevision {
             q.add(firstHalf.remove());
             q.add(q.remove());
         }
-
         while(!q.isEmpty()) {
-            System.out.println(q.peek());
+            System.out.print(q.peek()+" ");
             q.remove();
         }
     }
 
-    public static void reverseQueue(Queue<Integer> q) {
-        Stack<Integer> s = new Stack<>();
-        while(!q.isEmpty()) {
-            s.push(q.remove());
-        }
-        while(!s.isEmpty()) {
-            q.add(s.pop());
-        }
-    }
-
     static class StackwithDeque {
-        Deque<Integer> d = new LinkedList<>();
+        static Deque<Integer> d = new LinkedList<>();
         public boolean isEmpty() {
             return d.isEmpty();
         }
@@ -252,14 +232,14 @@ public class QueueRevision {
         }
         public int pop() {
             if(isEmpty()) {
-                System.out.println("Empty");
+                System.out.println("Sorry");
                 return Integer.MAX_VALUE;
             }
             return d.removeFirst();
         }
         public int peek() {
             if(isEmpty()) {
-                System.out.println("Empty");
+                System.out.println("Sorry");
                 return Integer.MAX_VALUE;
             }
             return d.getFirst();
@@ -267,39 +247,38 @@ public class QueueRevision {
     }
 
     static class QueuewithDeque {
-        Deque<Integer> d = new LinkedList<>();
+        static Deque<Integer> d = new LinkedList<>();
 
         public boolean isEmpty() {
             return d.isEmpty();
         }
-        public void add(int data) {
+        public void push(int data) {
             d.addLast(data);
         }
-        public int remove() {
+        public int pop() {
             if(isEmpty()) {
-                System.out.println("Queue is Empty");
+                System.out.println("Sorry");
                 return Integer.MAX_VALUE;
             }
             return d.removeFirst();
         }
         public int peek() {
             if(isEmpty()) {
-                System.out.println("Queue is Empty");
+                System.out.println("Sorry");
                 return Integer.MAX_VALUE;
             }
             return d.getFirst();
         }
     }
-
     public static void main(String[] args) {
         QueuewithDeque q = new QueuewithDeque();
-        q.add(1);
-        q.add(2);
-        q.add(3);
+        q.push(1);
+        q.push(2);
+        q.push(3);
 
-        while (!q.isEmpty()) {
+        while(!q.isEmpty()) {
             System.out.println(q.peek());
-            q.remove();
+            q.pop();
         }
     }
 }
