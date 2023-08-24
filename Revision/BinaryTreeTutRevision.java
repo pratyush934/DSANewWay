@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -143,16 +144,90 @@ public class BinaryTreeTutRevision {
     }
 
     public static InfoDiameter diameterInfo(Node root) {
-        if(root == null) {
+        if (root == null) {
             new InfoDiameter(0, 0);
         }
         InfoDiameter lDiam = diameterInfo(root.left);
         InfoDiameter rDiam = diameterInfo(root.right);
 
-        int diam = Math.max(lDiam.ht+rDiam.ht+1, Math.max(lDiam.diam, rDiam.diam));
+        int diam = Math.max(lDiam.ht + rDiam.ht + 1, Math.max(lDiam.diam, rDiam.diam));
         int ht = Math.max(lDiam.ht, rDiam.ht) + 1;
 
         return new InfoDiameter(ht, diam);
+    }
+
+    public static boolean isSubTree(Node root, Node subRoot) {
+        if (root == null) {
+            return false;
+        }
+        if (root.data == subRoot.data) {
+            if (isIdentical(root, subRoot)) {
+                return true;
+            }
+        }
+        return isSubTree(root.left, subRoot) || isSubTree(root.right, subRoot);
+    }
+
+    private static boolean isIdentical(BinaryTreeTutRevision.Node root, BinaryTreeTutRevision.Node subRoot) {
+        /* INSTEAD OF CHECKING FOR IDENTICAL CHECK FOR NON-IDENTICAL */
+        if (root == null && subRoot == null)
+            return false;
+        else if (root == null || subRoot == null || root.data != subRoot.data)
+            return false;
+
+        if (!isIdentical(root.left, subRoot.left))
+            return false;
+
+        if (!isIdentical(root.right, subRoot.right))
+            return false;
+
+        return true;
+    }
+
+    static class InfoTopView {
+        Node node;
+        int hd;
+
+        public InfoTopView(Node node, int hd) {
+            this.node = node;
+            this.hd = hd;
+        }
+    }
+
+    public static void topView(Node root) {
+        HashMap<Integer, Node> map = new HashMap<>();
+
+        Queue<InfoTopView> q = new LinkedList<>();
+        q.add(new InfoTopView(root, 0));
+        q.add(null);
+
+        int min = 0, max = 0;
+        
+        while(!q.isEmpty()) {
+            InfoTopView curr = q.remove();
+            if(curr == null) {
+                if(q.isEmpty()) {
+                    break;
+                } else {
+                    q.add(null);
+                }
+            } else {
+                if(!map.containsKey(curr.hd)) {
+                    map.put(curr.hd, curr.node);
+                }
+                if(curr.node.left != null) {
+                    q.add(new InfoTopView(curr.node.left, curr.hd-1));
+                    min = Math.min(min, curr.hd-1);
+                }
+                if(curr.node.right != null) {
+                    q.add(new InfoTopView(curr.node.right, curr.hd+1));
+                    max = Math.max(max, curr.hd+1);
+                }
+            }
+        }
+        for (Integer keyInteger : map.keySet()) {
+            System.out.print(map.get(keyInteger).data+" ");
+        }
     }
 
     public static void main(String[] args) {
