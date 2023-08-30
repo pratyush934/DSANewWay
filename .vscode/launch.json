@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "StringRevision",
+      "request": "launch",
+      "mainClass": "StringRevision",
+      "projectName": "DSANewWay_61b602b0"
+    },
+    {
+      "type": "java",
       "name": "ArrayListRevision",
       "request": "launch",
       "mainClass": "ArrayListRevision",
