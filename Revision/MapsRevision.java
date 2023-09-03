@@ -89,7 +89,7 @@ public class MapsRevision {
     public static boolean isAnagram(String str1, String str2) {
         HashMap<Character, Integer> map = new HashMap<>();
         for(int i=0; i<str1.length(); i++) {
-            map.put(str1.charAt(i), map.getOrDefault(str.charAt(i), 0)+1);
+            map.put(str1.charAt(i), map.getOrDefault(str2.charAt(i), 0)+1);
         }
 
         for(int i=0; i<str2.length(); i++) {
