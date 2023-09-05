@@ -24,6 +24,7 @@ public class Graphs {
         ArrayList<Edge>[] graph = new ArrayList[V];
 
         /* inserting ArrayList in each box of array */
+        /* very important */
         for (int i = 0; i < V; i++) {
             graph[i] = new ArrayList<>();
         }
