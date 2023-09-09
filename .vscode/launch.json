@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "BST",
+      "request": "launch",
+      "mainClass": "BST",
+      "projectName": "DSANewWay_61b602b0"
+    },
+    {
+      "type": "java",
       "name": "BSTRevision",
       "request": "launch",
       "mainClass": "BSTRevision",
