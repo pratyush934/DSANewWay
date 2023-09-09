@@ -137,7 +137,75 @@ public class BSTRevision {
         return root;
     }
 
-    public static void main(String[] args) {
+    public static Node createBST(int arr[], int start, int end) {
 
+        if(start > end) return null;
+
+        int mid = start + (end - start) / 2;
+
+        Node root = new Node(arr[mid]);
+        root.left = createBST(arr, start, mid-1);
+        root.right = createBST(arr, mid+1, end);
+
+        return root;
+
+        /* then go with preorder */
+    }
+
+    public static void getInorder(Node root, ArrayList<Integer> inorder) {
+        if(root == null) return ;
+
+        getInorder(root.left, inorder);
+        inorder.add(root.data);
+        getInorder(root.right, inorder);
+    }
+
+    public static Node createBSTN(ArrayList<Integer> inorder, int start, int end) {
+
+        if(start > end) return null;
+
+        int mid = start + (end - start) / 2;
+
+        Node root = new Node(inorder.get(mid));
+        root.left = createBSTN(inorder, start, mid-1);
+        root.right = createBSTN(inorder, mid+1, end);
+
+        return root;
+
+    }
+
+    public static void preorder(Node root) {
+        if(root == null) return;
+
+        System.out.print(root.data+" ");
+        preorder(root.left);
+        preorder(root.right);
+    }
+
+    public static Node balanceBST(Node root) {
+        /* inorder */
+        ArrayList<Integer> list = new ArrayList<>();
+        getInorder(root, list);
+
+        /* sorted inorder --> balanced BST */
+        return createBSTN(list, 0, list.size()-1);
+    }
+
+    public static void createBSTProblem() {
+        Node root = new Node(8);
+
+        root.left = new Node(6);
+        root.left.left = new Node(5);
+        root.left.left.left = new Node(3);
+
+        root.right = new Node(10);
+        root.right.right = new Node(11);
+        root.right.right.right = new Node(12);
+
+        preorder(balanceBST(root));
+    }
+
+    public static void main(String[] args) {
+        createBSTProblem();
     }
 }
