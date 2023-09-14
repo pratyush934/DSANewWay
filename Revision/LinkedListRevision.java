@@ -1,4 +1,5 @@
 public class LinkedListRevision {
+
     static class Node {
         int data;
         Node next;
@@ -16,6 +17,7 @@ public class LinkedListRevision {
     public static void addFirst(int data) {
         Node newNode = new Node(data);
         size++;
+
         if (head == null) {
             head = tail = newNode;
             return;
@@ -27,6 +29,7 @@ public class LinkedListRevision {
     public static void addLast(int data) {
         Node newNode = new Node(data);
         size++;
+
         if (head == null) {
             head = tail = newNode;
             return;
@@ -45,71 +48,58 @@ public class LinkedListRevision {
             System.out.print(temp.data + " ");
             temp = temp.next;
         }
-        System.out.println("**");
-    }
-
-    public static void add(int idx, int data) {
-        if (idx == 0) {
-            addFirst(data);
-            return;
-        }
-        Node newNode = new Node(data);
-        Node temp = head;
-        int i = 0;
-        while (i < idx - 1) {
-            temp = temp.next;
-            i++;
-        }
-        newNode.next = temp.next;
-        temp.next = newNode;
+        System.out.println("*");
     }
 
     public static int removeFirst() {
         if (head == null) {
-            System.out.println("LL is Empty");
-            return Integer.MAX_VALUE;
-        } else if (size == 1) {
-            int value = head.data;
+            System.out.println("Sorry LL is Empty");
+            return Integer.MIN_VALUE;
+        }
+        if (size == 1) {
+            int val = head.data;
             head = tail = null;
             size--;
-            return value;
+            return val;
         }
-        int value = head.data;
+        int val = head.data;
         head = head.next;
         size--;
-        return value;
+        return val;
     }
 
     public static int removeLast() {
         if (head == null) {
-            System.out.println("LL is Empty");
+            System.out.println("Sorry LL is Empty");
             return Integer.MAX_VALUE;
-        } else if (size == 1) {
-            int value = head.data;
+        }
+        if (size == 1) {
+            int val = head.data;
             head = tail = null;
             size--;
-            return value;
+            return val;
         }
-        int i = 0;
         Node temp = head;
+        int i = 0;
         while (i < size - 2) {
             temp = temp.next;
             i++;
         }
-        int value = temp.next.data;
+        int val = temp.data;
         temp.next = null;
         tail = temp;
         size--;
-        return value;
+        return val;
     }
 
     public static int itrSearch(int key) {
         if (head == null) {
             System.out.println("LL is Empty");
-            return Integer.MAX_VALUE;
+            return Integer.MIN_VALUE;
         }
-        int i = 0;
+
         Node temp = head;
+        int i = 0;
         while (temp != null) {
             if (temp.data == key) {
                 return i;
@@ -125,13 +115,18 @@ public class LinkedListRevision {
     }
 
     private static int recSearchUtil(LinkedListRevision.Node head, int key) {
-        if (head == null)
-            return -1;
+        if (head == null) {
+            System.out.println("LL is Empty");
+            return Integer.MAX_VALUE;
+        }
         if (head.data == key)
             return 0;
+
         int idx = recSearchUtil(head.next, key);
+
         if (idx == -1)
             return -1;
+
         return idx + 1;
     }
 
@@ -150,32 +145,35 @@ public class LinkedListRevision {
     }
 
     public static int deleteFromNthNode(int n) {
-        Node temp = head;
         int sz = 0;
+        Node temp = head;
         while(temp != null) {
             sz++;
+            temp = temp.next;
         }
+
         if(sz == n) {
-            int value = head.data;
-            head = tail = null;
+            int val = head.data;
+            head = head.next;
             size--;
-            return value;
+            return val;
         }
-        temp = head;
         int i = 1;
+        temp = head;
         while(i < sz-n) {
             temp = temp.next;
             i++;
         }
-        int value = temp.next.data;
+        int val = temp.next.data;
         temp.next = temp.next.next;
         size--;
-        return value;
+        return val;
     }
 
-    public static Node findMidNode(Node head) {
+    public static Node findMNode(Node head) {
         Node slow = head;
         Node fast = head;
+
         while(fast != null && fast.next != null) {
             fast = fast.next.next;
             slow = slow.next;
@@ -183,39 +181,40 @@ public class LinkedListRevision {
         return slow;
     }
 
-    public static boolean isPalindrome() {
-        if(head == null || head.next == null) {
-            return true;
-        }
+    public static boolean isPalindrome(Node head) {
+
         /* findMidNode */
-        Node mid = findMidNode(head);
+        Node mid = findMNode(head);
+
         /* reverse */
         Node prev = null;
         Node curr = mid;
         Node next;
-
         while(curr != null) {
             next = curr.next;
             curr.next = prev;
             prev = curr;
             curr = next;
         }
+
         Node left = head;
         Node right = prev;
 
+        /* check */
         while(right != null) {
-            if(left.data != right.data) {
+            if(right.data != left.data) {
                 return false;
             }
-            left = left.next;
             right = right.next;
+            left = left.next;
         }
         return true;
     }
 
     public static boolean isCycle() {
-        Node slow = head;
         Node fast = head;
+        Node slow = head;
+
         while(fast != null && fast.next != null) {
             fast = fast.next.next;
             slow = slow.next;
@@ -235,61 +234,25 @@ public class LinkedListRevision {
         while(fast != null && fast.next != null) {
             fast = fast.next.next;
             slow = slow.next;
-            if(fast == slow) {
+
+            if(slow == fast) {
                 isCycle = true;
+                break;
             }
         }
-        if(isCycle == false) {
-            return;
-        }
+        if(!isCycle) return;
+
         Node prev = null;
         slow = head;
+
         while(slow != fast) {
             prev = fast;
-            fast = fast.next;
             slow = slow.next;
+            fast = fast.next;
         }
 
         prev.next = null;
     }
-
-    public static void zigZag() {
-        /* mid */
-        Node slow = head;
-        Node fast = head;
-        while(fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        Node mid = slow;
-        /* reverse */
-        Node curr = mid.next;
-        mid.next = null;
-        Node prev = null;
-        Node next;
-
-        while(curr != null) {
-            next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
-        }
-        /* zigzag */
-        Node left = head;
-        Node right = prev;
-        Node nextR, nextL;
-
-        while(left != null && right != null) {
-            nextL = left.next;
-            left.next = right;
-            nextR = right.next;
-            right.next = nextL;
-
-            left = nextL;
-            right = nextR;
-        }
-    }
-
     public static void main(String[] args) {
 
     }
