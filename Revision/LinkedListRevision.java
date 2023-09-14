@@ -253,6 +253,44 @@ public class LinkedListRevision {
 
         prev.next = null;
     }
+
+    public static void zigZag() {
+        /* Find Mid */
+        Node slow = head;
+        Node fast = head;
+
+        while(fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        Node mid = slow;
+        /* Reverse Half */
+        Node prev = null;
+        Node curr = mid;
+        mid.next = null;
+        Node next;
+
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        /* zigZag Operation */
+        Node left = head;
+        Node right = prev;
+        Node nextL, nextR;
+
+        while(left != null && right != null) {
+            nextL = left.next;
+            left.next = right;
+            nextR = right.next;
+            right.next = nextL;
+
+            left = nextL;
+            right = nextR;
+        }
+    }
     public static void main(String[] args) {
 
     }
