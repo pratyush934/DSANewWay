@@ -1,4 +1,4 @@
-package Questions;
+
 
 public class Mathematical {
 
