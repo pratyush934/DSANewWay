@@ -82,7 +82,7 @@ public class Stacks {
     }
 
     public static void pushAtBottom(Stack<Integer> s, int data) { /* O(n) */
-        if (s.isEmpty()) {
+        if (s.empty()) {
             s.push(data);
             return;
         }
@@ -99,7 +99,7 @@ public class Stacks {
 
         pushAtBottom(s, 4);
 
-        while (!s.isEmpty()) {
+        while (!s.empty()) {
             System.out.println(s.peek());
             s.pop();
         }
@@ -111,7 +111,7 @@ public class Stacks {
             s.push(str.charAt(i));
         }
         StringBuffer sb = new StringBuffer();
-        while (!s.isEmpty()) {
+        while (!s.empty()) {
             sb.append(s.pop());
         }
         return sb.toString();
@@ -119,7 +119,7 @@ public class Stacks {
 
     public static void reverseStack(Stack<Integer> s) {
 
-        if (s.isEmpty()) {
+        if (s.empty()) {
             return;
         }
         int top = s.pop();
@@ -134,7 +134,7 @@ public class Stacks {
         s.push(3);
         reverseStack(s);
 
-        while (!s.isEmpty()) {
+        while (!s.empty()) {
             System.out.println(s.pop());
         }
     }
@@ -145,10 +145,10 @@ public class Stacks {
         s.push(0);
         for (int i = 1; i < stocks.length; i++) {
             int currHigh = stocks[i];
-            while (!s.isEmpty() && currHigh > stocks[s.peek()]) {
+            while (!s.empty() && currHigh > stocks[s.peek()]) {
                 s.pop();
             }
-            if (s.isEmpty()) {
+            if (s.empty()) {
                 span[i] = i + 1;
             } else {
                 span[i] = i - s.peek();
@@ -170,10 +170,10 @@ public class Stacks {
         Stack<Integer> s = new Stack<>();
         for (int i = arr.length - 1; i >= 0; i--) {
             int curr = arr[i];
-            while (!s.isEmpty() && curr >= arr[s.peek()]) {
+            while (!s.empty() && curr >= arr[s.peek()]) {
                 s.pop();
             }
-            if (s.isEmpty()) {
+            if (s.empty()) {
                 ans[i] = -1;
             } else {
                 ans[i] = arr[s.peek()];
@@ -198,19 +198,19 @@ public class Stacks {
         }
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == ')') {
-                if (!s.isEmpty() && s.peek() == '(') {
+                if (!s.empty() && s.peek() == '(') {
                     s.pop();
                 } else {
                     return false;
                 }
             } else if (str.charAt(i) == '}') {
-                if (!s.isEmpty() && s.peek() == '{') {
+                if (!s.empty() && s.peek() == '{') {
                     s.pop();
                 } else {
                     return false;
                 }
             } else if (str.charAt(i) == ']') {
-                if (!s.isEmpty() && s.peek() == '[') {
+                if (!s.empty() && s.peek() == '[') {
                     s.pop();
                 } else {
                     return false;
@@ -219,7 +219,7 @@ public class Stacks {
                 s.push(str.charAt(i));
             }
         }
-        if (s.isEmpty()) {
+        if (s.empty()) {
             return true;
         } else
             return false;
@@ -236,7 +236,7 @@ public class Stacks {
             if (ch == '{' || ch == '[' || ch == ')') {
                 s.push(ch);
             } else {
-                if (s.isEmpty()) {
+                if (s.empty()) {
                     return true;
                 } else {
                     if ((s.peek() == '(' && ch == ')') ||
@@ -250,7 +250,7 @@ public class Stacks {
             }
 
         }
-        if (s.isEmpty()) {
+        if (s.empty()) {
             return true;
         } else
             return false;
@@ -290,10 +290,10 @@ public class Stacks {
         Stack<Integer> s = new Stack<>();
         for(int i=arr.length-1; i>=0; i--) {
             int currLow = arr[i];
-            while(!s.isEmpty() && currLow <= arr[s.peek()]) {
+            while(!s.empty() && currLow <= arr[s.peek()]) {
                 s.pop();
             }
-            if(s.isEmpty()) {
+            if(s.empty()) {
                 nsr[i] = arr.length;
             } else {
                 nsr[i] = s.peek();
@@ -305,10 +305,10 @@ public class Stacks {
         s = new Stack<>();
         for(int i=0; i<arr.length; i++) {
             int currLow = arr[i];
-            while(!s.isEmpty() && currLow <= arr[s.peek()]) {
+            while(!s.empty() && currLow <= arr[s.peek()]) {
                 s.pop();
             }
-            if(s.isEmpty()) {
+            if(s.empty()) {
                 nsl[i] = -1;
             } else {
                 nsl[i] = s.peek();
@@ -334,6 +334,12 @@ public class Stacks {
     }
 
     public static void main(String[] args) {
-        mainQ5();
+        Stack<Integer> s = new Stack<>();
+        s.push(1);
+        s.push(2);
+        s.push(3);
+
+        System.out.println(s);
+        
     }
 }

@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "TryingSomething",
+      "request": "launch",
+      "mainClass": "TryingSomething",
+      "projectName": "DSA_49261308"
+    },
+    {
+      "type": "java",
       "name": "BST",
       "request": "launch",
       "mainClass": "BST",
