@@ -11,9 +11,6 @@ public class Mathematical {
             return (long) (n - Math.abs((n + 1) - q));
     }
 
-    public static int returning() {
-        return -1;
-    }
     public static void main(String[] args) {
 
     }
