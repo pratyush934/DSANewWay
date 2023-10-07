@@ -102,6 +102,30 @@ public class BinaryTreeQ {
         return list;
     }
 
+    public static ArrayList<Integer> rightView(Node root) {
+        ArrayList<Integer> list = new ArrayList<>();
+        Queue<Node> q = new LinkedList<>();
+        if (root == null)
+            return list;
+
+        q.add(root);
+
+        while (!q.isEmpty()) {
+            int n = q.size();
+            for (int i = 0; i < n; i++) {
+                Node curr = q.remove();
+                if (curr.left != null)
+                    q.add(curr.left);
+                if (curr.right != null)
+                    q.add(curr.right);
+
+                if (i == n-1)
+                    list.add(curr.data);
+            }
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
 
     }
