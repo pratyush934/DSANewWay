@@ -1,6 +1,8 @@
 package Questions;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BinaryTreeQ {
 
@@ -56,22 +58,48 @@ public class BinaryTreeQ {
          * subtrees is not more than one for all nodes of tree
          */
 
-        if(root == null) return true;
+        if (root == null)
+            return true;
 
         int lh = height(root.left);
         int rh = height(root.right);
 
-        if(lh - rh < 1) return false;
+        if (lh - rh < 1)
+            return false;
 
         return isBalancedTree(root.left) && isBalancedTree(root.right);
-        
+
     }
 
     private static int height(Node root) {
-        if(root == null)
-        return 0;
+        if (root == null)
+            return 0;
 
         return Math.max(height(root.left), height(root.right)) + 1;
+    }
+
+    public static ArrayList<Integer> leftView(Node root) {
+        ArrayList<Integer> list = new ArrayList<>();
+        Queue<Node> q = new LinkedList<>();
+        if (root == null)
+            return list;
+
+        q.add(root);
+
+        while (!q.isEmpty()) {
+            int n = q.size();
+            for (int i = 0; i < n; i++) {
+                Node curr = q.remove();
+                if (curr.left != null)
+                    q.add(curr.left);
+                if (curr.right != null)
+                    q.add(curr.right);
+
+                if (i == 0)
+                    list.add(curr.data);
+            }
+        }
+        return list;
     }
 
     public static void main(String[] args) {
