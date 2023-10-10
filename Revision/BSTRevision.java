@@ -103,9 +103,9 @@ public class BSTRevision {
             System.out.println(root.data + " ");
             printInRange(root.right, k1, k2);
         } else if (root.data < k1) {
-            printInRange(root.left, k1, k2);
-        } else {
             printInRange(root.right, k1, k2);
+        } else {
+            printInRange(root.left, k1, k2);
         }
     }
 
