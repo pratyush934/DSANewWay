@@ -103,15 +103,38 @@ public class StackRevision {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        StacksLL s = new StacksLL();
-        s.push(1);
-        s.push(2);
-        s.push(3);
+    public static void reverseStack(Stack<Integer> s) {
+        if (s.isEmpty())
+            return;
 
-        while (!s.isEmpty()) {
-            System.out.println(s.peek());
-            s.pop();
+        int top = s.pop();
+        reverseStack(s);
+        pushAtBottom(s, top);
+
+    }
+
+    public static void stockSpan(int stocks[], int span[]) {
+        Stack<Integer> s = new Stack<>();
+        s.push(0);
+        span[0] = 1;
+
+        for (int i = 1; i < stocks.length; i++) {
+            int curr = stocks[i];
+            while (!s.isEmpty() && curr > stocks[s.peek()]) {
+                s.pop();
+            }
+            if (s.isEmpty()) {
+                span[i] = i + 1;
+            } else {
+                span[i] = i - s.peek();
+            }
+
+            s.push(i);
         }
+
+    }
+
+    public static void main(String[] args) {
+
     }
 }
