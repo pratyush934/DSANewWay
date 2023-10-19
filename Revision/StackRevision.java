@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class StackRevision {
 
@@ -14,19 +15,19 @@ public class StackRevision {
         }
 
         public int pop() {
-            if(isEmpty()) {
+            if (isEmpty()) {
                 System.out.println("Stack Is Empty");
                 return Integer.MAX_VALUE;
             }
-            return list.remove(list.size()-1);
+            return list.remove(list.size() - 1);
         }
 
         public int peek() {
-            if(isEmpty()) {
+            if (isEmpty()) {
                 System.out.println("Stack is Empty");
                 return -1;
             }
-            return list.get(list.size()-1);
+            return list.get(list.size() - 1);
         }
     }
 
@@ -47,10 +48,10 @@ public class StackRevision {
         public boolean isEmpty() {
             return head == null;
         }
-        
+
         public void push(int data) {
             Node newNode = new Node(data);
-            if(head == null) {
+            if (head == null) {
                 head = tail = newNode;
                 return;
             }
@@ -59,7 +60,7 @@ public class StackRevision {
         }
 
         public int pop() {
-            if(head == null) {
+            if (head == null) {
                 System.out.println("Stack is Empty");
                 return Integer.MAX_VALUE;
             }
@@ -69,20 +70,46 @@ public class StackRevision {
         }
 
         public int peek() {
-            if(head == null) {
+            if (head == null) {
                 System.out.println("Stack is Empty");
                 return Integer.MAX_VALUE;
             }
             return head.data;
         }
     }
+
+    public static void pushAtBottom(Stack<Integer> s, int data) {
+        if (s.isEmpty()) {
+            s.push(data);
+            return;
+        }
+
+        int top = s.pop();
+        pushAtBottom(s, data);
+        s.push(top);
+
+    }
+
+    public static boolean reverseString(String str) {
+        Stack<Character> s = new Stack<>();
+        for (int i = 0; i < str.length(); i++) {
+            s.push(str.charAt(i));
+        }
+        StringBuffer sb = new StringBuffer();
+        while (!s.isEmpty()) {
+            sb.append(s.peek());
+            s.pop();
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
         StacksLL s = new StacksLL();
         s.push(1);
         s.push(2);
         s.push(3);
 
-        while(!s.isEmpty()) {
+        while (!s.isEmpty()) {
             System.out.println(s.peek());
             s.pop();
         }
