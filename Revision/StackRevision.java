@@ -134,6 +134,21 @@ public class StackRevision {
 
     }
 
+    public static void nextGreater(int arr[], int ans[]) {
+        Stack<Integer> s = new Stack<>();
+        for(int i=arr.length-1; i>=0; i--) {
+            int curr = arr[i];
+            while(!s.isEmpty() && curr >= arr[s.peek()]) {
+                s.pop();
+            }
+            if(s.isEmpty()) {
+                ans[i] = -1;
+            } else {
+                ans[i] = arr[s.peek()];
+            }
+            s.push(i);
+        }
+    }
     public static void main(String[] args) {
 
     }
