@@ -90,7 +90,7 @@ public class StackRevision {
 
     }
 
-    public static boolean reverseString(String str) {
+    public static String reverseString(String str) {
         Stack<Character> s = new Stack<>();
         for (int i = 0; i < str.length(); i++) {
             s.push(str.charAt(i));
