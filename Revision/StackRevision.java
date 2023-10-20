@@ -136,12 +136,12 @@ public class StackRevision {
 
     public static void nextGreater(int arr[], int ans[]) {
         Stack<Integer> s = new Stack<>();
-        for(int i=arr.length-1; i>=0; i--) {
+        for (int i = arr.length - 1; i >= 0; i--) {
             int curr = arr[i];
-            while(!s.isEmpty() && curr >= arr[s.peek()]) {
+            while (!s.isEmpty() && curr >= arr[s.peek()]) {
                 s.pop();
             }
-            if(s.isEmpty()) {
+            if (s.isEmpty()) {
                 ans[i] = -1;
             } else {
                 ans[i] = arr[s.peek()];
@@ -152,16 +152,43 @@ public class StackRevision {
 
     public static boolean isValidParenthesis(String str) {
         Stack<Character> s = new Stack<>();
-        if(str.length() == 0 || str == null) {
+        if (str.length() == 0 || str == null) {
             return true;
         }
 
-        for(int i=0; i<str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
-            
+
+            if (ch == ']') {
+                if (!s.isEmpty() && s.peek() == '[') {
+                    s.pop();
+                } else {
+                    return false;
+                }
+            } else if (ch == ')') {
+                if (!s.isEmpty() && s.peek() == '(') {
+                    s.pop();
+                } else {
+                    return false;
+                }
+            } else if (ch == '}') {
+                if (!s.isEmpty() && s.peek() == '{') {
+                    s.pop();
+                } else {
+                    return false;
+                }
+            } else {
+                s.push(ch);
+            }
         }
+        if (s.isEmpty())
+            return true;
+        else
+            return false;
     }
+
     public static void main(String[] args) {
 
+        System.out.println(isValidParenthesis("((({{[[]]}})))"));
     }
 }
