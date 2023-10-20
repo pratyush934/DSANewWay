@@ -149,6 +149,18 @@ public class StackRevision {
             s.push(i);
         }
     }
+
+    public static boolean isValidParenthesis(String str) {
+        Stack<Character> s = new Stack<>();
+        if(str.length() == 0 || str == null) {
+            return true;
+        }
+
+        for(int i=0; i<str.length(); i++) {
+            char ch = str.charAt(i);
+            
+        }
+    }
     public static void main(String[] args) {
 
     }
