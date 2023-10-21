@@ -150,7 +150,42 @@ public class StackRevision {
         }
     }
 
+    public static boolean isValidParenthesis(String str) {
+        Stack<Character> s = new Stack<>();
+        if (str.length() == 0 || str == null) {
+            return true;
+        }
 
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+
+            if (ch == ']') {
+                if (!s.isEmpty() && s.peek() == '[') {
+                    s.pop();
+                } else {
+                    return false;
+                }
+            } else if (ch == ')') {
+                if (!s.isEmpty() && s.peek() == '(') {
+                    s.pop();
+                } else {
+                    return false;
+                }
+            } else if (ch == '}') {
+                if (!s.isEmpty() && s.peek() == '{') {
+                    s.pop();
+                } else {
+                    return false;
+                }
+            } else {
+                s.push(ch);
+            }
+        }
+        if (s.isEmpty())
+            return true;
+        else
+            return false;
+    }
 
     public static void main(String[] args) {
 
