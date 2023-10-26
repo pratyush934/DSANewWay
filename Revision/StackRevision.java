@@ -177,9 +177,9 @@ public class StackRevision {
                 } else {
                     return false;
                 }
-            } else {
+            } else 
                 s.push(ch);
-            }
+            
         }
         if (s.isEmpty())
             return true;
