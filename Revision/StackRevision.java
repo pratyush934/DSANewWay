@@ -185,7 +185,7 @@ public class StackRevision {
         if (s.isEmpty())
             return true;
         else
-            return false
+            return false;
     }
 
     public static void main(String args[]) {
