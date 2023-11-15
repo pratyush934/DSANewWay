@@ -84,6 +84,20 @@ public class Graphs {
         }
     }
 
+    public static boolean hasPath(ArrayList<Edge>[] graph, int src, int dest, boolean vis[]) { //O(V+E)
+        if(src == dest) return true;
+
+        vis[src] = true;
+
+        for(int i=0; i<graph[src].size(); i++) {
+            Edge e = graph[i].get(i);
+            //e.dest --> src ban jayega aur usse puchenge
+            if(!vis[e.dest] && hasPath(graph, e.dest, dest, vis)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
 
