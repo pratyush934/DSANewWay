@@ -16,6 +16,16 @@ public class Graphs {
         }
     }
 
+    static class Edge1 {
+        int src;
+        int dest;
+
+        public Edge1(int src, int dest) {
+            this.src = src;
+            this.dest = dest;
+        }
+    }
+
     static void createGraph() {
 
         int V = 5;
@@ -121,6 +131,28 @@ public class Graphs {
                     Edge e = graph[curr].get(i);
                     q.add(e.dest);
                 }
+            }
+        }
+    }
+
+    public static void dfsMain(ArrayList<Edge> graph[]) {
+        boolean vis[] = new boolean[graph.length];
+
+        for (int i = 0; i < graph.length; i++) {
+            dfsUtil(graph, i, vis);
+        }
+
+    }
+
+    public static void dfsUtil(ArrayList<Edge>[] graph, int curr, boolean vis[]) {
+        /* visiting and printing */
+        System.out.print(curr + "-->");
+        vis[curr] = true;
+
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+            if (!vis[e.dest]) { // Isko dhyan se dekhe
+                dfsUtil(graph, e.dest, vis);
             }
         }
     }
