@@ -157,6 +157,37 @@ public class Graphs {
         }
     }
 
+    public static boolean detectCycle(ArrayList<Edge1> graph[]) {
+        boolean vis[] = new boolean[graph.length];
+        for (int i = 0; i < graph.length; i++) {
+            if (!vis[i])
+                detectCycleUtil(graph, i, vis, -1);
+        }
+
+        return false;
+    }
+
+    private static boolean detectCycleUtil(ArrayList<Edge1> graph[], int curr, boolean vis[], int parent) {
+        vis[curr] = true;
+
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge1 e = graph[curr].get(i);
+
+            // case 3 --> copy me dekhe
+            if (!vis[e.dest]) {
+                if (detectCycleUtil(graph, e.dest, vis, curr))
+                    return true;
+            }
+            // case 1 --> copy me dekhe
+            else if (!vis[e.dest] && e.dest != parent) {
+                return true;
+            }
+            // case 2 --> copy me dekhe ==> do nothing
+        }
+
+        return false;
+    }
+
     public static void main(String[] args) {
 
         createGraph();
