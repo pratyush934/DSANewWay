@@ -16,15 +16,13 @@ public class Graphs {
         }
     }
 
-
-
     static void createGraph() {
 
         int V = 5;
         @SuppressWarnings("unchecked")
         ArrayList<Edge> graph[] = new ArrayList[V];
 
-        for(int i=0; i<V; i++) {
+        for (int i = 0; i < V; i++) {
             graph[i] = new ArrayList<>();
         }
 
@@ -40,15 +38,14 @@ public class Graphs {
 
         graph[3].add(new Edge(3, 1, 3));
         graph[3].add(new Edge(3, 2, 1));
-        
+
         graph[4].add(new Edge(4, 2, 2));
 
         /* 2's neighour */
-        for(int i=0; i<graph[2].size(); i++) {
+        for (int i = 0; i < graph[2].size(); i++) {
             Edge e = graph[2].get(i);
-            System.out.println(e.src+" --> "+e.dest);
+            System.out.println(e.src + " --> " + e.dest);
         }
-
 
     }
 
@@ -57,13 +54,13 @@ public class Graphs {
         boolean vis[] = new boolean[graph.length];
         q.add(0);
 
-        while(!q.isEmpty()) {
+        while (!q.isEmpty()) {
             int curr = q.remove();
 
-            if(!vis[curr]) {
-                System.out.println(curr+" ");
+            if (!vis[curr]) {
+                System.out.println(curr + " ");
                 vis[curr] = true;
-                for(int i=0; i<graph[curr].size(); i++) {
+                for (int i = 0; i < graph[curr].size(); i++) {
                     Edge e = graph[curr].get(i);
                     q.add(e.dest);
                 }
@@ -73,30 +70,59 @@ public class Graphs {
 
     public static void dfsTraversal(ArrayList<Edge>[] graph, int curr, boolean vis[]) {
         /* visiting and printing */
-        System.out.print(curr+"-->");
+        System.out.print(curr + "-->");
         vis[curr] = true;
 
-        for(int i=0; i<graph[curr].size(); i++) {
+        for (int i = 0; i < graph[curr].size(); i++) {
             Edge e = graph[curr].get(i);
-            if(!vis[e.dest]) { //Isko dhyan se dekhe
+            if (!vis[e.dest]) { // Isko dhyan se dekhe
                 dfsTraversal(graph, e.dest, vis);
             }
         }
     }
 
-    public static boolean hasPath(ArrayList<Edge>[] graph, int src, int dest, boolean vis[]) { //O(V+E)
-        if(src == dest) return true;
+    public static boolean hasPath(ArrayList<Edge>[] graph, int src, int dest, boolean vis[]) { // O(V+E)
+        if (src == dest)
+            return true;
 
         vis[src] = true;
 
-        for(int i=0; i<graph[src].size(); i++) {
+        for (int i = 0; i < graph[src].size(); i++) {
             Edge e = graph[i].get(i);
-            //e.dest --> src ban jayega aur usse puchenge
-            if(!vis[e.dest] && hasPath(graph, e.dest, dest, vis)) {
+            // e.dest --> src ban jayega aur usse puchenge
+            if (!vis[e.dest] && hasPath(graph, e.dest, dest, vis)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public static void bfsMain(ArrayList<Edge>[] graph) {
+        boolean vis[] = new boolean[graph.length];
+        for (int i = 0; i < graph.length; i++) {
+            if (!vis[i]) {
+                bfsUtil(graph, vis);
+            }
+        }
+
+    }
+
+    public static void bfsUtil(ArrayList<Edge>[] graph, boolean vis[]) { /* O(n) --> O(V+E) */
+        Queue<Integer> q = new LinkedList<>();
+        q.add(0);
+
+        while (!q.isEmpty()) {
+            int curr = q.remove();
+
+            if (!vis[curr]) {
+                System.out.println(curr + " ");
+                vis[curr] = true;
+                for (int i = 0; i < graph[curr].size(); i++) {
+                    Edge e = graph[curr].get(i);
+                    q.add(e.dest);
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
