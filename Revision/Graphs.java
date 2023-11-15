@@ -52,7 +52,7 @@ public class Graphs {
 
     }
 
-    public static void bfsTraversal(ArrayList<Edge>[] graph) {
+    public static void bfsTraversal(ArrayList<Edge>[] graph) { /* O(n) --> O(V+E) */
         Queue<Integer> q = new LinkedList<>();
         boolean vis[] = new boolean[graph.length];
         q.add(0);
@@ -71,7 +71,19 @@ public class Graphs {
         }
     }
 
-    
+    public static void dfsTraversal(ArrayList<Edge>[] graph, int curr, boolean vis[]) {
+        /* visiting and printing */
+        System.out.print(curr+"-->");
+        vis[curr] = true;
+
+        for(int i=0; i<graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+            if(!vis[e.dest]) { //Isko dhyan se dekhe
+                dfsTraversal(graph, e.dest, vis);
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
 
