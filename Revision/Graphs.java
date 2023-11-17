@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Graphs {
 
@@ -250,6 +251,32 @@ public class Graphs {
         }
         stack[curr] = false;
         return false;
+    }
+
+    public static void topologicalSort(ArrayList<Edge1> graph[]) {
+        boolean vis[] = new boolean[graph.length];
+        Stack<Integer> s = new Stack<>();
+
+        for(int i=0; i<graph.length; i++) {
+            if(!vis[i]) {
+                topSortUtil(graph, i, vis, s);
+            }
+        }
+
+        while(!s.isEmpty) {
+            System.out.print(s.pop()+"-->");
+        }
+    }
+    private static void topSortUtil(ArrayList<Graphs.Edge1>[] graph, int curr, boolean[] vis, Stack<Integer> s) {
+        vis[curr] = true;
+
+        for(int i=0; i<graph[curr].size(); i++) {
+            Edge1 e = graph[curr].get(i);
+            if(!vis[e.dest]) {
+                topSortUtil(graph, e.dest, vis, s);
+            }
+        }
+        s.push(curr);
     }
 
     public static void main(String[] args) {
