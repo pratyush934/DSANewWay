@@ -263,7 +263,7 @@ public class Graphs {
             }
         }
 
-        while(!s.isEmpty) {
+        while(!s.empty()) {
             System.out.print(s.pop()+"-->");
         }
     }
@@ -278,6 +278,44 @@ public class Graphs {
         }
         s.push(curr);
     }
+
+   
+    public static void kahnAlgo(ArrayList<Edge1> graph[]) {
+        int indeg[] = new int[graph.length];
+        calcIndeg(graph, indeg);
+        Queue<Integer> q = new LinkedList<>();
+
+        for(int i=0; i<indeg.length; i++) {
+            if(indeg[i] == 0) {
+                q.add(i);
+            }
+        }
+
+        //bfs 210
+        while(!q.isEmpty()) {
+            int curr = q.remove();
+            System.out.print(curr+"-->"); //topological sort ko print karo
+
+            for(int i=0; i<graph[curr].size(); i++) {
+                Edge1 e = graph[curr].get(i);
+                indeg[e.dest]--;
+                if(indeg[e.dest] == 0) {
+                    q.add(e.dest);
+                }
+            }
+        }
+        System.out.println();
+    }
+
+    private static void calcIndeg(ArrayList<Edge1> graph[], int indeg[]) {
+        for(int i=0; i<graph.length; i++) {
+            int v = i;
+            for(int j=0; j<graph[v].size(); j++) {
+                Edge1 e = graph[v].get(j);
+                indeg[e.dest]++;
+            }
+        }
+    } 
 
     public static void main(String[] args) {
 
