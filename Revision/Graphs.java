@@ -190,27 +190,27 @@ public class Graphs {
 
     public static boolean isBipartitie(ArrayList<Edge1> graph[]) {
         int col[] = new int[graph.length];
-        for(int i=0; i<col.length; i++) {
+        for (int i = 0; i < col.length; i++) {
             col[i] = -1;
         }
 
         Queue<Integer> q = new LinkedList<>();
 
-        for(int i=0; i<graph.length; i++) {
-            if(col[i] != -1) {
+        for (int i = 0; i < graph.length; i++) {
+            if (col[i] != -1) {
                 q.add(i);
                 col[i] = 0;
 
-                while(!q.isEmpty()) {
+                while (!q.isEmpty()) {
                     int curr = q.remove();
-                    for(int j=0; j<graph[curr].size(); j++) {
+                    for (int j = 0; j < graph[curr].size(); j++) {
                         Edge1 e = graph[curr].get(j); // for e.dest
 
-                        if(col[e.dest] == -1) {
+                        if (col[e.dest] == -1) {
                             int nextCol = col[curr] == 0 ? 1 : 0;
                             col[e.dest] = nextCol;
                             q.add(e.dest);
-                        } else if(col[e.dest] == col[curr]) {
+                        } else if (col[e.dest] == col[curr]) {
                             return false;
                         }
                     }
@@ -218,6 +218,38 @@ public class Graphs {
             }
         }
         return true;
+    }
+
+    public static boolean isCycle(ArrayList<Edge1>[] graph) {
+        boolean vis[] = new boolean[graph.length];
+        boolean stack[] = new boolean[graph.length];
+
+        for (int i = 0; i < graph.length; i++) {
+            if (!vis[i]) {
+                if (isCycleUtil(graph, i, vis, stack)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean isCycleUtil(ArrayList<Graphs.Edge1>[] graph, int curr, boolean[] vis, boolean[] stack) {
+
+        vis[curr] = true;
+        stack[curr] = true;
+
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge1 e = graph[curr].get(i);
+            if (stack[e.dest]) {
+                return true;
+            }
+            if (!vis[e.dest] && isCycleUtil(graph, e.dest, vis, stack)) {
+                return true;
+            }
+        }
+        stack[curr] = false;
+        return false;
     }
 
     public static void main(String[] args) {
