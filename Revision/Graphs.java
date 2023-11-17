@@ -317,6 +317,18 @@ public class Graphs {
         }
     } 
 
+    public static void printAllPath(ArrayList<Edge1> graph[], int src, int dest, String path) { //O(V^V)
+        if(src == dest) {
+            System.out.println(path+src);
+            return;
+        }
+
+        for(int i=0; i<graph[src].size(); i++) {
+            Edge1 e = graph[src].get(i);
+            printAllPath(graph, e.dest, dest, path+src);
+        }
+    }
+
     public static void main(String[] args) {
 
         createGraph();
