@@ -188,6 +188,38 @@ public class Graphs {
         return false;
     }
 
+    public static boolean isBipartitie(ArrayList<Edge1> graph[]) {
+        int col[] = new int[graph.length];
+        for(int i=0; i<col.length; i++) {
+            col[i] = -1;
+        }
+
+        Queue<Integer> q = new LinkedList<>();
+
+        for(int i=0; i<graph.length; i++) {
+            if(col[i] != -1) {
+                q.add(i);
+                col[i] = 0;
+
+                while(!q.isEmpty()) {
+                    int curr = q.remove();
+                    for(int j=0; j<graph[curr].size(); j++) {
+                        Edge1 e = graph[curr].get(j); // for e.dest
+
+                        if(col[e.dest] == -1) {
+                            int nextCol = col[curr] == 0 ? 1 : 0;
+                            col[e.dest] = nextCol;
+                            q.add(e.dest);
+                        } else if(col[e.dest] == col[curr]) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
 
         createGraph();
