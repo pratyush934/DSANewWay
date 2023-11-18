@@ -1,5 +1,9 @@
 public class Union {
 
+    // very optimised
+    // time complexity --> O(4k)
+
+    
     static int n = 7;
     static int par[] = new int[n];
     static int rank[] = new int[n];

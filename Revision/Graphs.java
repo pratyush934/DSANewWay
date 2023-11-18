@@ -1,4 +1,6 @@
+import java.text.CollationElementIterator;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -558,8 +560,97 @@ public class Graphs {
         return finalCost;
     }
 
+    //KRUSKAL'S ALGORITHM
+
+    
+    static class Union {
+        
+        // very optimised
+        // time complexity --> O(4k)
+        
+        static class EdgeForSorting implements Comparable<EdgeForSorting> {
+            int src, dest, wt;
+    
+            public EdgeForSorting(int s, int d, int wt) {
+                src = s;
+                dest = d;
+                this.wt = wt;
+            }
+    
+            @Override
+            public int compareTo(EdgeForSorting o) {
+                return this.wt - o.wt;
+            }
+    
+            
+        }
+        
+        static void createGraph(ArrayList<EdgeForSorting> edges) {
+            edges.add(new EdgeForSorting(0, 1, 10));
+            edges.add(new EdgeForSorting(0, 2, 15));
+            edges.add(new EdgeForSorting(0, 3, 30));
+            edges.add(new EdgeForSorting(1, 3, 40));
+            edges.add(new EdgeForSorting(2, 3, 50));
+        }
+
+        static int n = 7;
+        static int par[] = new int[n];
+        static int rank[] = new int[n];
+    
+        public static void init() {
+            for (int i = 0; i < n; i++) {
+                par[i] = i;
+            }
+        }
+    
+        public static int find(int x) {
+            if (x == par[x]) {
+                return x;
+            }
+    
+            return par[x] = find(par[x]);
+        }
+    
+        public static void union(int a, int b) {
+            int parA = find(a);
+            int parB = find(b);
+    
+            if (rank[parA] == rank[parB]) {
+                par[parB] = parA;
+                rank[parA]++;
+    
+            } else if (rank[parA] < rank[parB]) {
+                par[parA] = parB;
+            } else {
+                par[parB] = parA;
+            }
+        }
+
+        public static void kruskalsMST(ArrayList<EdgeForSorting> edges, int V) {
+            init();
+            Collections.sort(edges);
+            int mstCost = 0;
+            int count = 0;
+
+            for(int i=0; count < V-1; i++) {
+                EdgeForSorting e = edges.get(i);
+                // (src, dest, wt)
+
+                int parA = find(e.src);
+                int parB = find(e.dest);
+                if(parA != parB) {
+                    union(e.src, e.dest);
+                    mstCost += e.wt;
+                    count++;
+                }
+            }
+            System.out.println(mstCost);
+        }
+        
+    }
+
     public static void main(String[] args) {
 
-        createGraph();
+
     }
 }
