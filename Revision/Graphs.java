@@ -346,7 +346,7 @@ public class Graphs {
     }
 
 
-    public static void dijkstraAlgo(ArrayList<Edge>[] graph, int src) {
+    public static void dijkstraAlgo(ArrayList<Edge>[] graph, int src) { /* O(v^2) ---> O(V+ElogV) */
         int dist[] = new int[graph.length];
         for(int i=0; i<graph.length; i++) {
             if(i != src) {
@@ -382,6 +382,38 @@ public class Graphs {
         }
         System.out.println();
     } 
+
+    public static void bellmanFord(ArrayList<Edge> graph[], int src) {
+        int dist[] = new int[graph.length];
+        for(int i=0; i<dist.length; i++) {
+            if(i != src) {
+                dist[i] = Integer.MAX_VALUE;
+            }
+        }
+
+        int V = graph.length;
+        //algo
+        for(int i=0; i<V-1; i++) {
+            //edges - O(E)
+            for(int j=0; j<V; j++) {
+                for(int k=0; k<graph[j].size(); k++) {
+                    Edge e = graph[j].get(k);
+                    int u = e.src;
+                    int v = e.dest;
+                    int wt = e.wt;
+
+                    if(dist[u] != Integer.MAX_VALUE && dist[u] + wt < dist[v]) {
+                        dist[v] = dist[u] + wt;
+                    }
+                }
+            }
+        }
+        //print
+        for(int i=0; i<dist.length; i++) {
+            System.out.print(dist[i]+" ");
+        }
+        System.out.println();
+    }
     public static void main(String[] args) {
 
         createGraph();
