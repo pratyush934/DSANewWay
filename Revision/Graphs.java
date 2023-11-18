@@ -503,12 +503,12 @@ public class Graphs {
 
             for(int i=0; i<graph[curr.v].size(); i++) {
                 Edge e = graph[curr.v].get(i);
-                int u = e.src;
+                // int u = e.src;
                 int v = e.dest;
                 int wt = e.wt;
 
-                if(dist[u] != Integer.MAX_VALUE && dist[u] + wt < dist[v] && curr.stops <= k) {
-                    dist[v] = dist[u] + wt;
+                if(curr.cost + wt < dist[v] && curr.stops <= k) {
+                    dist[v] = curr.cost + wt;
                     q.add(new Info(v, dist[v], curr.stops + 1));
                 }
             }
@@ -519,6 +519,45 @@ public class Graphs {
         else return dist[dest];
 
     }
+
+    static class newEdge implements Comparable<newEdge>{
+        int dest, cost;
+
+        public newEdge(int d, int c) {
+            this.dest = d;
+            this.cost = c;
+        }
+
+        @Override
+        public int compareTo(Graphs.newEdge o) {
+           return this.cost - o.cost;
+        }
+    }
+
+    public static int connectCities(int cities[][]) {
+        PriorityQueue<newEdge> pq = new PriorityQueue<>();
+        boolean vis[] = new boolean[cities.length];
+
+        pq.add(new newEdge(0, 0));
+        int finalCost = 0;
+
+        while(!pq.isEmpty()) {
+            newEdge curr = pq.remove();
+            if(!vis[curr.dest]) {
+                vis[curr.dest] = true;
+                finalCost += curr.cost;
+
+                for(int i=0; i<cities[curr.dest].length; i++) {
+                    if(cities[curr.dest][i] != 0) {
+                        pq.add(new newEdge(i, cities[curr.dest][i]));
+                    }
+                }
+            }
+        }
+
+        return finalCost;
+    }
+
     public static void main(String[] args) {
 
         createGraph();
