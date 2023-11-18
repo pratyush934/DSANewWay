@@ -354,7 +354,7 @@ public class Graphs {
             }
         }
 
-        boolean vis[] = new boolean[graph.length]
+        boolean vis[] = new boolean[graph.length];
         PriorityQueue<Pair> pq = new PriorityQueue<>();
         pq.add(new Pair(src, 0));
 
@@ -393,7 +393,7 @@ public class Graphs {
 
         int V = graph.length;
         //algo
-        for(int i=0; i<V-1; i++) {
+        for(int i=0; i<V-1; i++) { //O(V*E)
             //edges - O(E)
             for(int j=0; j<V; j++) {
                 for(int k=0; k<graph[j].size(); k++) {
@@ -413,6 +413,45 @@ public class Graphs {
             System.out.print(dist[i]+" ");
         }
         System.out.println();
+    }
+
+    static class MST implements Comparable<MST>{
+
+        int v;
+        int cost;
+
+        public MST(int v, int cost) {
+            this.v = v;
+            this.cost = cost;
+        }
+
+        @Override
+        public int compareTo(MST m2) {
+            return this.cost - m2.cost;
+        }
+    }
+
+    public static void prims(ArrayList<Edge> graph[]) {
+        boolean vis[] = new boolean[graph.length];
+        PriorityQueue<MST> pq = new PriorityQueue<>();
+        pq.add(new MST(0, 0));
+        int finalCost = 0;
+
+        while(!pq.isEmpty()) {
+            MST curr = pq.remove();
+            if(!vis[curr.v]) {
+                vis[curr.v] = true;
+                finalCost += curr.cost;
+
+                for(int i=0; i<graph[curr.v].size(); i++) {
+                    Edge e = graph[curr.v].get(i);
+                    pq.add(new MST(e.dest, e.wt));
+                }
+            }
+
+        
+        }
+        System.out.println("Final cost of MST : " + finalCost);
     }
     public static void main(String[] args) {
 
