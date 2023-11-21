@@ -1,4 +1,3 @@
-import java.text.CollationElementIterator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -179,7 +178,7 @@ public class Graphs {
 
             // case 3 --> copy me dekhe
             if (!vis[e.dest]) {
-                if (detectCycleUtil(graph, e.dest, vis, curr))
+                if(detectCycleUtil(graph, e.dest, vis, curr))
                     return true;
             }
             // case 1 --> copy me dekhe
