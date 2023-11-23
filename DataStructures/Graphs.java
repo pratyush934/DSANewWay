@@ -870,6 +870,8 @@ public class Graphs {
         }
     }
 
+    //implementing Kosaraju     
+
     public static void kosaraju(ArrayList<Edge1> graph[], int V) {
         /* Step1 */
         Stack<Integer> s = new Stack<>();
