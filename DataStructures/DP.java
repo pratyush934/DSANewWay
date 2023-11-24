@@ -81,15 +81,39 @@ public class DP {
     }
 
     public static void question2() {
+        /* Counting the ways in which you can reach top using steps */
         System.out.println(countWays(5));
 
         int n = 5;
         int dp[] = new int[n];
         System.out.println(countWaysMemoization(n, dp));
 
-        
         System.out.println(countWaysTabular(n));
 
+    }
+
+    public static int knapsack(int val[], int wt[], int W, int n) {
+        if (W == 0 || n == 0) {
+            return 0;
+        }
+
+        if (wt[n - 1] <= 0) { // valid
+            // include
+            int ans1 = val[n - 1] + knapsack(val, wt, W - wt[n - 1], n - 1);
+            // exclude
+            int ans2 = knapsack(val, wt, W, n-1);
+
+            return Math.max(ans1, ans2);
+        } else { //not-valid
+            return knapsack(val, wt, W, n-1);
+        }
+    }
+
+    public static void question3() {
+        int val[] = { 15, 14, 10, 45, 30 };
+        int wt[] = { 2, 5, 1, 3, 4 };
+        int W = 7;
+        knapsack(val, wt, W, val.length);
     }
 
     public static void main(String[] args) {
