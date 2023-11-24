@@ -182,7 +182,7 @@ public class Graphs {
                     return true;
             }
             // case 1 --> copy me dekhe
-            else if (!vis[e.dest] && e.dest != parent) {
+            else if (vis[e.dest] && e.dest != parent) {
                 return true;
             }
             // case 2 --> copy me dekhe ==> do nothing
