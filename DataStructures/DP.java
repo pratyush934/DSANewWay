@@ -48,9 +48,33 @@ public class DP {
         return countWays(n - 1) + countWays(n - 1);
     }
 
-    public static void question2() {
-        countWays(5);
+    public static int countWaysMemoization(int n, int dp[]) {
+        Arrays.fill(dp, -1);
+
+        if (n == 0)
+            return 1;
+        if (n < 0) {
+            return 0;
+        }
+
+        if (dp[n] != -1) {
+            return dp[n];
+        }
+
+        dp[n] = countWaysMemoization(n - 1, dp) + countWaysMemoization(n - 2, dp);
+
+        return dp[n];
     }
+
+    public static void question2() {
+        System.out.println(countWays(5));
+
+        int n = 5;
+        int dp[] = new int[n];
+        System.out.println(countWaysMemoization(n, dp));
+        
+    }
+
     public static void main(String[] args) {
 
     }
