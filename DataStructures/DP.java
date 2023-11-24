@@ -4,7 +4,7 @@ public class DP {
 
     public static int fib(int n, int f[]) {
 
-        //Memoization (Top Down Approach)
+        // Memoization (Top Down Approach)
 
         if (n == 0 || n == 1)
             return n;
@@ -25,14 +25,12 @@ public class DP {
         dp[0] = 0;
         dp[1] = 1;
 
-        for(int i=2; i<=n; i++) {
-            dp[i] = dp[i-1] + dp[i-2];
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
         }
 
         return dp[n];
     }
-
-
 
     public static void question1() {
         int n = 5;
@@ -41,7 +39,18 @@ public class DP {
         System.out.println(fibTabulation(n));
     }
 
+    public static int countWays(int n) {
+        if (n == 0)
+            return 1;
+        if (n < 0)
+            return 0;
 
+        return countWays(n - 1) + countWays(n - 1);
+    }
+
+    public static void question2() {
+        countWays(5);
+    }
     public static void main(String[] args) {
 
     }
