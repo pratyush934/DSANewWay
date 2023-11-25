@@ -224,16 +224,41 @@ public class DP {
 
         for (int i = 1; i < n + 1; i++) {
             for (int j = i; j < W + 1; j++) {
-                if (wt[i - 1] <= W) { //valid 
-                                            //include                         //exclude
+                if (wt[i - 1] <= j) { // valid
+                                      // include //exclude
                     dp[i][j] = Math.max((val[i - 1] + dp[i][j - wt[i - 1]]), dp[i - 1][j]);
-                } else {        //invalid
+                } else { // invalid
                     dp[i][j] = dp[i - 1][j];
                 }
             }
         }
 
         return dp[n][W];
+    }
+
+    public static int coinChange(int coins[], int sum) {
+        int dp[][] = new int[coins.length + 1][sum + 1];
+
+        for (int i = 1; i < dp.length; i++) {
+            dp[0][i] = 0;
+        }
+
+        for (int i = 0; i < dp[0].length; i++) {
+            dp[i][0] = 1;
+        }
+
+        for (int i = 1; i < coins.length + 1; i++) { // O(coins.length * sum)
+            for (int j = 1; j < sum + 1; j++) {
+                if (coins[i - 1] <= j) { // valid
+                    // include and exclude
+                    dp[i][j] = dp[i][j - coins[i - 1]] + dp[i - 1][j];
+                } else { // invalid
+                    // exclude
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+        return dp[coins.length][sum];
     }
 
     public static void main(String[] args) {
