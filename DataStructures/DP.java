@@ -273,9 +273,9 @@ public class DP {
             dp[0][i] = 0;
         }
 
-        // for(int i=0; i<n+1; i++) {
-        // for(int j=0; j<L+1; j++) { // Also a method for doing the same;
-        // if(i == 0 || j == 0) {
+        // for (int i = 0; i < n + 1; i++) {
+        // for (int j = 0; j < L + 1; j++) { // Also a method for doing the same;
+        // if (i == 0 || j == 0) {
         // dp[i][j] = 0;
         // }
         // }
@@ -284,7 +284,7 @@ public class DP {
         for (int i = 1; i < n + 1; i++) {
             for (int j = 1; j < L + 1; j++) {
                 if (length[i - 1] <= j) { // valid
-                    // included and  //excluded
+                    // included and //excluded
                     dp[i][j] = Math.max(price[i - 1] + dp[i][j - length[i - 1]], dp[i - 1][j]);
                 } else { // invalid
                     // excluded
@@ -293,6 +293,23 @@ public class DP {
             }
         }
         return dp[n][L];
+    }
+
+    public static int lcs(String str1, String str2, int n, int m) {
+        if (n == 0 || m == 0) {
+            return 0;
+        }
+
+        if (str1.charAt(n - 1) == str2.charAt(m - 1)) {
+            return lcs(str1, str2, n - 1, m - 1);
+        }
+
+        else {
+            int ans1 = lcs(str1, str2, n - 1, m);
+            int ans2 = lcs(str1, str2, n, m - 1);
+
+            return (int) Math.max(ans1, ans2);
+        }
     }
 
     public static void main(String[] args) {
