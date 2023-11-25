@@ -273,11 +273,19 @@ public class DP {
             dp[0][i] = 0;
         }
 
+        // for(int i=0; i<n+1; i++) {
+        // for(int j=0; j<L+1; j++) { // Also a method for doing the same;
+        // if(i == 0 || j == 0) {
+        // dp[i][j] = 0;
+        // }
+        // }
+        // }
+
         for (int i = 1; i < n + 1; i++) {
             for (int j = 1; j < L + 1; j++) {
                 if (length[i - 1] <= j) { // valid
-                    // included + //excluded
-                    dp[i][j] = price[i - 1] + dp[i][j - length[i - 1]] + dp[i - 1][j];
+                    // included and  //excluded
+                    dp[i][j] = Math.max(price[i - 1] + dp[i][j - length[i - 1]], dp[i - 1][j]);
                 } else { // invalid
                     // excluded
                     dp[i][j] = dp[i - 1][j];
