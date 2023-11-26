@@ -405,7 +405,7 @@ public class DP {
 
     public static int longestIncreasingSubsequence(int arr1[]) { // LIS wala sawaal
         HashSet<Integer> set = new HashSet<>();
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr1.length; i++) {
             set.add(arr1[i]);
         }
 
@@ -422,7 +422,7 @@ public class DP {
         return lscNew(arr1, arr2);
     }
 
-    private static int lscNew(int[] arr1, int[] arr2) { //helper function for longestIncreasing subsequence
+    private static int lscNew(int[] arr1, int[] arr2) { // helper function for longestIncreasing subsequence
         int n = arr1.length;
         int m = arr2.length;
 
