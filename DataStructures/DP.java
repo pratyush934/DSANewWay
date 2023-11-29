@@ -519,7 +519,7 @@ public class DP {
                 }
                 // case2 --> jth char of p is *
                 else if (p.charAt(j - 1) == '*') {
-                                //ignore kiya || include kiya
+                    // ignore kiya || include kiya
                     dp[i][j] = dp[i][j - 1] || dp[i - 1][j];
                 } else {
                     dp[i][j] = false;
@@ -530,8 +530,20 @@ public class DP {
 
     }
 
+    public static int catlanRecursion(int n) {
+        if (n == 0 || n == 1)
+            return 1;
+
+        int ans = 0;
+
+        for (int i = 0; i < n; i++) {
+            ans += catlanRecursion(i) * catlanRecursion(n - i - 1);
+        }
+
+        return ans;
+    }
+
     public static void main(String[] args) {
-        //main function
 
     }
 }
