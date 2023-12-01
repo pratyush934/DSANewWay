@@ -2,6 +2,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
+/*
+ * Greedy me sorting bohot common hai.
+ * Max, min, me greedy ke baare me jarur soche
+ */
+
 public class GreedyAlgo {
 
     public static void question1() {
@@ -104,7 +109,7 @@ public class GreedyAlgo {
         System.out.println("Minimum absoulute diff " + minAbsDiff);
     }
 
-    public static void question4() {
+    public static void question4() { // O(nlogn)
         /*
          * Max length chain of pairs
          */
@@ -125,7 +130,30 @@ public class GreedyAlgo {
         System.out.println("Maximum chain length is " + chainLength);
     }
 
-    
+    public static void question5() {
+        /* Indian Coins */
+        Integer coins[] = { 1, 2, 5, 10, 20, 50, 100, 500, 2000 };
+
+        Arrays.sort(coins, Comparator.reverseOrder());
+
+        int countOfCoins = 0;
+        int amount = 590;
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        for (int i = 0; i < coins.length; i++) {
+            if (coins[i] < amount) {
+                while (coins[i] < amount) {
+                    countOfCoins++;
+                    ans.add(coins[i]);
+                    amount -= coins[i];
+                }
+            }
+        }
+
+        System.out.println("No. of coins : " + countOfCoins);
+        System.out.println("ArrayList of coins used " + ans);
+    }
+
     public static void main(String[] args) {
 
     }
