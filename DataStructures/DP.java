@@ -697,8 +697,9 @@ public class DP {
         int dp[][] = new int[n][n];
 
         for (int i = 0; i < n; i++) {
-            if (i == j)
-                dp[i][j] = 0;
+            for (int j = 0; j < n; j++)
+                if (i == j)
+                    dp[i][j] = 0;
         }
 
         // bottom-up
@@ -714,7 +715,7 @@ public class DP {
                 }
             }
         }
-        //print(dp);
+        // print(dp);
         return dp[1][n - 1];
     }
 
@@ -725,6 +726,29 @@ public class DP {
         for (int s = 0; s < n; s++) {
             Arrays.fill(dp[s], -1);
         }
+    }
+
+    public static int minimumJumps(int nums[]) {
+        int n = nums.length;
+        int dp[] = new int[n];
+        Arrays.fill(nums, -1);
+        dp[n - 1] = 0;
+
+        for (int i = n - 2; i >= 0; i--) {
+            int steps = nums[i];
+            int ans = Integer.MAX_VALUE;
+            for (int j = i + 1; j <= i + steps && j < n; j++) {
+                if (dp[j] != -1) {
+                    ans = Math.min(ans, dp[j] + 1);
+                }
+            }
+
+            if (ans != Integer.MAX_VALUE) {
+                dp[i] = ans;
+            }
+        }
+
+        return dp[0];
     }
 
     public static void main(String[] args) {
