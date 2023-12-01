@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 
 /*
@@ -141,8 +142,8 @@ public class GreedyAlgo {
         ArrayList<Integer> ans = new ArrayList<>();
 
         for (int i = 0; i < coins.length; i++) {
-            if (coins[i] < amount) {
-                while (coins[i] < amount) {
+            if (coins[i] <= amount) {
+                while (coins[i] <= amount) {
                     countOfCoins++;
                     ans.add(coins[i]);
                     amount -= coins[i];
@@ -152,6 +153,46 @@ public class GreedyAlgo {
 
         System.out.println("No. of coins : " + countOfCoins);
         System.out.println("ArrayList of coins used " + ans);
+    }
+
+    static class Job {
+        int deadLine;
+        int profit;
+        int id; // 0,1,2,3
+
+        public Job(int deadLine, int profit, int id) {
+            this.id = id;
+            this.deadLine = deadLine;
+            this.profit = profit;
+        }
+    }
+
+    public static void question6() {
+        /* Job sequencing problem */
+        int jobsInfo[][] = { { 4, 20 }, { 1, 10 }, { 1, 40 }, { 1, 30 } };
+
+        ArrayList<Job> list = new ArrayList<>();
+
+        for (int i = 0; i < jobsInfo.length; i++) {
+            list.add(new Job(i, jobsInfo[i][0], jobsInfo[i][1]));
+        }
+
+        Collections.sort(list, (obj1, obj2) -> obj2.profit - obj1.profit); // descending order me sort hoga /* agar
+                                                                           // ascending me
+        // karna hai to a.profit - b.profit */
+
+        ArrayList<Integer> seq = new ArrayList<>();
+        int time = 0;
+        for (int i = 0; i < list.size(); i++) {
+            Job curr = list.get(i);
+            if (curr.deadLine > time) {
+                seq.add(curr.id);
+                time++;
+            }
+        }
+        
+        System.out.println("Max jobs " + seq.size());
+        System.out.println("Arraylist containing job names " + seq);
     }
 
     public static void main(String[] args) {
