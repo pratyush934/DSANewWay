@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Heaps",
+      "request": "launch",
+      "mainClass": "Heaps",
+      "projectName": "DSANewWay_61b602b0"
+    },
+    {
+      "type": "java",
       "name": "Main",
       "request": "launch",
       "mainClass": "Main",
