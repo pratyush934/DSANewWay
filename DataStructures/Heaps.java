@@ -1,6 +1,7 @@
 //For terminal Ctrl + `
 //Remeber it
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -38,7 +39,7 @@ public class Heaps {
 
         @Override
         public int compareTo(Heaps.Student o) {
-            return this.rank - o.rank; //o.rank - this.rank for descending 
+            return this.rank - o.rank; // o.rank - this.rank for descending
         }
     }
 
@@ -55,7 +56,27 @@ public class Heaps {
         }
     }
 
-    
+    static class Heap {
+
+        ArrayList<Integer> arr = new ArrayList<>();
+
+        public void add(int data) {
+            // adding in the last index
+            arr.add(data);
+
+            int x = arr.size() - 1; // x is child index
+            int par = (x - 1) / 2; // par index
+
+            // will swap until child is less than parent
+            while (arr.get(x) < arr.get(par)) { // O(log(n))
+                // swap
+                int temp = arr.get(x);
+                arr.set(x, arr.get(par));
+                arr.set(par, temp);
+            }
+            /* if a tree has n nodes then log(n) level is possible */
+        }
+    }
 
     public static void main(String[] args) {
         introductionTOComparable();
