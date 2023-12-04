@@ -107,11 +107,11 @@ public class Heaps {
             int right = 2 * i + 2;
             int minIdx = i;
 
-            if (left < arr.size() && arr.get(minIdx) > arr.get(left)) { //>
-                minIdx = left; 
+            if (left < arr.size() && arr.get(minIdx) > arr.get(left)) { // >
+                minIdx = left;
             }
 
-            if (right < arr.size() && arr.get(minIdx) > arr.get(right)) { //<
+            if (right < arr.size() && arr.get(minIdx) > arr.get(right)) { // <
                 minIdx = right;
             }
 
@@ -143,16 +143,15 @@ public class Heaps {
         }
     }
 
-
     public static void heapSort(int arr[]) {
-        //step1 -> build maxHeap
+        // step1 -> build maxHeap
         int n = arr.length;
-        for(int i=n/2; i>=0; i--) {
+        for (int i = n / 2; i >= 0; i--) {
             heapify(arr, i, n);
         }
-        //step2 -> push largest at end
-        for(int i=n-1; i>0; i--) {
-            //swap
+        // step2 -> push largest at end
+        for (int i = n - 1; i > 0; i--) {
+            // swap
             int temp = arr[0];
             arr[0] = arr[i];
             arr[i] = temp;
@@ -160,21 +159,21 @@ public class Heaps {
             heapify(arr, 0, i);
         }
     }
-    
+
     private static void heapify(int arr[], int i, int size) {
-        int left = 2*i+1;
-        int right = 2*i+2;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
         int maxIdx = i;
 
-        if(left < size && arr[left] > arr[maxIdx]) {
+        if (left < size && arr[left] > arr[maxIdx]) {
             maxIdx = left;
         }
 
-        if(right < size && arr[right] < arr[maxIdx]) {
+        if (right < size && arr[right] > arr[maxIdx]) {
             maxIdx = right;
         }
 
-        if(maxIdx != i) {
+        if (maxIdx != i) {
             int temp = arr[i];
             arr[i] = arr[maxIdx];
             arr[maxIdx] = temp;
@@ -182,6 +181,39 @@ public class Heaps {
             heapify(arr, maxIdx, size);
         }
 
+    }
+
+    static class Point implements Comparable<Point> {
+
+        int x, y, distSq, idx;
+
+        public Point(int x, int y, int distSq, int idx) {
+            this.x = x;
+            this.y = y;
+            this.distSq = distSq;
+            this.idx = idx;
+        }
+
+        @Override
+        public int compareTo(Point o) {
+            return this.distSq - o.distSq;
+        }
+
+    }
+
+    public static void nearestCars() {
+        int pts[][] = { { 3, 3 }, { 5, -1 }, { -2, 4 } };
+        int k = 2;
+
+        PriorityQueue<Point> pq = new PriorityQueue<>();
+        for (int i = 0; i < pts.length; i++) {
+            int distSq = pts[i][0] * pts[i][0] + pts[i][1] * pts[i][1];
+            pq.add(new Point(pts[i][0], pts[i][1], distSq, i));
+        }
+
+        for (int i = 0; i < k; i++) {
+            System.out.println("C" + pq.remove().idx);
+        }
     }
 
     public static void main(String[] args) {
