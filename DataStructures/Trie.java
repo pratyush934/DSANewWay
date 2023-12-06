@@ -222,6 +222,7 @@ public class Trie {
                 temp.deleteCharAt(temp.length() - 1);
             }
         }
+        /* agar aapko apply chahiye apple ki jagah to bs loop ko reverse kar dijiye */
     }
 
     public static void longestWordwithAllPrefix() {
