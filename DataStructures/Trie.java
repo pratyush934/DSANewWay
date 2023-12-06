@@ -171,7 +171,33 @@ public class Trie {
         System.out.println(startsWith(preftix2));
     }
 
+    public static int countNodes(Node root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int count = 0;
+
+        for (int i = 0; i < 26; i++) {
+            if (root.children[i] != null) {
+                count += countNodes(root.children[i]);
+            }
+        }
+        return count + 1;
+    }
+
+    public static void countUniqueSuffix() {
+        String str = "ababa";
+
+        for (int i = 0; i < str.length(); i++) {
+            String suffix = str.substring(i);
+            insert(suffix);
+        }
+
+        System.out.println(countNodes(root));
+    }
+
     public static void main(String[] args) {
-        startWithProblem();
+        countUniqueSuffix();
     }
 }
