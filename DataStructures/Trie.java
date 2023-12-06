@@ -36,7 +36,7 @@ public class Trie {
             curr = curr.children[idx];
         }
 
-        return curr.eow = true;
+        return curr.eow == true;
     }
 
     public static void mainMethodForLearingTrie() {
@@ -142,7 +142,36 @@ public class Trie {
         findPrefix(newRoot, "");
     }
 
+    public static boolean startsWith(String prefix) {
+        Node curr = root;
+        /*
+         * Running a loop to scan an elment
+         */
+        for (int level = 0; level < prefix.length(); level++) {
+            int idx = prefix.charAt(level) - 'a';
+            if (curr.children[idx] == null) {
+                return false;
+            }
+            curr = curr.children[idx];
+
+        }
+        return true;
+    }
+
+    public static void startWithProblem() {
+        String words[] = { "apple", "app", "mango", "man", "woman" };
+        String prefix1 = "app";
+        String preftix2 = "moon";
+
+        for (int i = 0; i < words.length; i++) {
+            insert(words[i]);
+        }
+
+        System.out.println(startsWith(prefix1));
+        System.out.println(startsWith(preftix2));
+    }
+
     public static void main(String[] args) {
-        wordBreakProblem();
+        startWithProblem();
     }
 }
