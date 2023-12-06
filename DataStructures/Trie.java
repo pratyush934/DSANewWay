@@ -197,7 +197,46 @@ public class Trie {
         System.out.println(countNodes(root));
     }
 
+    public static String ans = "";
+
+    public static void longestWord(Node root, StringBuilder temp) {
+        /* If in any case root is null then ye case hai jo laagu hoga */
+        if (root == null)
+            return;
+
+        /* Just looking for each and every element in the array if it is not null and it  constitues a word the add it in temp string
+         * and if temp.length is greater than ans.length add it in ans string
+         * recursively solve for the next root
+         * uske baad agar saara solve ho jaaye matlab ki agar aap last node pr pahuch gaye to backtracking karke wapas jana hoga
+         * 
+        */
+        for (int i = 0; i < 26; i++) {
+            if (root.children[i] != null && root.children[i].eow == true) {
+                char ch = (char) (i + 'a');
+                temp.append(ch);
+                if (temp.length() > ans.length()) {
+                    ans = temp.toString();
+                }
+                longestWord(root.children[i], temp);
+                // backtracking
+                temp.deleteCharAt(temp.length() - 1);
+            }
+        }
+    }
+
+    public static void longestWordwithAllPrefix() {
+        String[] words = { "a", "banana", "app", "appl", "ap", "apply", "apple" };
+
+        for (int i = 0; i < words.length; i++) {
+            insert(words[i]);
+        }
+
+        longestWord(root, new StringBuilder(""));
+        System.out.println(ans);
+
+    }
+
     public static void main(String[] args) {
-        countUniqueSuffix();
+        longestWordwithAllPrefix();
     }
 }
