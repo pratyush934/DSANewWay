@@ -85,6 +85,43 @@ public class Trie {
         System.out.println(wordBreak(key));
     }
 
+    static class NewNode {
+        NewNode[] children = new NewNode[26];
+        boolean eow = false;
+        int freq;
+
+        public NewNode() {
+            for (int i = 0; i < children.length; i++) {
+                children[i] = null;
+            }
+            freq = 1;
+        }
+    }
+
+    public static NewNode newRoot = new NewNode();
+
+    public static void insertNew(String word) {
+        NewNode curr = newRoot;
+        for (int i = 0; i < word.length(); i++) {
+            int idx = word.charAt(i) - 'a';
+            if (curr.children[idx] == null) {
+                curr.children[idx] = new NewNode();
+            } else {
+                curr.children[idx].freq++;
+            }
+
+            curr = curr.children[idx];
+        }
+        curr.eow = true;
+    }
+
+    public static void prefixProblem() {
+        String words[] = { "zebra", "dog", "duck", "dove" };
+        for (int i = 0; i < words.length; i++) {
+            insertNew(words[i]);
+        }
+    }
+
     public static void main(String[] args) {
         wordBreakProblem();
     }
