@@ -49,8 +49,43 @@ public class Trie {
         System.out.println(search("there"));
     }
 
-    public static void main(String[] args) {
-        mainMethodForLearingTrie();
+    public static boolean wordBreak(String key) {
+        if (key.length() == 0) {
+            return true;
+        }
+        for (int i = 1; i <= key.length(); i++) {
+            // substring(0, i) // last index is excluded in this function
+            /*
+             * first we will check for the substring of 0 to 1 then recursively call all
+             * other
+             * if any of them return false --> then fucntion will return false;
+             */
 
+            if (search(key.substring(0, i)) && wordBreak(key.substring(i))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static void wordBreakProblem() {
+        String[] words = { "i", "like", "sam", "samsung", "mobile", "ice" };
+        // creating trie for string
+        /*
+         * 1. use a loop for trie
+         * 2. insert each word in a trie
+         * 3. use existing method that is already inbuilt
+         */
+        for (int i = 0; i < words.length; i++) {
+            insert(words[i]);
+        }
+
+        String key = "ilikesamsung";
+        System.out.println(wordBreak(key));
+    }
+
+    public static void main(String[] args) {
+        wordBreakProblem();
     }
 }
