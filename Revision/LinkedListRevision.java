@@ -299,10 +299,26 @@ public class LinkedListRevision {
         Node next;
 
         while(curr != null) {
-            
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
         }
 
+        Node left = head;
+        Node right = prev;
+        Node nextL, nextR;
         //alternate merging
+        while(left != null && right != null) {
+            nextL = left.next;
+            left.next = right;
+            nextR = right.next;
+            right.next = nextL;
+
+            left = nextL;
+            right = nextR;
+        }
+        
     }
 
     public static void main(String[] args) {
