@@ -201,6 +201,7 @@ public class LinkedListUser {
         }
         return true;
     }
+    
     public static boolean isCycle() {
         Node fast = head;
         Node slow = head;
