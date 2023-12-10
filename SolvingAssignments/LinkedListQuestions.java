@@ -1,6 +1,6 @@
 package SolvingAssignments;
 
-public class Node {
+class Node {
     int data;
     Node next;
 
