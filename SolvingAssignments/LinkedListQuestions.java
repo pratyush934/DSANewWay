@@ -31,6 +31,7 @@ public class LinkedListQuestions {
         while (head2 != null) {
             Node temp = head1;
             while (temp != null) {
+                
                 if (temp == head2) {
                     return temp;
                 }
