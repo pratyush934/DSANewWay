@@ -23,6 +23,7 @@ public class LinkedListQuestions {
             if (fast.next == slow.next) {
                 System.out.println("Milan wala address and data is " + fast.next + " " + fast.next.data);
                 break;
+                
             }
         }
     }
