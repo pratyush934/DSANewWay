@@ -253,9 +253,9 @@ public class LinkedListRevision {
     }
 
     public void removeCycle() {
-        //detect cycle
-        Node fast = head;
+        //getting mid;
         Node slow = head;
+        Node fast = head;
         boolean isCycle = false;
 
         while(fast != null && fast.next != null) {
@@ -267,18 +267,17 @@ public class LinkedListRevision {
                 break;
             }
         }
-
-        if(isCycle == false) return;
-
-        slow = head;
+        if(isCycle == false) {
+            return ;
+        }
         Node prev = null;
-        //meeting point;
+        slow = head;
+        //getting prev pointer which is making the loop
         while(fast != slow) {
             prev = fast;
-            fast = fast.next;
             slow = slow.next;
+            fast = fast.next;
         }
-        //cycle remove
         prev.next = null;
     }
 
