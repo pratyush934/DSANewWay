@@ -152,6 +152,7 @@ public class Sorting {
         arr[ei] = arr[i];
         arr[i] = temp;
         return i;
+        
     }
 
     public static int search(int arr[], int tar, int si, int ei) {
