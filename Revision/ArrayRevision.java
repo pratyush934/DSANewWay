@@ -140,7 +140,7 @@ public class ArrayRevision {
     }
 
     public static void buyAndSellStocks(int arr[]) {
-        int maxProfit = 0, buyPrice = -100;
+        int maxProfit = 0, buyPrice = Integer.MAX_VALUE;
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] > buyPrice) {
                 int profit = arr[i] - buyPrice;

@@ -161,7 +161,7 @@ public class Array {
     }
 
     public static int buyAndSellStocks(int arr[]) {
-        int buyPrice = Integer.MIN_VALUE;
+        int buyPrice = Integer.MAX_VALUE;
         int maxProfit = 0;
 
         for (int i = 0; i < arr.length; i++) {
