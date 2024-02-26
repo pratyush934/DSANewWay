@@ -90,6 +90,53 @@ public class GreedyAlpha {
     System.out.println(maxAct);
   }
 
+  public static void fractionalKnapsack() {
+    /**
+     * Look at the question
+     */
+
+    /**
+     * value = [60, 100, 120]
+     * weight = [10, 20, 30]
+     * 
+     * To isme do chizo ka dhyan rakhna hai
+     * 1. Weight kam se kam ho
+     * 2. value jyada se jyada ho
+     * 
+     * to uske liye hum ratio ko use kar rahe honge {value / weight}
+     */
+    int value[] = { 60, 100, 120 };
+    int weight[] = { 10, 20, 30 };
+    int W = 50;
+    int cost = 0;
+    double ratio[][] = new double[value.length][2];
+
+    for (int i = 0; i < value.length; i++) {
+      ratio[i][0] = i;
+      ratio[i][1] = (double)(value[i]/weight[i]);
+    }
+
+    Arrays.sort(ratio, Comparator.comparingDouble(o -> o[1]));
+    for(int i=value.length-1; i>=0; i--) {
+      int idx = (int)ratio[i][0];
+
+      if(W >= weight[idx]) {
+        /**
+         * Including the proper cost
+         */
+        cost += value[idx];
+        W -= weight[idx];
+      } else {
+        cost += (ratio[i][1] * W);
+        W = 0;
+        break;
+      }
+    }
+
+    System.out.println(cost);
+
+  }
+
   public static void main(String[] args) {
 
   }
