@@ -149,7 +149,7 @@ public class BinaryTreeTut {
             return 0;
         }
         int lDiam = diameter(root.left);
-        int rDiam = diameter(root.left);
+        int rDiam = diameter(root.right);
         int lh = height(root.left);
         int rh = height(root.right);
 
