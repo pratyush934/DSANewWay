@@ -1,6 +1,5 @@
 package DSA_BOOK.LinkedList;
 
-import java.util.List;
 
 public class SinglyList {
 
