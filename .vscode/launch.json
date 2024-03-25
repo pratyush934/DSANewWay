@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "SinglyList",
+      "request": "launch",
+      "mainClass": "DSA_BOOK.LinkedList.SinglyList",
+      "projectName": "DSANewWay_61b602b0"
+    },
+    {
+      "type": "java",
       "name": "Trie",
       "request": "launch",
       "mainClass": "Trie",
