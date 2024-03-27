@@ -23,6 +23,14 @@ public class Questions {
         tail = null;
     }
 
+    public static void print(ListNode head) {
+        while (head != null) {
+            System.out.print(head.data+" -- ");
+            head = head.next;
+        }
+        System.out.println("---");
+    }
+
     /*
      * Problem1 -> Implementing Stacks form LL;
      */
@@ -300,19 +308,50 @@ public class Questions {
         return length;
     }
 
-    public static void main(String[] args) {
-        /*
-         * SinglyList ll = new SinglyList();
-         * ll.addLast(1);
-         * ll.addLast(2);
-         * ll.addLast(3);
-         * ll.addLast(4);
-         * ll.addLast(5);
-         * 
-         * problem6(ll.getHead(), 2, 0);
-         */
+    public static ListNode insertInSortedList(ListNode head, ListNode newNode) {
+        ListNode current = head;
+        ListNode temp = null;
 
-        ListNode node1 = new ListNode(1);
+        while (current != null && newNode.data > current.data) {
+            temp = current;
+            current = current.next;
+        }
+
+        newNode.next = temp.next;
+        temp.next = newNode;
+
+        return head;
+    }
+
+    public static ListNode reverseListNode(ListNode head) {
+        ListNode previous = null;
+        ListNode current = head;
+        ListNode next;
+
+        while(current != null) {
+            next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+
+        return previous;
+    }
+
+    /* 
+     * 
+     * very important question
+     */
+
+    public static ListNode reverseRecursive(ListNode head) {
+        
+    }
+
+    public static void main(String[] args) {
+        
+       
+
+        /* ListNode node1 = new ListNode(1);
         ListNode node2 = new ListNode(2);
         ListNode node3 = new ListNode(3);
         ListNode node4 = new ListNode(4);
@@ -336,6 +375,16 @@ public class Questions {
         problem10(node1);
         System.out.println(problem11(node1).data);
         System.out.println(problem15(node1));
+         */
+
+        SinglyList ll = new SinglyList();
+        ll.addLast(1);
+        ll.addLast(2);
+        ll.addLast(3);
+        ll.addLast(5);
+        ll.addLast(6);
+        // System.out.println(reverseListNode(ll.getHead()));
+        print(reverseListNode(ll.getHead()));
 
     }
 }
