@@ -7,11 +7,11 @@ public class SinglyList {
   public static ListNode tail;
   public static int SIZE = 0;
 
-  public static ListNode getHead() {
+  public  ListNode getHead() {
     return head;
   }
 
-  public static ListNode getTail() {
+  public  ListNode getTail() {
     return tail;
   }
 
