@@ -274,6 +274,32 @@ public class Questions {
         }
     }
 
+    public static int problem15(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        boolean isCycle = false;
+        int length = 0;
+
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+
+            if (fast == slow) {
+                isCycle = true;
+                break;
+            }
+        }
+
+        if (isCycle) {
+            do {
+                slow = slow.next;
+                length++;
+            } while (fast != slow);
+        }
+
+        return length;
+    }
+
     public static void main(String[] args) {
         /*
          * SinglyList ll = new SinglyList();
@@ -286,29 +312,30 @@ public class Questions {
          * problem6(ll.getHead(), 2, 0);
          */
 
-         ListNode node1 = new ListNode(1);
-         ListNode node2 = new ListNode(2);
-         ListNode node3 = new ListNode(3);
-         ListNode node4 = new ListNode(4);
-         ListNode node5 = new ListNode(5);
-         ListNode node6 = new ListNode(6);
-         ListNode node7 = new ListNode(7);
-         ListNode node8 = new ListNode(8);
-         ListNode node9 = new ListNode(9);
- 
-         node1.next = node2;
-         node2.next = node3;
-         node3.next = node4;
-         node4.next = node5;
-         node5.next = node6;
-         node6.next = node3; // creates the cycle
- 
-         node7.next = node8;
-         node8.next = node9;
-         node9.next = node6; // completes the cycle
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(2);
+        ListNode node3 = new ListNode(3);
+        ListNode node4 = new ListNode(4);
+        ListNode node5 = new ListNode(5);
+        ListNode node6 = new ListNode(6);
+        ListNode node7 = new ListNode(7);
+        ListNode node8 = new ListNode(8);
+        ListNode node9 = new ListNode(9);
+
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        node4.next = node5;
+        node5.next = node6;
+        node6.next = node3; // creates the cycle
+
+        node7.next = node8;
+        node8.next = node9;
+        node9.next = node6; // completes the cycle
 
         problem10(node1);
         System.out.println(problem11(node1).data);
+        System.out.println(problem15(node1));
 
     }
 }
