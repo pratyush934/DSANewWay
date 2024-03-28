@@ -1,6 +1,7 @@
 package DSA_BOOK.LinkedList;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 public class Questions {
@@ -482,8 +483,8 @@ public class Questions {
 
         int i = 1;
         while (head1 != null) {
-            if(i == size/2) {
-                if(size % 2 == 0) {
+            if (i == size / 2) {
+                if (size % 2 == 0) {
                     return head1;
                 } else {
                     return head1.next;
@@ -503,8 +504,8 @@ public class Questions {
 
         ListNode ptr1 = head1, ptr2 = head1;
         int i = 0;
-        while(ptr1.next != null) {
-            if(i == 0) {
+        while (ptr1.next != null) {
+            if (i == 0) {
                 ptr1 = ptr1.next;
                 i = 1;
             } else {
@@ -517,34 +518,118 @@ public class Questions {
     }
 
     public static void printListFromEnd(ListNode head) {
-        if(head == null) {
+        if (head == null) {
             return;
         }
         printListFromEnd(head.next);
-        System.out.print(head.data+"<--");
+        System.out.print(head.data + "<--");
     }
 
     public static int lengthOfLLEvenorOdd(ListNode head) {
-        /* 
+        /*
          * very important as time complexity O(n/2)
          */
-        while(head != null && head.next != null) {
+        while (head != null && head.next != null) {
             head = head.next.next;
         }
-        if(head == null) return 0; //even
-        
+        if (head == null)
+            return 0; // even
+
         return 1; // odd
     }
 
-    public static ListNode mergeSortedOrder(ListNode head1, ListNode head2) {
+    @SuppressWarnings("unused")
+    public static ListNode mergeSortedLL(ListNode head1, ListNode head2) {
+        ListNode head = new ListNode(0);
+        ListNode current = head;
 
+        while (head1 != null && head1 != null) {
+            if (head1.data <= head2.data) {
+                current.next = head1;
+                head1 = head1.next;
+            } else {
+                current.next = head2;
+                head2 = head2.next;
+            }
+            current = current.next;
+        }
+
+        if (head1 != null) { // this is unneccesary
+            current.next = head1;
+        } else if (head2 != null) {
+            current.next = head2;
+        }
+
+        return head.next;
     }
 
-    
+    public static ListNode mergeSortRecursive(ListNode head1, ListNode head2) {
+        if (head1 == null) {
+            return head2;
+        }
+
+        if (head2 == null) {
+            return head1;
+        }
+
+        ListNode head = new ListNode(0);
+
+        if (head1.data <= head2.data) {
+            /*
+             * assign the address of head1 to head and assign head.next = for futher
+             * recursive call
+             */
+            head = head1;
+            head.next = mergeSortRecursive(head1.next, head2);
+        } else {
+            /*
+             * assign the address of head2 to head and further recursive call taking head2
+             * ahead assign it head.next
+             */
+            head = head2;
+            head.next = mergeSortRecursive(head1, head2.next);
+        }
+
+        return head;
+    }
+
+    public static ListNode reverseInPair(ListNode head) {
+        /* 
+         * first 2 pair ko reverse karenge
+         */
+
+        /* 
+         * base case
+         */
+        if(head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode temp = head.next;
+        head.next = temp.next;
+        temp.next = head;
+        head = temp; // head = head.next;
+
+        head.next.next = reverseInPair(head.next.next);
+        return head;
+    }
+
+    public static ListNode reverseInPariIterative(ListNode head) {
+        /* 
+         * two pointer approach
+         */
+
+        ListNode temp1 = null;
+        ListNode temp2 = null;
+
+        while(head != null && head.next != null) {
+            
+        }
+        
+    }
 
     public static void main(String[] args) {
 
-        // Create the linked list
         ListNode head = new ListNode(1);
         ListNode temp = head;
 
@@ -556,7 +641,9 @@ public class Questions {
         temp.next = new ListNode(4);
         temp = temp.next;
         temp.next = new ListNode(5);
+        temp = temp.next;
+        temp.next = new ListNode(6);
 
-        printListFromEnd(head);
+        print(reverseInPair(head));
     }
 }
