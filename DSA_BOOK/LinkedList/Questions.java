@@ -1,6 +1,7 @@
 package DSA_BOOK.LinkedList;
 
 import java.util.HashMap;
+import java.util.Stack;
 
 public class Questions {
 
@@ -18,6 +19,15 @@ public class Questions {
         return length;
     }
 
+    public static int sizeofLL(ListNode head) {
+        int length = 0;
+        while (head != null) {
+            head = head.next;
+            length++;
+        }
+        return length;
+    }
+
     public static void clear(SinglyList ll) {
         head = null;
         tail = null;
@@ -25,7 +35,7 @@ public class Questions {
 
     public static void print(ListNode head) {
         while (head != null) {
-            System.out.print(head.data+" -- ");
+            System.out.print(head.data + " -- ");
             head = head.next;
         }
         System.out.println("---");
@@ -328,7 +338,7 @@ public class Questions {
         ListNode current = head;
         ListNode next;
 
-        while(current != null) {
+        while (current != null) {
             next = current.next;
             current.next = previous;
             previous = current;
@@ -338,53 +348,159 @@ public class Questions {
         return previous;
     }
 
-    /* 
+    /*
      * 
      * very important question
      */
 
-    /* public static ListNode reverseRecursive(ListNode head) {
+    /*
+     * public static ListNode reverseRecursive(ListNode head) {
+     * 
+     * }
+     */
 
-    } */
-
-    public static void main(String[] args) {
-        
-       
-
-        /* ListNode node1 = new ListNode(1);
-        ListNode node2 = new ListNode(2);
-        ListNode node3 = new ListNode(3);
-        ListNode node4 = new ListNode(4);
-        ListNode node5 = new ListNode(5);
-        ListNode node6 = new ListNode(6);
-        ListNode node7 = new ListNode(7);
-        ListNode node8 = new ListNode(8);
-        ListNode node9 = new ListNode(9);
-
-        node1.next = node2;
-        node2.next = node3;
-        node3.next = node4;
-        node4.next = node5;
-        node5.next = node6;
-        node6.next = node3; // creates the cycle
-
-        node7.next = node8;
-        node8.next = node9;
-        node9.next = node6; // completes the cycle
-
-        problem10(node1);
-        System.out.println(problem11(node1).data);
-        System.out.println(problem15(node1));
+    public static ListNode yIntersection(ListNode head1, ListNode head2) {
+        /*
+         * a -> b -> c -> d -> e
+         * f -> g ---^
          */
 
-        SinglyList ll = new SinglyList();
-        ll.addLast(1);
-        ll.addLast(2);
-        ll.addLast(3);
-        ll.addLast(5);
-        ll.addLast(6);
-        // System.out.println(reverseListNode(ll.getHead()));
-        print(reverseListNode(ll.getHead()));
+        /*
+         * brute force -> compare each and every node prolem 18
+         * double iteration
+         */
+
+        /*
+         * we can not use sorting technique as it does not make any sense
+         */
+
+        HashMap<Integer, ListNode> map1 = new HashMap<>();
+
+        int i = 0;
+        while (head1 != null) {
+            map1.put(i++, head1);
+            head1 = head1.next;
+        }
+
+        while (head2 != null) {
+            if (map1.containsValue(head2)) {
+                return head2;
+            }
+            head2 = head2.next;
+        }
+
+        return null;
+    }
+
+    public static ListNode yIntersection2(ListNode head1, ListNode head2) {
+        /* Using STACKS
+         * 1. Stack1 and Stack2
+         * 2. push one by one to stack1 and stack2
+         * 3. compare both of them from the top until they are same and store s.pop() until last equal element appears
+         * 4. traversing will be from back of the stack
+         */
+
+        Stack<ListNode> s1 = new Stack<>();
+        Stack<ListNode> s2 = new Stack<>();
+
+        while(head1 != null) {
+            s1.push(head1);
+            head1 = head1.next;
+        }
+
+        while(head2 != null) {
+            s2.push(head2);
+            head2 = head2.next;
+        }
+
+        ListNode transition = null;
+
+        while(!s1.isEmpty() && !s2.isEmpty()) {
+            if(s1.peek() == s2.peek()) {
+                transition = s1.peek();
+                s1.pop();
+                s2.pop();
+            } else {
+                break;
+            }
+        }
+        return transition;
+    }
+
+    public static ListNode yIntersection3(ListNode head1, ListNode head2) {
+        /* 
+         * the most efficient method
+         */
+
+         /* 
+          * Algo
+          1. length of List1 and List2 n and m
+          2. looking for difference setting temps according to it.
+          3. my goal here is to bring the pointer at same level
+          4. now move both the pointer till the reach the same
+          */
+        
+        ListNode temp1 = head1, temp2 = head2;
+        int size1 = sizeofLL(head1);
+        int size2 = sizeofLL(head2);
+        int diff = 0;
+
+        if(size1 > size2) {
+            temp1 = head1;
+            temp2 = head2;
+            diff = size1 - size2;
+        } else {
+            temp1 = head2;
+            temp2 = head1;
+            diff = size2 - size1;
+        }
+
+        for(int i=0; i<diff; i++) {
+            temp1 = temp1.next;
+        }
+
+        while(temp1 != null && temp2 != null) {
+            if(temp1.equals(temp2)) {
+                return temp1;
+            }
+            temp1 = temp1.next;
+            temp2 = temp2.next;
+        }
+
+        return null;
+    }
+
+    public static void main(String[] args) {
+
+        // Create the linked lists
+        ListNode head1 = new ListNode(1);
+        ListNode head2 = new ListNode(2);
+        ListNode common = new ListNode(3);
+        ListNode temp1 = head1, temp2 = head2;
+
+        // Insert elements in the first list
+        temp1.next = new ListNode(4);
+        temp1 = temp1.next;
+        temp1.next = new ListNode(5);
+        temp1 = temp1.next;
+
+        // Insert elements in the second list
+        temp2.next = new ListNode(6);
+        temp2 = temp2.next;
+        temp2.next = new ListNode(7);
+        temp2 = temp2.next;
+
+        // Now merge both lists to common node
+        temp1.next = common;
+        temp2.next = common;
+
+        // Insert elements in the common list
+        temp1 = temp1.next;
+        temp1.next = new ListNode(8);
+        temp1 = temp1.next;
+        temp1.next = new ListNode(9);
+
+        System.out.println(yIntersection3(head1, head2).data);
 
     }
 }
