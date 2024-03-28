@@ -615,18 +615,32 @@ public class Questions {
     }
 
     public static ListNode reverseInPariIterative(ListNode head) {
-        /* 
-         * two pointer approach
-         */
+       /* 
+        * two pointer approach use karenge
+        */
+
 
         ListNode temp1 = null;
         ListNode temp2 = null;
 
         while(head != null && head.next != null) {
+            if(temp1 != null) {
+                temp1.next.next = head.next;
+            }
             
+            temp1 = head.next;
+            head.next = head.next.next;
+            temp1.next = head;
+
+            if(temp2 == null) {
+                temp2 = temp1;
+            }
+
+            head = head.next;
         }
-        
+        return temp2;
     }
+
 
     public static void main(String[] args) {
 
@@ -643,7 +657,10 @@ public class Questions {
         temp.next = new ListNode(5);
         temp = temp.next;
         temp.next = new ListNode(6);
+        
+        // print(reverseInPair(head));
 
-        print(reverseInPair(head));
+        print(reverseInPariIterative(head));
+
     }
 }
