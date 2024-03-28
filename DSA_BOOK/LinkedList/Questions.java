@@ -343,9 +343,9 @@ public class Questions {
      * very important question
      */
 
-    public static ListNode reverseRecursive(ListNode head) {
-        
-    }
+    /* public static ListNode reverseRecursive(ListNode head) {
+
+    } */
 
     public static void main(String[] args) {
         
