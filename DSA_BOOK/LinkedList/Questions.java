@@ -538,12 +538,12 @@ public class Questions {
         return 1; // odd
     }
 
-    @SuppressWarnings("unused")
-    public static ListNode mergeSortedLL(ListNode head1, ListNode head2) {
+    public static ListNode mergeSortIterative(ListNode head1, ListNode head2) {
         ListNode head = new ListNode(0);
         ListNode current = head;
 
-        while (head1 != null && head1 != null) {
+        while (head1 != null && head2 != null) {
+
             if (head1.data <= head2.data) {
                 current.next = head1;
                 head1 = head1.next;
@@ -551,10 +551,11 @@ public class Questions {
                 current.next = head2;
                 head2 = head2.next;
             }
+
             current = current.next;
         }
 
-        if (head1 != null) { // this is unneccesary
+        if (head1 != null) {
             current.next = head1;
         } else if (head2 != null) {
             current.next = head2;
@@ -563,7 +564,8 @@ public class Questions {
         return head.next;
     }
 
-    public static ListNode mergeSortRecursive(ListNode head1, ListNode head2) {
+    public static ListNode mergeLLRecursive(ListNode head1, ListNode head2) {
+        ListNode current = new ListNode(0);
         if (head1 == null) {
             return head2;
         }
@@ -572,67 +574,48 @@ public class Questions {
             return head1;
         }
 
-        ListNode head = new ListNode(0);
-
         if (head1.data <= head2.data) {
-            /*
-             * assign the address of head1 to head and assign head.next = for futher
-             * recursive call
-             */
-            head = head1;
-            head.next = mergeSortRecursive(head1.next, head2);
+            current.next = head1;
+            current.next.next = mergeLLRecursive(head1.next, head2);
         } else {
-            /*
-             * assign the address of head2 to head and further recursive call taking head2
-             * ahead assign it head.next
-             */
-            head = head2;
-            head.next = mergeSortRecursive(head1, head2.next);
+            current.next = head2;
+            current.next.next = mergeLLRecursive(head1, head2.next);
         }
 
-        return head;
+        return current.next;
     }
 
     public static ListNode reverseInPair(ListNode head) {
-        /* 
-         * first 2 pair ko reverse karenge
-         */
-
-        /* 
-         * base case
-         */
-        if(head == null || head.next == null) {
+        if (head == null || head.next == null) {
             return head;
         }
 
         ListNode temp = head.next;
-        head.next = temp.next;
+        head.next = head.next.next;
         temp.next = head;
-        head = temp; // head = head.next;
+        head = temp;
 
         head.next.next = reverseInPair(head.next.next);
+
         return head;
+
     }
 
-    public static ListNode reverseInPariIterative(ListNode head) {
-       /* 
-        * two pointer approach use karenge
-        */
-
-
+    public static ListNode reverseInPairIterative(ListNode head) {
         ListNode temp1 = null;
         ListNode temp2 = null;
 
-        while(head != null && head.next != null) {
-            if(temp1 != null) {
+        while (head != null && head.next != null) {
+
+            if (temp1 != null) {
                 temp1.next.next = head.next;
             }
-            
+
             temp1 = head.next;
             head.next = head.next.next;
             temp1.next = head;
 
-            if(temp2 == null) {
+            if (temp2 == null) {
                 temp2 = temp1;
             }
 
@@ -641,8 +624,23 @@ public class Questions {
         return temp2;
     }
 
-
     public static void main(String[] args) {
+
+        /*
+         * // Create the first linked list
+         * ListNode list1 = new ListNode(1);
+         * ListNode temp1 = list1;
+         * temp1.next = new ListNode(3);
+         * temp1 = temp1.next;
+         * temp1.next = new ListNode(5);
+         * 
+         * // Create the second linked list
+         * ListNode list2 = new ListNode(2);
+         * ListNode temp2 = list2;
+         * temp2.next = new ListNode(4);
+         * temp2 = temp2.next;
+         * temp2.next = new ListNode(6);
+         */
 
         ListNode head = new ListNode(1);
         ListNode temp = head;
@@ -657,10 +655,8 @@ public class Questions {
         temp.next = new ListNode(5);
         temp = temp.next;
         temp.next = new ListNode(6);
-        
-        // print(reverseInPair(head));
 
-        print(reverseInPariIterative(head));
+        print(reverseInPairIterative(head));
 
     }
 }
