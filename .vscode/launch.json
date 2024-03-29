@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ArrayListStack",
+      "request": "launch",
+      "mainClass": "DSA_BOOK.Stacks.ArrayListStack",
+      "projectName": "DSANewWay_61b602b0"
+    },
+    {
+      "type": "java",
+      "name": "FixedSizeStack",
+      "request": "launch",
+      "mainClass": "DSA_BOOK.Stacks.FixedSizeStack",
+      "projectName": "DSANewWay_61b602b0"
+    },
+    {
+      "type": "java",
       "name": "Questions",
       "request": "launch",
       "mainClass": "DSA_BOOK.LinkedList.Questions",

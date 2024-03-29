@@ -661,8 +661,6 @@ public class Questions {
         return true;
     }
 
-
-    public static void splitNode()
     public static void main(String[] args) {
 
         /*
