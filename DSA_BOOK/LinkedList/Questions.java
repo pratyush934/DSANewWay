@@ -624,6 +624,45 @@ public class Questions {
         return temp2;
     }
 
+    public static boolean isPalindrome(ListNode head) {
+        //find mid;
+        ListNode fastPtr = head;
+        ListNode slowPtr = head;
+
+        while (fastPtr != null && fastPtr.next != null) {
+            fastPtr = fastPtr.next.next;
+            slowPtr = slowPtr.next;
+        }
+
+        ListNode mid = slowPtr;
+        //reverse half of it
+        ListNode next;
+        ListNode current = mid;
+        ListNode previous = null;
+
+        while(current != null) {
+            next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+
+        ListNode left = head;
+        ListNode right = previous;
+        //check one by one
+        while(right != null) {
+            if(left.data != right.data) {
+                return false;
+            }
+            left = left.next;
+            right = right.next;
+        }
+
+        return true;
+    }
+
+
+    public static void splitNode()
     public static void main(String[] args) {
 
         /*
@@ -656,7 +695,7 @@ public class Questions {
         temp = temp.next;
         temp.next = new ListNode(6);
 
-        print(reverseInPairIterative(head));
+        System.out.println((isPalindrome(head)));
 
     }
 }
