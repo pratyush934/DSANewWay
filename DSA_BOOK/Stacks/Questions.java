@@ -2,6 +2,8 @@ package DSA_BOOK.Stacks;
 
 import java.util.Stack;
 
+import DSA_BOOK.LinkedList.ListNode;
+
 public class Questions {
 
     public static boolean isValid(String str) {
@@ -220,6 +222,70 @@ public class Questions {
         pushAtBottom(s, top);
     }
 
+    public static ListNode yIntersection(ListNode head1, ListNode head2) {
+        int size1 = 0, size2 = 0;
+        ListNode temp1 = head1, temp2 = head2;
+        while(temp1 != null) {
+            size1++;
+            temp1 = temp1.next;
+        }
+        while(temp2 != null) {
+            size2++;
+            temp2 = temp2.next;
+        }
+        int diff = 0;
+
+        if(size1 > size2) {
+            temp1 = head1;
+            temp2 = head2;
+            diff = size1 - size2;
+        } else {
+            temp1 = head2;
+            temp2 = head1;
+            diff = size2 - size1;
+        }
+
+        for(int i=0; i<diff; i++) {
+            temp1 = temp1.next;
+        }
+
+        while (temp1 != null && temp2 != null) {
+            if(temp1.equals(temp2)) {
+                return temp1;
+            }
+            temp1 = temp1.next;
+            temp2 = temp2.next;
+        }
+
+        return null;
+    }
+
+    public static ListNode yIntersection2(ListNode head1, ListNode head2) {
+        Stack<ListNode> s1 = new Stack<>();
+        Stack<ListNode> s2 = new Stack<>();
+
+        while(head1 != null) {
+            s1.push(head1);
+            head1 = head1.next;
+        }   
+
+        while (head2 != null) {
+            s2.push(head2);
+            head2 = head2.next;
+        }
+        ListNode transition = null;
+        while(!s1.isEmpty() && !s2.isEmpty()) {
+            if(s1.peek() == s2.peek()){
+                transition = s1.peek();
+                s1.pop();
+                s2.pop();
+            } else {
+                break;
+            }
+        }
+
+        return null;
+    }
 
     public static void main(String[] args) {
        
