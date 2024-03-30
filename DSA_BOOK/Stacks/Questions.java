@@ -84,8 +84,37 @@ public class Questions {
     }
 
 
+/*     public static String infixToPostFix(String str) {
+        
+        Stack<Character> s = new Stack<>();
+        StringBuffer sb = new StringBuffer();
+
+ 
+        for(int i =0; i<str.length(); i++) {
+            char ch = str.charAt(i);
+
+            if(ch == '(') {
+                s.push(ch);
+            } else if(ch == '*' || ch == '+' || ch == '/' || ch == '-') {
+                s.push(ch);
+            } else if(ch == ')') {
+                while(!(s.peek() == '(')) {
+                    sb.append(s.pop());
+                }
+                s.pop();
+            } else {
+                sb.append(ch);
+            }
+        }
+        return sb.toString();
+    }
+    --> It is wrong and is quite tough question to consider
+    */
+
+    
 
     public static void main(String[] args) {
-        System.out.println(isValid("(A+B)+(C-D)"));
+        System.out.println(infixToPostFix("(A+B)*C-D"));
     }
+
 }
