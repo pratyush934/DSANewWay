@@ -284,7 +284,7 @@ public class Questions {
             }
         }
 
-        return null;
+        return transition;
     }
 
     public static void main(String[] args) {
