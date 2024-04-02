@@ -1,8 +1,24 @@
 package SolvingAssignments;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import DSA_BOOK.LinkedList.ListNode;
 
 public class JPMogran {
+
+    static class Node {
+        char data;
+        Node next;
+
+        public Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
     public static int question1(String[] arr, String target, int startingIndex) {
 
         int i = startingIndex;
@@ -65,22 +81,23 @@ public class JPMogran {
     }
 
     public static String question3(String str) {
-        /* 
+        /*
          * A string is provided as an input from console, which consist of integer value
-         * Insert '*' if subseqent numbers are even and insert '-' if subsequent numbers are odd
+         * Insert '*' if subseqent numbers are even and insert '-' if subsequent numbers
+         * are odd
          */
-        /* 
-         * 21462675756  -> 214*6*2*67-5-7-56
+        /*
+         * 21462675756 -> 214*6*2*67-5-7-56
          */
 
         StringBuffer sb = new StringBuffer();
-        for(int i=0; i<str.length()-1; i++) {
+        for (int i = 0; i < str.length() - 1; i++) {
             char ch1 = str.charAt(i);
-            char ch2 = str.charAt(i+1);
-            if((ch1-'0') % 2 == 0 && (ch2 - '0') % 2 == 0 ) {
+            char ch2 = str.charAt(i + 1);
+            if ((ch1 - '0') % 2 == 0 && (ch2 - '0') % 2 == 0) {
                 sb.append(ch1);
                 sb.append('*');
-            } else if((ch1-'0') % 2 != 0 && (ch2 - '0') % 2 != 0) {
+            } else if ((ch1 - '0') % 2 != 0 && (ch2 - '0') % 2 != 0) {
                 sb.append(ch1);
                 sb.append('-');
             } else {
@@ -90,26 +107,75 @@ public class JPMogran {
         return sb.toString();
     }
 
+    public static void question4(Node head) {
+        Node temp = head;
+        while (temp.next != null) {
+            char ch1 = temp.data;
+            char ch2 = temp.next.data;
 
+            if ((ch1 - '0') % 2 == 0 && (ch2 - '0') % 2 == 0) {
+                Node newNode = new Node('*');
+                newNode.next = temp.next;
+                temp.next = newNode;
+                temp = temp.next;
+            } else if ((ch1 - '0') % 2 != 0 && (ch2 - '0') % 2 != 0) {
+                Node newNode = new Node('-');
+                newNode.next = temp.next;
+                temp.next = newNode;
+                temp = temp.next;
+            }
 
-    public static void main(String[] args) {
-        // String[] arr = {
-        //         "saw", "hammer", "mallet",
-        //         "file", "saw", "ladder", "scissor"
-        // };
-
-        // System.out.println(question1(arr, "princi", 6));
-
-        /* ListNode head = new ListNode(1);
-        head.next = new ListNode(0);
-        head.next.next = new ListNode(1);
-        head.next.next.next = new ListNode(1);
-        head.next.next.next.next = new ListNode(0);
-        
-        System.out.println(question2(head)); */
-
-        System.out.println(question3("21462675756"));
+            temp = temp.next;
+        }
     }
 
+    public static Node convertToLinkedList(String number) {
+        Node dummy = new Node('0'); // dummy node to simplify insertion
+        Node current = dummy;
+
+        for (int i = 0; i < number.length(); i++) {
+            char digit = number.charAt(i);
+            current.next = new Node(digit);
+            current = current.next;
+        }
+
+        return dummy.next;
+    }
+
+    private static String question5(String string) {
+        StringBuffer sb = new StringBuffer();
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < string.length(); i++) {
+            map.put(string.charAt(i), map.getOrDefault(string.charAt(i), 0) + 1);
+        }
+
+        List<Map.Entry<Character, Integer>> list = new ArrayList<>(map.entrySet());
+
+        list.sort(Map.Entry.comparingByValue());
+
+        System.out.println(list);
+
+        for (Map.Entry<Character, Integer> entry : list) {
+            char ch = entry.getKey();
+            int frequency = entry.getValue();
+            for (int i = 0; i < frequency; i++) {
+                sb.append(ch);
+            }
+        }
+
+        return sb.reverse().toString();
+
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println(question5("anaadjillddoaaaopppqsbbcccdd"));
+        // question5("anaadjillddoaaaopppqsbbcccdd");
+    }
+
+    /**
+     * Node
+     */
 
 }
