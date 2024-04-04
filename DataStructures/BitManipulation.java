@@ -32,8 +32,51 @@ public class BitManipulation {
         System.out.println(a + "  " + b);
     }
 
-    
+    public static boolean isSetOrNot(int N, int index) {
+        return (N & (1 << index)) != 0;
+    }
+
+    public static int setTheIth(int N, int index) {
+        return (N | (1 << index));
+    }
+
+    public static int clearTheIth(int N, int index) {
+        return (N & (~(1 << index)));
+        // return (N ^ (1 << index));
+    }
+
+    public static int toggleTheIth(int N, int index) {
+        return (N ^ (1 << index));
+    }
+
+    public static int lastSetBit(int N) {
+        return N & N - 1;
+    }
+
+    public static boolean isPowerOf2(int N) {
+        return ((N & (N - 1)) == 0);
+    }
+
+    public static int countSetBits(int n) {
+        int count = 0;
+        while (n > 1) {
+            count += n & 1; // 1 or 0
+            n >>= 1;
+        }
+        return count;
+    }
+
+    public static int countSetBits2(int n) {
+        int count = 0;
+        while (n > 1) {
+            n = n & (n - 1);
+            count++;
+            n >>= 1;
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
-        swap2Numbers(1, 2);
+        System.out.println(isPowerOf2(66));
     }
 }
