@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class BitManipulation {
     public static String convert2Binary(int n) {
         StringBuffer sb = new StringBuffer();
@@ -76,7 +79,33 @@ public class BitManipulation {
         return count;
     }
 
-    public static void main(String[] args) {
-        System.out.println(isPowerOf2(66));
+    public static int stepsToFlip(int start, int goal) {
+        int endGame = start ^ goal;
+        return countSetBits(endGame);
     }
+
+    public List<List<Integer>> powerSet(List<Integer> arr) {
+        int size = arr.size();
+        int numberOfSubsets = (1 << size);
+        List<List<Integer>> ans = new ArrayList<>();
+
+        for (int num = 0; num < numberOfSubsets; num++) {
+            List<Integer> list = new ArrayList<>();
+
+            for (int i = 0; i < size; i++) {
+                if ((num & (1 << i)) == 1) {
+                    list.add(arr.get(i));
+                }
+            }
+
+            ans.add(list);
+        }
+
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(stepsToFlip(3, 4));
+    }
+
 }
