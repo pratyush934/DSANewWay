@@ -53,7 +53,7 @@ public class BitManipulation {
     }
 
     public static int lastSetBit(int N) {
-        return N & N - 1;
+        return (N & N - 1) & N;
     }
 
     public static boolean isPowerOf2(int N) {
@@ -147,6 +147,29 @@ public class BitManipulation {
         }
 
         return ones;
+
+    }
+
+    public static int[] singleNumberIV(int arr[]) {
+        int xorr = 0;
+        for (int i : arr) {
+            xorr ^= i;
+        }
+
+        int rightMost = (xorr & xorr - 1) & xorr;
+        int b1 = 0, b2 = 0;
+
+        for (int i : arr) {
+            if ((i & rightMost) != 0)
+                b1 ^= i;
+            else
+                b2 ^= i;
+        }
+        /* 
+         * O(n+n)
+         * O(1)
+         */
+        return new int[] { b1, b2 };
 
     }
 
