@@ -104,6 +104,52 @@ public class BitManipulation {
         return ans;
     }
 
+    public static int singleNumber(ArrayList<Integer> list) {
+
+        int ans = 0;
+        for (int bitIndex = 0; bitIndex < 32; bitIndex++) {
+            int count = 0;
+            for (int i = 0; i < bitIndex; i++) {
+                if ((list.get(i) & (i << bitIndex)) == 1) {
+                    count++;
+                }
+            }
+            if (count % 3 == 1) {
+                ans = ans | (1 << bitIndex);
+            }
+        }
+
+        return ans;
+    }
+
+    public static int singleNumberII(int arr[]) {
+        /*
+         * O(NlogN) + O(n/3)
+         */
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i - 1] != arr[i]) {
+                return arr[i - 1];
+            }
+        }
+        return arr[arr.length - 1];
+    }
+
+    public static int singleNumberIII(int arr[]) {
+        /*
+         * Bucket solution
+         * O(n)
+         */
+
+        int ones = 0, twos = 0;
+        for (int i : arr) {
+            ones = (ones ^ i) & ~twos;
+            twos = (twos ^ i) & ~ones;
+        }
+
+        return ones;
+
+    }
+
     public static void main(String[] args) {
         System.out.println(stepsToFlip(3, 4));
     }
