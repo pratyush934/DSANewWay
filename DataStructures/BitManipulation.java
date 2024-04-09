@@ -158,20 +158,32 @@ public class BitManipulation {
 
         int rightMost = (int) ((xorr & xorr - 1) & xorr);
         int b1 = 0, b2 = 0;
-            
+
         for (int i : arr) {
             if ((i & rightMost) != 0)
                 b1 ^= i;
             else
                 b2 ^= i;
         }
-        /* 
+        /*
          * O(n+n)
          * O(1)
          */
         return new int[] { b1, b2 };
 
     }
+
+    public static int XorInRange(int n) {
+        if (n % 4 == 1)
+            return 1;
+        else if (n % 4 == 2)
+            return 3;
+        else if (n % 4 == 3)
+            return 0;
+        else
+            return 4;
+    }
+
 
     public static void main(String[] args) {
         System.out.println(stepsToFlip(3, 4));
