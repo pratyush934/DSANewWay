@@ -151,14 +151,14 @@ public class BitManipulation {
     }
 
     public static int[] singleNumberIV(int arr[]) {
-        int xorr = 0;
+        long xorr = 0;
         for (int i : arr) {
             xorr ^= i;
         }
 
-        int rightMost = (xorr & xorr - 1) & xorr;
+        int rightMost = (int) ((xorr & xorr - 1) & xorr);
         int b1 = 0, b2 = 0;
-
+            
         for (int i : arr) {
             if ((i & rightMost) != 0)
                 b1 ^= i;

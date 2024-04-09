@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "CircularArrayQueue",
+      "request": "launch",
+      "mainClass": "CircularArrayQueue",
+      "projectName": "DSANewWay_61b602b0"
+    },
+    {
+      "type": "java",
+      "name": "StaticQueue",
+      "request": "launch",
+      "mainClass": "StaticQueue",
+      "projectName": "DSANewWay_61b602b0"
+    },
+    {
+      "type": "java",
+      "name": "StaticQueue",
+      "request": "launch",
+      "mainClass": "DSA_BOOK.Queues.StaticQueue",
+      "projectName": "DSANewWay_61b602b0"
+    },
+    {
+      "type": "java",
       "name": "BitManipulation",
       "request": "launch",
       "mainClass": "BitManipulation",
