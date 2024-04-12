@@ -51,7 +51,80 @@ public class SlidingWindow {
         return max;
     }
 
+    public static int maxContinous1(int arr[], int k) {
+        /*
+         * 
+         * Brute force approach
+         */
+        int maxLength = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            int zeroes = 0;
+            innerLoop: for (int j = i; j < arr.length; j++) {
+
+                if (arr[j] == 0) {
+                    zeroes++;
+                }
+
+                if (zeroes <= k) {
+                    maxLength = Math.max(maxLength, j - i + 1);
+                } else {
+                    break innerLoop;
+                }
+            }
+        }
+        return maxLength;
+    }
+
+    public static int maxContinous1Part2(int arr[], int k) {
+        int lp = 0, rp = 0, maxLength = 0, zeroes = 0;
+
+        while (rp < arr.length) {
+
+            if (arr[rp] == 0)
+                zeroes++;
+
+            while (zeroes > k) {
+                if (arr[lp] == 0)
+                    zeroes--;
+                lp++;
+            }
+            if (zeroes <= k)
+                maxLength = Math.max(maxLength, rp - lp + 1);
+            rp++;
+        }
+        return maxLength;
+    }
+
+    public static int maxContinous1Part3(int arr[], int k) {
+
+        int rp = 0, lp = 0, maxLength = Integer.MIN_VALUE, zeroes = 0;
+
+        while (rp < arr.length) {
+
+            if (arr[rp] == 0) {
+                zeroes++;
+            }
+
+            if (zeroes >= k) {
+
+                if (arr[lp] == 0) {
+                    zeroes--;
+                }
+
+                lp++;
+            }
+
+            rp++;
+
+            maxLength = Math.max(maxLength, rp - lp + 1);
+        }
+        return maxLength;
+    }
+
     public static void main(String[] args) {
-        System.out.println(subString("cadbzabcd"));
+
+        int arr[] = { 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0 };
+        System.out.println(maxContinous1Part3(arr, 2));
+
     }
 }
