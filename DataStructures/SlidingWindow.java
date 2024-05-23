@@ -238,9 +238,153 @@ public class SlidingWindow {
         return maxLength;
     }
 
+    public static int subStringWithAllCharacters(String str) {
+        /*
+         * substring -> any consecutive portion of string
+         * bbacba
+         */
+        int count = 0, lastSeen[] = { -1, -1, -1 };
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            lastSeen[ch - 'a'] = i;
+
+            if (lastSeen[0] != -1 && lastSeen[1] != -1 && lastSeen[2] != -1) {
+                count = count + 1 + (Math.min(Math.min(lastSeen[0], lastSeen[1]), lastSeen[2]));
+            }
+        }
+        return count;
+    }
+
+    public static int longestRepeatingCharacter(String str, int k) {
+        /*
+         * very Important
+         * AAABBCCD
+         */
+
+        int left = 0, right = 0, hashArray[] = new int[26];
+        int maxLength = 0, maxF = 0;
+
+        while (right < str.length()) {
+
+            hashArray[str.charAt(right) - 'A']++;
+            maxF = Math.max(maxF, hashArray[str.charAt(right) - 'A']);
+
+            /*
+             * currentLength - maxFrequency <= k ye condition hai
+             * meaning -> only you can change k number of elements
+             */
+
+            while (right - left + 1 - maxF > k) {
+                hashArray[str.charAt(left) - 'A']--;
+
+                for (int i = 0; i < 26; i++) {
+                    maxF = Math.max(maxF, hashArray[i]);
+                }
+
+                left++;
+            }
+
+            if (right - left + 1 - maxF <= k) {
+                maxLength = Math.max(maxLength, right - left + 1);
+            }
+            right++;
+        }
+        return maxLength;
+    }
+
+    public static int longestRepeatingCharacterPartII(String str, int k) {
+
+        int left = 0, right = 0, maxLength = 0, maxF = 0;
+        int hashArray[] = new int[26];
+
+        while (right < str.length()) {
+
+            hashArray[str.charAt(right) - 'A']++;
+            maxF = Math.max(maxF, hashArray[str.charAt(right) - 'A']);
+
+            /*
+             * ab yaha pe khela hoga
+             */
+
+            if (right - left + 1 - maxF > k) {
+                hashArray[str.charAt(left) - 'A']--;
+                for (int i = 0; i < 26; i++) {
+                    maxF = Math.max(maxF, hashArray[i]);
+                }
+            }
+
+            if (right - left + 1 - maxF <= k) {
+                maxLength = Math.max(maxLength, right - left + 1);
+            }
+            right++;
+        }
+
+        return maxLength;
+    }
+
+    public static int binarySubArraySum(int arr[], int goal) {
+        int left = 0, right = 0, tempSum = 0, count = 0;
+
+        if (goal < 0) {
+            return 0;
+        }
+
+        while (right < arr.length) {
+            tempSum += arr[right];
+
+            while (tempSum > goal) {
+                tempSum -= arr[left];
+                left++;
+            }
+
+            count = count + (right - left + 1);
+            right++;
+        }
+        return count;
+    }
+
+    public static int niceSubArrays(int arr[]) {
+        /*
+         * it is similar to previous one
+         */
+        int nums[] = { 1, 1, 2, 1, 1 };
+        int k = 3;
+        /*
+         * number of subarrays where number of odd numbers are equal to k
+         * binary wale sawaal ki tarah hi hai
+         */
+        return 1;
+    }
+
+    public static int subArraysWithK(int num[], int k) {
+        /*
+         * functions(num, k) - functions(num, k-1) is the answer
+         * O(N+N) -> O(N)
+          */
+        int left = 0, right = 0, count = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        while (right < num.length) {
+            map.put(num[right], map.getOrDefault(num[right], 0) + 1);
+
+            while (map.size() > k) {
+                if (map.get(num[left]) == 1) {
+                    map.remove(num[left]);
+                } else {
+                    map.put(num[left], map.get(num[left]) - 1);
+                }
+                left++;
+            }
+            count = count + (right - left + 1);
+            right++;
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
 
-        String str = "aaabbccd";
-        System.out.println(kDistinctCharactersPartII(str, 3));
+        int arr[] = { 1, 0, 0, 1, 1, 0 };
+        System.out.println(binarySubArraySum(arr, 2) - binarySubArraySum(arr, 1));
     }
 }
