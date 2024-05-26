@@ -361,7 +361,7 @@ public class SlidingWindow {
         /*
          * functions(num, k) - functions(num, k-1) is the answer
          * O(N+N) -> O(N)
-          */
+         */
         int left = 0, right = 0, count = 0;
         HashMap<Integer, Integer> map = new HashMap<>();
 
@@ -382,9 +382,49 @@ public class SlidingWindow {
         return count;
     }
 
+    public static String minWindow(String s, String t) {
+        if (s.isEmpty() || t.isEmpty()) {
+            return "";
+        }
+        int[] hash = new int[256];
+    
+        int l=0, r=0, minlen=Integer.MAX_VALUE, sind=-1, cnt=0;
+    
+        int n=s.length(), m=t.length();
+    
+        for(int i=0; i<m; i++){
+            hash[t.charAt(i)]++;
+        }
+    
+        while(r<n){
+    
+            if(hash[s.charAt(r)] > 0){
+               cnt++;
+            }
+            hash[s.charAt(r)]--;
+    
+            while(cnt==m){
+    
+                if(r-l+1<minlen){
+                    minlen=r-l+1;
+                    sind=l;
+                }
+                hash[s.charAt(l)]++;
+    
+                if(hash[s.charAt(l)] > 0){
+                    cnt=cnt-1;
+                }
+    
+                l++;
+            }
+            r=r+1;
+        }
+    
+        return sind==-1? "" : s.substring(sind, sind+minlen);
+    }
+
     public static void main(String[] args) {
 
-        int arr[] = { 1, 0, 0, 1, 1, 0 };
-        System.out.println(binarySubArraySum(arr, 2) - binarySubArraySum(arr, 1));
+        System.out.println(minWindow("ddaaabbca", "abc"));
     }
 }
