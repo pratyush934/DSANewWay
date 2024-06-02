@@ -312,7 +312,7 @@ public class SlidingWindow {
                 for (int i = 0; i < 26; i++) {
                     maxF = Math.max(maxF, hashArray[i]);
                 }
-            }
+            } 
 
             if (right - left + 1 - maxF <= k) {
                 maxLength = Math.max(maxLength, right - left + 1);

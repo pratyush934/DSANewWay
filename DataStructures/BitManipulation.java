@@ -170,7 +170,6 @@ public class BitManipulation {
          * O(1)
          */
         return new int[] { b1, b2 };
-
     }
 
     public static int XorInRange(int n) {
@@ -186,7 +185,7 @@ public class BitManipulation {
 
 
     public static void main(String[] args) {
-        System.out.println(stepsToFlip(3, 4));
+        System.out.println(lastSetBit(6));
     }
 
 }

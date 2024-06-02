@@ -42,7 +42,7 @@ public class Strings {
     }
 
     public static void compare() {
-        String fruits[] = { "apple", "mango", "banana" };
+        String fruits[] = { "apple", "mango", "banana" };exi
         String largest = fruits[0];
         for (int i = 0; i < fruits.length; i++) {
             if (largest.compareTo(fruits[i]) < 0) {
