@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.*;
 
 public class GreedyAlgorithm {
 
@@ -96,7 +96,7 @@ public class GreedyAlgorithm {
     }
 
     public static int jumpGamePartII(int arr[]) {
-        
+
         int right = 0, left = 0, jumps = 0;
 
         int n = arr.length;
@@ -116,7 +116,47 @@ public class GreedyAlgorithm {
         return jumps;
     }
 
+    static class Jobs {
+        int id;
+        int profit;
+        int deadLine;
+
+        public Jobs(int id, int profit, int deadLine) {
+            this.id = id;
+            this.profit = profit;
+            this.deadLine = deadLine;
+        }
+    }
+
+    public static void jobSequencing() {
+        int jobsInfo[][] = { { 4, 20 }, { 1, 10 }, { 1, 40 }, { 1, 30 } };
+
+        ArrayList<Jobs> list = new ArrayList<>();
+
+        for (int i = 0; i < jobsInfo.length; i++) {
+            list.add(new Jobs(i, jobsInfo[i][1], jobsInfo[i][0]));
+        }
+
+        /* 
+         * sorting things in descending order
+         */
+        Collections.sort(list, (o1, o2) -> o2.profit - o1.profit);
+
+        ArrayList<Integer> seq = new ArrayList<>();
+        int time = 0;
+        for(int i=0; i<list.size(); i++) {
+            Jobs curr = list.get(i);
+            if(curr.deadLine > time) {
+                seq.add(curr.id);
+                time++;
+            }
+        }
+        System.out.println(seq.size());
+        System.out.println(seq);
+    }
+
     public static void main(String[] args) {
-        System.out.println(jumpGamePartII(new int[] { 2, 3, 1, 4, 1, 1, 1, 2 }));
+       /*  System.out.println(jumpGamePartII(new int[] { 2, 3, 1, 4, 1, 1, 1, 2 })); */
+       jobSequencing();
     }
 }
