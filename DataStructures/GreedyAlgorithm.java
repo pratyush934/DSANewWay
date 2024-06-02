@@ -65,7 +65,7 @@ public class GreedyAlgorithm {
     }
 
     public static int shortesJobFirstPartII(int arr[]) {
-        
+
         Arrays.sort(arr);
         int wt = 0;
         int t = 0;
@@ -83,9 +83,9 @@ public class GreedyAlgorithm {
     public static boolean jumpGame(int arr[]) {
         int max = 0;
 
-        for(int i = 0; i<arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
 
-            if(i > max) {
+            if (i > max) {
                 return false;
             }
 
@@ -95,7 +95,28 @@ public class GreedyAlgorithm {
         return true;
     }
 
+    public static int jumpGamePartII(int arr[]) {
+        
+        int right = 0, left = 0, jumps = 0;
+
+        int n = arr.length;
+
+        while (right < n) {
+
+            int far = 0;
+
+            for (int i = left; i <= right; i++) {
+                far = Math.max(far, arr[i] + right);
+            }
+
+            left = right + 1;
+            right = far;
+            jumps++;
+        }
+        return jumps;
+    }
+
     public static void main(String[] args) {
-        System.out.println(jumpGame(new int[] { 1, 2, 3, 1, 1, 0, 2, 5 }));
+        System.out.println(jumpGamePartII(new int[] { 2, 3, 1, 4, 1, 1, 1, 2 }));
     }
 }
