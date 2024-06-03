@@ -183,7 +183,7 @@ public class Stacks {
     }
 
     public static void mainQ4() {
-        int arr[] = { 6, 8, 0, 1, 3 };
+        int arr[] = { 1, 2, 3, 4, 3 };
         int ans[] = new int[arr.length];
         nextGreater(arr, ans);
         for (int i : ans) {
@@ -260,19 +260,19 @@ public class Stacks {
     public static boolean isDuplicate(String str) {
         Stack<Character> s = new Stack<>();
 
-        for(int i=0; i<str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
-            //closing
-            if(ch == ')') {
+            // closing
+            if (ch == ')') {
                 int count = 0;
-                while(s.peek() != '(') {
+                while (s.peek() != '(') {
                     s.pop();
                     count++;
                 }
-                if(count < 1) {
+                if (count < 1) {
                     return true;
                 } else {
-                    s.pop(); //opening pair
+                    s.pop(); // opening pair
                 }
             } else {
                 s.push(ch);
@@ -286,14 +286,14 @@ public class Stacks {
         int nsr[] = new int[arr.length];
         int nsl[] = new int[arr.length];
 
-        //next Smaller Right
+        // next Smaller Right
         Stack<Integer> s = new Stack<>();
-        for(int i=arr.length-1; i>=0; i--) {
+        for (int i = arr.length - 1; i >= 0; i--) {
             int currLow = arr[i];
-            while(!s.empty() && currLow <= arr[s.peek()]) {
+            while (!s.empty() && currLow <= arr[s.peek()]) {
                 s.pop();
             }
-            if(s.empty()) {
+            if (s.empty()) {
                 nsr[i] = arr.length;
             } else {
                 nsr[i] = s.peek();
@@ -301,14 +301,14 @@ public class Stacks {
             s.push(i);
         }
 
-        //next Smaller Left
+        // next Smaller Left
         s = new Stack<>();
-        for(int i=0; i<arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
             int currLow = arr[i];
-            while(!s.empty() && currLow <= arr[s.peek()]) {
+            while (!s.empty() && currLow <= arr[s.peek()]) {
                 s.pop();
             }
-            if(s.empty()) {
+            if (s.empty()) {
                 nsl[i] = -1;
             } else {
                 nsl[i] = s.peek();
@@ -316,30 +316,25 @@ public class Stacks {
             s.push(i);
         }
 
-        //calculating area
-        for(int i=0; i<arr.length; i++) {
+        // calculating area
+        for (int i = 0; i < arr.length; i++) {
             int height = arr[i];
-            int width = nsr[i] - nsl[i] -1;
-            int currArea = height*width;
+            int width = nsr[i] - nsl[i] - 1;
+            int currArea = height * width;
             maxArea = Math.max(currArea, maxArea);
-            
+
         }
         System.out.println(maxArea);
-        
 
     }
+
     public static void mainQ5() {
-        int arr[] = {2, 1, 5, 6, 2, 3};
+        int arr[] = { 2, 1, 5, 6, 2, 3 };
         maxArea(arr);
     }
 
     public static void main(String[] args) {
-        Stack<Integer> s = new Stack<>();
-        s.push(1);
-        s.push(2);
-        s.push(3);
+        mainQ4();
 
-        System.out.println(s);
-        
     }
 }

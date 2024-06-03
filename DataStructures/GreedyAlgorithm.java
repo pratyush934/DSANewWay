@@ -137,16 +137,16 @@ public class GreedyAlgorithm {
             list.add(new Jobs(i, jobsInfo[i][1], jobsInfo[i][0]));
         }
 
-        /* 
+        /*
          * sorting things in descending order
          */
         Collections.sort(list, (o1, o2) -> o2.profit - o1.profit);
 
         ArrayList<Integer> seq = new ArrayList<>();
         int time = 0;
-        for(int i=0; i<list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             Jobs curr = list.get(i);
-            if(curr.deadLine > time) {
+            if (curr.deadLine > time) {
                 seq.add(curr.id);
                 time++;
             }
@@ -155,8 +155,63 @@ public class GreedyAlgorithm {
         System.out.println(seq);
     }
 
+    public static int nMeetingInOneRow() {
+        int start[] = { 1, 3, 0, 5, 8, 5 };
+        int end[] = { 2, 4, 6, 7, 9, 9 };
+
+        int matrix[][] = new int[start.length][3];
+
+        for (int i = 0; i < start.length; i++) {
+            matrix[i][0] = i;
+            matrix[i][1] = start[i];
+            matrix[i][2] = end[i];
+        }
+
+        Arrays.sort(matrix, Comparator.comparingDouble(o -> o[2]));
+        ArrayList<Integer> list = new ArrayList<>();
+        int maxAct = 1;
+        list.add(matrix[0][0]);
+        int lastEnd = matrix[0][2];
+        for (int i = 0; i < start.length; i++) {
+            if (lastEnd <= matrix[i][1]) {
+                maxAct++;
+                list.add(matrix[i][0]);
+                lastEnd = matrix[i][2];
+            }
+        }
+        System.out.println(list);
+        return maxAct;
+    }
+
+    public static int nonOverlappingIntervals() {
+
+        int start[] = { 0, 3, 1, 5, 5, 7 };
+        int end[] = { 5, 4, 2, 9, 7, 9 };
+
+        int matrix[][] = new int[start.length][3];
+
+        for (int i = 0; i < start.length; i++) {
+            matrix[i][0] = i;
+            matrix[i][1] = start[i];
+            matrix[i][2] = end[i];
+        }
+
+        Arrays.sort(matrix, Comparator.comparingDouble(o -> o[2]));
+
+        int maxCount = 1;
+        int endPoint = matrix[0][2];
+        for (int i = 0; i < start.length; i++) {
+            if (matrix[i][1] >= endPoint) {
+                maxCount++;
+                endPoint = matrix[i][2];
+            }
+        }
+        return start.length - maxCount;
+    }
+
     public static void main(String[] args) {
-       /*  System.out.println(jumpGamePartII(new int[] { 2, 3, 1, 4, 1, 1, 1, 2 })); */
-       jobSequencing();
+        /* System.out.println(jumpGamePartII(new int[] { 2, 3, 1, 4, 1, 1, 1, 2 })); */
+        // jobSequencing();
+        System.out.println(nonOverlappingIntervals());
     }
 }
