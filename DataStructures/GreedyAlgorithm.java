@@ -209,9 +209,63 @@ public class GreedyAlgorithm {
         return start.length - maxCount;
     }
 
+    public static void minimumNumberOfPlatform() {
+        int ari[] = { 900, 945, 955, 1100, 1500, 1800 };
+        int dep[] = { 920, 1200, 1130, 1150, 1900, 2000 };
+
+        Arrays.sort(ari);
+        Arrays.sort(dep);
+
+        int left = 0, right = 0, count = 0, maxCount = 0;
+
+        while (left < ari.length) {
+
+            if (ari[left] <= dep[right]) {
+                count++;
+                left++;
+            } else {
+                count--;
+                right++;
+            }
+
+            maxCount = Math.max(maxCount, count);
+        }
+
+        System.out.println(maxCount);
+
+    }
+
+    public static boolean validParenthesis(String str) {
+        int min = 0, max = 0;
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+
+            if (ch == '(') {
+                max++;
+                min++;
+            } else if (ch == ')') {
+                min--;
+                max--;
+            } else {
+                min--;
+                max++;
+            }
+
+            if (min < 0)
+                min = 0;
+
+            if (max < 0)
+                return false;
+        }
+        return min == 0;
+    }
+
     public static void main(String[] args) {
         /* System.out.println(jumpGamePartII(new int[] { 2, 3, 1, 4, 1, 1, 1, 2 })); */
         // jobSequencing();
-        System.out.println(nonOverlappingIntervals());
+        // System.out.println(nonOverlappingIntervals());
+        // minimumNumberOfPlatform();
+        System.out.println(validParenthesis("(*))"));
     }
 }
