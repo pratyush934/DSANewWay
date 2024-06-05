@@ -1,5 +1,7 @@
 import java.util.*;
 
+import Queues.staticArrayQueue;
+
 public class GreedyAlgorithm {
 
     public static int assignCookie(int greedy[], int size[]) {
@@ -259,6 +261,81 @@ public class GreedyAlgorithm {
                 return false;
         }
         return min == 0;
+    }
+
+    public static void candyChild(int rankings[]) {
+        int[] arrLeft = new int[rankings.length];
+        int[] arrRight = new int[rankings.length];
+
+        arrLeft[0] = 1;
+        arrRight[rankings.length - 1] = 1;
+
+        for (int i = 1; i < rankings.length; i++) {
+            if (rankings[i] > rankings[i - 1]) {
+                arrLeft[i] = arrLeft[i - 1] + 1;
+            } else {
+                arrLeft[i] = 1;
+            }
+        }
+
+        for (int i = rankings.length - 1; i >= 0; i--) {
+            if (rankings[i] > rankings[i + 1]) {
+                arrRight[i] = arrRight[i + 1] + 1;
+            } else {
+                arrRight[i] = 1;
+            }
+        }
+
+        int sum = 0;
+
+        for (int i = 0; i < arrLeft.length; i++) {
+            sum += Math.max(arrLeft[i], arrRight[i]);
+        }
+
+        System.out.println(sum);
+    }
+
+    public static void candyChild(int rankings[]) {
+        int sum = 1, i = 1;
+        int n = rankings.length;
+        int peak = 1;
+        int down = 1;
+
+        while (i < n) {
+            if (rankings[i] == rankings[i - 1]) {
+                sum += 1;
+                i++;
+                continue;
+            }
+            peak = 1;
+            while (i < n && rankings[i] > rankings[i + 1]) {
+                peak++;
+                sum += peak;
+                i++;
+            }
+            down = 1;
+            while (i < n && rankings[i] < rankings[i - 1]) {
+                sum += down;
+                i++;
+                down++;
+            }
+
+            if (down > peak) {
+                sum += down - peak;
+            }
+
+            return sum;
+        }
+    }
+
+    public static void fractionalKnapsack() {
+        int arr[][] = { { 100, 20 }, { 60, 10 }, { 100, 50 }, { 200, 50 } };
+
+        double matrix[][] = new double[arr.length][2];
+        /*
+         * index and ratios
+         */
+
     }
 
     public static void main(String[] args) {
