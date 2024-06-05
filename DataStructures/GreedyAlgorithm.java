@@ -330,11 +330,35 @@ public class GreedyAlgorithm {
 
     public static void fractionalKnapsack() {
         int arr[][] = { { 100, 20 }, { 60, 10 }, { 100, 50 }, { 200, 50 } };
+        int capacity = 90;
 
         double matrix[][] = new double[arr.length][2];
         /*
          * index and ratios
          */
+
+        for (int i = 0; i < matrix.length; i++) {
+            matrix[i][0] = i;
+            matrix[i][1] = arr[i][0] / arr[i][1];
+        }
+
+        Arrays.sort(matrix, Comparator.comparingDouble(o -> o[1]));
+
+        double totalCost = 0;
+        for (int i = matrix.length - 1; i >= 0; i--) {
+            
+            int idx = (int) matrix[i][0];
+
+            if (capacity >= arr[idx][1]) {
+                totalCost += arr[idx][0];
+                capacity -= arr[idx][1];
+            } else {
+                totalCost += capacity * matrix[i][1];
+                capacity = 0;
+                break;
+            }
+        }
+        System.out.println(totalCost);
 
     }
 
@@ -343,6 +367,7 @@ public class GreedyAlgorithm {
         // jobSequencing();
         // System.out.println(nonOverlappingIntervals());
         // minimumNumberOfPlatform();
-        System.out.println(validParenthesis("(*))"));
+        // System.out.println(validParenthesis("(*))"));
+        fractionalKnapsack();
     }
 }

@@ -81,7 +81,7 @@ public class GreedyAlgo {
 
         for (int i = val.length - 1; i >= 0; i--) {
             int idx = (int) ratio[i][0];
-            if (capacity >= weight[i]) { // Including full item
+            if (capacity >= weight[idx]) { // Including full item
                 finalValue += val[idx];
                 capacity -= weight[idx];
             } else {
