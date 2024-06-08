@@ -312,7 +312,7 @@ public class SlidingWindow {
                 for (int i = 0; i < 26; i++) {
                     maxF = Math.max(maxF, hashArray[i]);
                 }
-            } 
+            }
 
             if (right - left + 1 - maxF <= k) {
                 maxLength = Math.max(maxLength, right - left + 1);
@@ -387,40 +387,40 @@ public class SlidingWindow {
             return "";
         }
         int[] hash = new int[256];
-    
-        int l=0, r=0, minlen=Integer.MAX_VALUE, sind=-1, cnt=0;
-    
-        int n=s.length(), m=t.length();
-    
-        for(int i=0; i<m; i++){
+
+        int l = 0, r = 0, minlen = Integer.MAX_VALUE, sind = -1, cnt = 0;
+
+        int n = s.length(), m = t.length();
+
+        for (int i = 0; i < m; i++) {
             hash[t.charAt(i)]++;
         }
-    
-        while(r<n){
-    
-            if(hash[s.charAt(r)] > 0){
-               cnt++;
+
+        while (r < n) {
+
+            if (hash[s.charAt(r)] > 0) {
+                cnt++;
             }
             hash[s.charAt(r)]--;
-    
-            while(cnt==m){
-    
-                if(r-l+1<minlen){
-                    minlen=r-l+1;
-                    sind=l;
+
+            while (cnt == m) {
+
+                if (r - l + 1 < minlen) {
+                    minlen = r - l + 1;
+                    sind = l;
                 }
                 hash[s.charAt(l)]++;
-    
-                if(hash[s.charAt(l)] > 0){
-                    cnt=cnt-1;
+
+                if (hash[s.charAt(l)] > 0) {
+                    cnt = cnt - 1;
                 }
-    
+
                 l++;
             }
-            r=r+1;
+            r = r + 1;
         }
-    
-        return sind==-1? "" : s.substring(sind, sind+minlen);
+
+        return sind == -1 ? "" : s.substring(sind, sind + minlen);
     }
 
     public static void main(String[] args) {

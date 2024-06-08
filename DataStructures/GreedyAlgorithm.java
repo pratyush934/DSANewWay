@@ -295,7 +295,7 @@ public class GreedyAlgorithm {
         System.out.println(sum);
     }
 
-    public static void candyChild(int rankings[]) {
+    public static void candyChild2(int rankings[]) {
         int sum = 1, i = 1;
         int n = rankings.length;
         int peak = 1;
