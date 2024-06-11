@@ -68,15 +68,21 @@ public class BinaryTreeTut {
         }
 
         public static void levelOrder(Node root) {
+            
             if (root == null) {
                 return;
             }
+
+            
             Queue<Node> q = new LinkedList<>();
             q.add(root);
             q.add(null);
 
+
+
             while (!q.isEmpty()) {
                 Node curNode = q.remove();
+
                 if (curNode == null) {
                     System.out.println();
                     if (q.isEmpty()) {
@@ -94,6 +100,7 @@ public class BinaryTreeTut {
                     }
                 }
             }
+
         }
     }
 
