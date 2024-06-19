@@ -84,7 +84,9 @@ public class BinaryTreeTut {
                 Node curNode = q.remove();
 
                 if (curNode == null) {
+
                     System.out.println();
+                    
                     if (q.isEmpty()) {
                         break;
                     } else {
