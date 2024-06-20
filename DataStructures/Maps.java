@@ -99,6 +99,7 @@ public class Maps {
         
     }
 
+    
     public static boolean isAnagram1(String s, String t) {
         if(s.length() != t.length()) {
             return false;

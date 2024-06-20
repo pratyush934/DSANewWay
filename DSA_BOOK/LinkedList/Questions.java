@@ -1,7 +1,6 @@
 package DSA_BOOK.LinkedList;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Stack;
 
 public class Questions {

@@ -134,7 +134,7 @@ public class Array {
         }
         System.out.println(ms);
     }
-s
+
     public static int trappedRainWater(int arr[]) {
         // calculate left max boundary - array
         int leftMax[] = new int[arr.length];

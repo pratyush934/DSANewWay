@@ -136,7 +136,7 @@ public class GreedyAlpha {
     System.out.println(cost);
 
   }
-
+L
   public static void main(String[] args) {
 
   }

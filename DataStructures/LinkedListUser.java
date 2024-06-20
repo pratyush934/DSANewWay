@@ -1,6 +1,5 @@
-import java.util.LinkedList;
-
 public class LinkedListUser {
+    
     static class Node {
         int data;
         Node next;
@@ -10,6 +9,7 @@ public class LinkedListUser {
             this.next = null;
         }
     }
+    
     public static Node head;
     public static Node tail;
     public static int size = 0;

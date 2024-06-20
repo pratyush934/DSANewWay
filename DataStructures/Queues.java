@@ -118,6 +118,7 @@ public class Queues {
     }
 
     static class QueueLL {
+        
         public static Node head = null;
         public static Node tail = null;
         public static int size = 0;
