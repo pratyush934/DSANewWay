@@ -564,7 +564,7 @@ public class Questions {
     }
 
     public int numberofFullNodes(BinaryTreeNode root) {
-        
+
         if (root == null) {
             return 0;
         }
@@ -577,15 +577,15 @@ public class Questions {
         while (!q.isEmpty()) {
             BinaryTreeNode curr = q.poll();
 
-            if(curr.left != null && curr.right != null) {
+            if (curr.left != null && curr.right != null) {
                 count++;
             }
 
-            if(curr.left != null) {
+            if (curr.left != null) {
                 q.add(curr.left);
             }
 
-            if(curr.right != null) {
+            if (curr.right != null) {
                 q.add(curr.right);
             }
         }
@@ -593,7 +593,7 @@ public class Questions {
     }
 
     public int numberOfHalfNodes(BinaryTreeNode root) {
-        if(root == null) {
+        if (root == null) {
             return 0;
         }
 
@@ -605,19 +605,19 @@ public class Questions {
         while (!q.isEmpty()) {
             BinaryTreeNode curr = q.poll();
 
-            if(curr.left != null && curr.right == null) {
+            if (curr.left != null && curr.right == null) {
                 count++;
             }
 
-            if(curr.right != null && curr.left == null) {
+            if (curr.right != null && curr.left == null) {
                 count++;
             }
 
-            if(curr.left != null) {
+            if (curr.left != null) {
                 q.add(curr.left);
             }
 
-            if(curr.right != null) {
+            if (curr.right != null) {
                 q.add(curr.right);
             }
         }
@@ -627,18 +627,79 @@ public class Questions {
 
     public boolean isIdenticalStructurally(BinaryTreeNode root1, BinaryTreeNode root2) {
 
-        if(root1 == null && root2 == null) {
+        if (root1 == null && root2 == null) {
             return true;
         }
-        if(root1 == null || root2 == null) {
+        if (root1 == null || root2 == null) {
             return false;
-        } 
+        }
         return isIdenticalStructurally(root1.left, root2.right) || isIdenticalStructurally(root1.right, root2.left);
     }
 
-    
+    static class Info {
+        int diam;
+        int ht;
+
+        public Info(int diam, int ht) {
+            this.diam = diam;
+            this.ht = ht;
+        }
+    }
+
+    public static Info diameterInfo(BinaryTreeNode root) {
+
+        if (root == null) {
+            return new Info(0, 0);
+        }
+
+        Info left = diameterInfo(root.left);
+        Info right = diameterInfo(root.right);
+
+        int lh = Math.max(left.ht, right.ht) + 1;
+        int diam = Math.max(Math.max(left.diam, right.diam), left.ht + right.ht + 1);
+
+        return new Info(lh, diam);
+    }
+
+    public int findLevelWithMaxSum(BinaryTreeNode root) {
+        int maxSum = 0;
+        int currSum = 0;
+
+        Queue<BinaryTreeNode> q = new LinkedList<>();
+        q.add(root);
+        q.add(null);
+
+        while (!q.isEmpty()) {
+            BinaryTreeNode currNode = q.poll();
+
+            if (currNode == null) {
+
+                if (q.isEmpty()) {
+                    return maxSum;
+                } else {
+                    maxSum = Math.max(maxSum, currSum);
+                    currSum = 0;
+                    q.add(null);
+                }
+
+            } else {
+                currSum += currNode.data;
+
+                if (currNode.left != null) {
+                    q.add(currNode.left);
+                }
+
+                if (currNode.right != null) {
+                    q.add(currNode.right);
+                }
+            }
+        }
+
+        return maxSum;
+    }
 
     public static void main(String[] args) {
+
         /*
          * BinaryTreeNode root = new BinaryTreeNode(10);
          * root.left = new BinaryTreeNode(2);
@@ -652,36 +713,31 @@ public class Questions {
          * System.out.println(questions.minDepthOfBinaryTree(root));
          */
 
-        /* BinaryTreeNode root = new BinaryTreeNode(10);
+        BinaryTreeNode root = new BinaryTreeNode(1);
         root.left = new BinaryTreeNode(2);
-        root.right = new BinaryTreeNode(15);
-        root.left.left = new BinaryTreeNode(1);
-        // root.left.right = new BinaryTreeNode(5); // Commented to create an unbalanced
-        // tree
-        root.right.left = new BinaryTreeNode(13);
-        root.right.right = new BinaryTreeNode(25);
-        root.right.right.right = new BinaryTreeNode(30); // Adding a deeper branch
+        root.right = new BinaryTreeNode(3);
+        root.left.left = new BinaryTreeNode(4);
+        root.left.right = new BinaryTreeNode(5);
 
-        Questions questions = new Questions();
-        int minDepth = questions.numberOfHalfNodes(root);
-        System.out.println("Minimum depth of binary tree is: " + minDepth); */
+        System.out.println(diameterInfo(root).diam);
 
-        BinaryTreeNode root1 = new BinaryTreeNode(1);
-        root1.left = new BinaryTreeNode(4);
-        root1.right = new BinaryTreeNode(3);
+        /*
+         * BinaryTreeNode root1 = new BinaryTreeNode(1);
+         * root1.left = new BinaryTreeNode(4);
+         * root1.right = new BinaryTreeNode(3);
+         * 
+         * // Initialize the second binary tree (identical to the first)
+         * BinaryTreeNode root2 = new BinaryTreeNode(1);
+         * root2.left = new BinaryTreeNode(2);
+         * root2.right = new BinaryTreeNode(3);
+         * 
+         * // Instantiate Questions class
+         * Questions questions = new Questions();
+         * 
+         * // Assert that isIdentical returns true for identical trees
+         * System.out.println(questions.isIdenticalStructurally(root1, root2));
+         */
 
-        // Initialize the second binary tree (identical to the first)
-        BinaryTreeNode root2 = new BinaryTreeNode(1);
-        root2.left = new BinaryTreeNode(2);
-        root2.right = new BinaryTreeNode(3);
-
-        // Instantiate Questions class
-        Questions questions = new Questions();
-
-        // Assert that isIdentical returns true for identical trees
-        System.out.println(questions.isIdenticalStructurally(root1, root2));
-
- 
     }
 
 }
