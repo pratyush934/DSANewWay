@@ -1,13 +1,11 @@
 package DSA_BOOK.Tree;
 
-import java.lang.runtime.TemplateRuntime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
-
 
 public class Questions {
 
@@ -202,10 +200,10 @@ public class Questions {
     }
 
     public boolean isAvialble(BinaryTreeNode root, int data) {
-        if(root == null) {
+        if (root == null) {
             return false;
         }
-        if(root.data == data) {
+        if (root.data == data) {
             return true;
         }
 
@@ -213,26 +211,26 @@ public class Questions {
     }
 
     public boolean isAvialbleIterative(BinaryTreeNode root, int data) {
-        if(root == null) {
+        if (root == null) {
             return false;
         }
 
         Queue<BinaryTreeNode> q = new LinkedList<>();
         q.add(root);
 
-        while(!q.isEmpty()) {
+        while (!q.isEmpty()) {
             BinaryTreeNode temp = q.poll();
 
-            if(temp.data == data) {
+            if (temp.data == data) {
                 return true;
             }
 
-            if(temp != null) {
-                if(temp.left != null) {
+            if (temp != null) {
+                if (temp.left != null) {
                     q.add(temp.left);
                 }
 
-                if(temp.right != null) {
+                if (temp.right != null) {
                     q.add(temp.right);
                 }
             }
@@ -242,7 +240,7 @@ public class Questions {
     }
 
     public boolean isAvialbleIterativeUsingStack(BinaryTreeNode root, int data) {
-        if(root == null) {
+        if (root == null) {
             return false;
         }
 
@@ -252,15 +250,15 @@ public class Questions {
         while (!s.isEmpty()) {
             BinaryTreeNode b = s.pop();
 
-            if(b.data == data) {
+            if (b.data == data) {
                 return true;
             }
 
-            if(b.right != null) {
+            if (b.right != null) {
                 s.push(b.right);
             }
 
-            if(b.left != null) {
+            if (b.left != null) {
                 s.push(b.left);
             }
         }
@@ -268,7 +266,7 @@ public class Questions {
     }
 
     public static BinaryTreeNode insertNode(BinaryTreeNode root, int data) {
-        if(root == null) {
+        if (root == null) {
             return new BinaryTreeNode(data);
         }
 
@@ -278,15 +276,15 @@ public class Questions {
         while (!q.isEmpty()) {
             BinaryTreeNode temp = q.poll();
 
-            if(temp != null) {
-                if(temp.left != null) {
+            if (temp != null) {
+                if (temp.left != null) {
                     q.add(temp.left);
                 } else {
                     temp.left = new BinaryTreeNode(data);
                     return root;
                 }
 
-                if(temp.right != null) {
+                if (temp.right != null) {
                     q.add(temp.right);
                 } else {
                     temp.right = new BinaryTreeNode(data);
@@ -299,7 +297,7 @@ public class Questions {
     }
 
     public static void insertNodeRecursive(BinaryTreeNode root, int data) {
-        if(root == null) {
+        if (root == null) {
             root = new BinaryTreeNode(data);
         } else {
             insertNodeRecursiveHelper(root, data);
@@ -308,37 +306,382 @@ public class Questions {
 
     public static void insertNodeRecursiveHelper(BinaryTreeNode root, int data) {
 
-        if(data > 100) {
+        if (data > 100) {
 
-            if(root.left == null) {
-              root.left = new BinaryTreeNode(data);
+            if (root.left == null) {
+                root.left = new BinaryTreeNode(data);
             } else {
-              insertNodeRecursiveHelper(root.left, data);
+                insertNodeRecursiveHelper(root.left, data);
             }
         } else {
-            if(root.right == null) {
+            if (root.right == null) {
                 root.right = new BinaryTreeNode(data);
             } else {
                 insertNodeRecursiveHelper(root.right, data);
             }
         }
+    }
+
+    public int size(BinaryTreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int lh = size(root.left);
+        int rh = size(root.right);
+
+        return lh + rh + 1;
+    }
+
+    public int sizeWithIterative(BinaryTreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int count = 0;
+        Queue<BinaryTreeNode> q = new LinkedList<>();
+
+        q.add(root);
+
+        while (!q.isEmpty()) {
+
+            BinaryTreeNode temp = q.poll();
+
+            if (temp != null) {
+                count++;
+            }
+
+            if (temp.left != null) {
+                q.add(temp.left);
+            }
+
+            if (temp.right != null) {
+                q.add(temp.right);
+            }
+        }
+
+        return count;
+    }
+
+    public List<Integer> preOrderReverse(BinaryTreeNode root) {
+
+        List<Integer> list = new ArrayList<>();
+
+        Stack<BinaryTreeNode> s = new Stack<>();
+
+        s.push(root);
+
+        while (!s.isEmpty()) {
+
+            BinaryTreeNode temp = s.pop();
+
+            list.add(temp.data);
+
+            if (temp.left != null) {
+                s.push(temp.left);
+            }
+
+            if (temp.right != null) {
+                s.push(temp.right);
+            }
+        }
+
+        return list;
 
     }
 
+    public int maxDepthInBinaryTree(BinaryTreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int leftDepth = maxDepthInBinaryTree(root.left);
+        int rightDepth = maxDepthInBinaryTree(root.right);
+
+        return Math.max(leftDepth, rightDepth) + 1;
+    }
+
+    public int maxDepthInBinaryTreeIterative(BinaryTreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int count = 0;
+        Queue<BinaryTreeNode> q = new LinkedList<>();
+        q.add(root);
+        q.add(null);
+
+        while (!q.isEmpty()) {
+            BinaryTreeNode temp = q.poll();
+
+            if (temp == null) {
+                if (!q.isEmpty()) {
+                    q.add(null);
+                    count++;
+                } else {
+                    return count + 1;
+                }
+            } else {
+                if (temp.left != null) {
+                    q.add(temp.left);
+                }
+                if (temp.right != null) {
+                    q.add(temp.right);
+                }
+            }
+        }
+        return count;
+    }
+
+    public int minDepthOfBinaryTree(BinaryTreeNode root) {
+
+        if (root == null) {
+            return 0;
+        }
+
+        Queue<BinaryTreeNode> q = new LinkedList<>();
+        int count = 1;
+
+        q.add(root);
+        q.add(null);
+
+        while (!q.isEmpty()) {
+
+            BinaryTreeNode temp = q.poll();
+
+            if (temp == null) {
+
+                if (!q.isEmpty()) {
+                    count++;
+                    q.add(null);
+                }
+
+            } else {
+
+                if (temp.left == null && temp.right == null) {
+                    return count;
+                }
+
+                if (temp.left != null) {
+                    q.add(temp.left);
+                }
+
+                if (temp.right != null) {
+                    q.add(temp.right);
+                }
+            }
+        }
+        return count;
+    }
+
+    public int maxDepthOfBinaryTree(BinaryTreeNode root) {
+        int max = Integer.MIN_VALUE;
+
+        int count = 1;
+        Queue<BinaryTreeNode> q = new LinkedList<>();
+
+        q.add(root);
+        q.add(null);
+
+        while (!q.isEmpty()) {
+
+            BinaryTreeNode curr = q.poll();
+
+            if (curr != null) {
+                if (curr.left == null && curr.right == null) {
+                    max = Math.max(count, max);
+                }
+
+                if (curr.left != null) {
+                    q.add(curr.left);
+                }
+
+                if (curr.right != null) {
+                    q.add(curr.right);
+                }
+            } else {
+                if (q.isEmpty()) {
+                    return max;
+                } else {
+                    count++;
+                    q.add(null);
+                }
+            }
+        }
+        return max;
+    }
+
+    public int maxDepthNode(BinaryTreeNode root) {
+        if (root == null) {
+            return -1;
+        }
+        BinaryTreeNode curr = null;
+        Queue<BinaryTreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        while (!q.isEmpty()) {
+            curr = q.poll();
+
+            if (curr.left != null) {
+                q.add(curr.left);
+            }
+
+            if (curr.right != null) {
+                q.add(curr.right);
+            }
+        }
+
+        return curr.data;
+    }
+
+    public int numberOfLeafNode(BinaryTreeNode root) {
+
+        if (root == null) {
+            return 0;
+        }
+
+        int count = 0;
+        Queue<BinaryTreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        while (!q.isEmpty()) {
+
+            BinaryTreeNode curr = q.poll();
+
+            if (curr.left == null && curr.right == null) {
+                count++;
+            }
+
+            if (curr.left != null) {
+                q.add(curr.left);
+            }
+
+            if (curr.right != null) {
+                q.add(curr.right);
+            }
+        }
+
+        return count;
+    }
+
+    public int numberofFullNodes(BinaryTreeNode root) {
+        
+        if (root == null) {
+            return 0;
+        }
+
+        Queue<BinaryTreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        int count = 0;
+
+        while (!q.isEmpty()) {
+            BinaryTreeNode curr = q.poll();
+
+            if(curr.left != null && curr.right != null) {
+                count++;
+            }
+
+            if(curr.left != null) {
+                q.add(curr.left);
+            }
+
+            if(curr.right != null) {
+                q.add(curr.right);
+            }
+        }
+        return count;
+    }
+
+    public int numberOfHalfNodes(BinaryTreeNode root) {
+        if(root == null) {
+            return 0;
+        }
+
+        Queue<BinaryTreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        int count = 0;
+
+        while (!q.isEmpty()) {
+            BinaryTreeNode curr = q.poll();
+
+            if(curr.left != null && curr.right == null) {
+                count++;
+            }
+
+            if(curr.right != null && curr.left == null) {
+                count++;
+            }
+
+            if(curr.left != null) {
+                q.add(curr.left);
+            }
+
+            if(curr.right != null) {
+                q.add(curr.right);
+            }
+        }
+
+        return count;
+    }
+
+    public boolean isIdenticalStructurally(BinaryTreeNode root1, BinaryTreeNode root2) {
+
+        if(root1 == null && root2 == null) {
+            return true;
+        }
+        if(root1 == null || root2 == null) {
+            return false;
+        } 
+        return isIdenticalStructurally(root1.left, root2.right) || isIdenticalStructurally(root1.right, root2.left);
+    }
+
+    
+
     public static void main(String[] args) {
-        BinaryTreeNode root = new BinaryTreeNode(10);
+        /*
+         * BinaryTreeNode root = new BinaryTreeNode(10);
+         * root.left = new BinaryTreeNode(2);
+         * root.right = new BinaryTreeNode(15);
+         * root.left.left = new BinaryTreeNode(1);
+         * root.left.right = new BinaryTreeNode(5);
+         * root.right.left = new BinaryTreeNode(13);
+         * root.right.right = new BinaryTreeNode(25);
+         * 
+         * Questions questions = new Questions();
+         * System.out.println(questions.minDepthOfBinaryTree(root));
+         */
+
+        /* BinaryTreeNode root = new BinaryTreeNode(10);
         root.left = new BinaryTreeNode(2);
         root.right = new BinaryTreeNode(15);
         root.left.left = new BinaryTreeNode(1);
-        root.left.right = new BinaryTreeNode(5);
+        // root.left.right = new BinaryTreeNode(5); // Commented to create an unbalanced
+        // tree
         root.right.left = new BinaryTreeNode(13);
         root.right.right = new BinaryTreeNode(25);
+        root.right.right.right = new BinaryTreeNode(30); // Adding a deeper branch
 
         Questions questions = new Questions();
-        questions.preOrder(root);
-        insertNodeRecursiveHelper(root, 90);
-        System.out.println();
-        questions.preOrder(root);
-        // questions.inOrder(ans);
+        int minDepth = questions.numberOfHalfNodes(root);
+        System.out.println("Minimum depth of binary tree is: " + minDepth); */
+
+        BinaryTreeNode root1 = new BinaryTreeNode(1);
+        root1.left = new BinaryTreeNode(4);
+        root1.right = new BinaryTreeNode(3);
+
+        // Initialize the second binary tree (identical to the first)
+        BinaryTreeNode root2 = new BinaryTreeNode(1);
+        root2.left = new BinaryTreeNode(2);
+        root2.right = new BinaryTreeNode(3);
+
+        // Instantiate Questions class
+        Questions questions = new Questions();
+
+        // Assert that isIdentical returns true for identical trees
+        System.out.println(questions.isIdenticalStructurally(root1, root2));
+
+ 
     }
+
 }
