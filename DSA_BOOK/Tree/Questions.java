@@ -698,6 +698,166 @@ public class Questions {
         return maxSum;
     }
 
+    public void printPath(BinaryTreeNode root) {
+        int arr[] = new int[256];
+        printPathHelper(root, arr, 0);
+    }
+
+    public void printArray(int arr[], int index) {
+        for (int i = 0; i < index; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public void printPathHelper(BinaryTreeNode root, int arr[], int index) {
+        if (root == null) {
+            return;
+        }
+        arr[index] = root.data;
+        index++;
+
+        if (root.left == null && root.right == null) {
+            printArray(arr, index);
+        } else {
+            printPathHelper(root.left, arr, index);
+            printPathHelper(root.right, arr, index);
+        }
+    }
+
+    public int sumOfNodes(BinaryTreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        return root.data + sumOfNodes(root.left) + sumOfNodes(root.right);
+    }
+
+    public boolean hasPathSum(BinaryTreeNode root, int sum) {
+        if (root == null) {
+            return false;
+        }
+
+        if (root.left == null && root.right == null && root.data == sum) {
+            return true;
+        } else
+            return hasPathSum(root.left, sum - root.data) || hasPathSum(root.right, sum - root.data);
+    }
+
+    public int sumOfNodesIterative(BinaryTreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int sum = 0;
+
+        Queue<BinaryTreeNode> q = new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            BinaryTreeNode curr = q.poll();
+
+            sum += curr.data;
+
+            if (curr.left != null) {
+                q.add(curr.left);
+            }
+
+            if (curr.right != null) {
+                q.add(curr.right);
+            }
+        }
+        return sum;
+    }
+
+    public BinaryTreeNode mirrorTree(BinaryTreeNode root) {
+        BinaryTreeNode temp = null;
+        if (root == null) {
+
+            return null;
+
+        } else {
+
+            mirrorTree(root.left);
+            mirrorTree(root.right);
+
+            // swapping
+            temp = root.left;
+            root.left = root.right;
+            root.right = temp;
+
+        }
+        return root;
+
+    }
+
+    public boolean isMirror(BinaryTreeNode root1, BinaryTreeNode root2) {
+        if (root1 == null && root2 == null) {
+            return true;
+        }
+        if (root1 == null || root2 == null) {
+            return false;
+        }
+
+        if (root1.data != root2.data) {
+            return false;
+        }
+
+        return isMirror(root1.left, root2.right) || isMirror(root1.right, root2.left);
+    }
+
+    public BinaryTreeNode treeFromPreOrderAndInorder(int preOrder[], int inOrder[]) {
+
+        if (preOrder.length == 0 || inOrder.length == 0) {
+            return null;
+        }
+
+        return treeFromPreOrderAndInorderHelper(preOrder, 0, preOrder.length - 1, inOrder, 0, inOrder.length - 1);
+    }
+
+    /*
+     * Very Important -> Very Important
+     */
+    public BinaryTreeNode treeFromPreOrderAndInorderHelper(int preOrder[], int preStart, int preEnd, int inOrder[],
+            int inStart, int inEnd) {
+
+        if (preStart > preEnd || inStart > inEnd) {
+            return null;
+        }
+
+        int data = preOrder[preStart];
+        BinaryTreeNode curr = new BinaryTreeNode(data);
+
+        int offSet = inStart;
+        for (; offSet < inEnd; offSet++) {
+            if (inOrder[offSet] == data) {
+                break;
+            }
+        }
+
+        curr.left = treeFromPreOrderAndInorderHelper(preOrder, preStart + 1, preStart + offSet - inStart, inOrder,
+                inStart, offSet - 1);
+        curr.right = treeFromPreOrderAndInorderHelper(preOrder, preStart + offSet - inStart + 1, preEnd, inOrder,
+                offSet + 1, inEnd);
+
+        return curr;
+    }
+
+    // very important
+    public boolean printAllAncestors(BinaryTreeNode root, BinaryTreeNode node) {
+        if (root == null) {
+            return false;
+        }
+
+        if (root.left == node || root.right == node || printAllAncestors(root.left, node)
+                || printAllAncestors(root.right, node)) {
+            System.out.print(root.data + "-->");
+            return true;
+        }
+        return false;
+    }
+
+    
+
+    
     public static void main(String[] args) {
 
         /*
@@ -719,7 +879,8 @@ public class Questions {
         root.left.left = new BinaryTreeNode(4);
         root.left.right = new BinaryTreeNode(5);
 
-        System.out.println(diameterInfo(root).diam);
+        Questions questions = new Questions();
+        System.out.println(questions.hasPathSum(root, 8));
 
         /*
          * BinaryTreeNode root1 = new BinaryTreeNode(1);
