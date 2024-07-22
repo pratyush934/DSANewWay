@@ -2,8 +2,10 @@ package DSA_BOOK.Tree;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -855,9 +857,91 @@ public class Questions {
         return false;
     }
 
-    
+    public BinaryTreeNode lca(BinaryTreeNode root, BinaryTreeNode a, BinaryTreeNode b) {
 
-    
+        if (root == null) {
+            return root;
+        }
+
+        if (root == a || root == b) {
+            return root;
+        }
+
+        BinaryTreeNode left = lca(root.left, a, b);
+        BinaryTreeNode right = lca(root.right, a, b);
+
+        if (left != null && right != null) {
+            return root;
+        } else {
+            return left != null ? left : right;
+        }
+    }
+
+    public List<Integer> zigZagTraversal(BinaryTreeNode root) {
+        
+        if (root == null) {
+            return null;
+        }
+
+        Queue<BinaryTreeNode> q = new LinkedList<>();
+        q.add(root);
+        boolean leftToRight = true;
+
+        List<Integer> list = new ArrayList<>();
+       
+        while (!q.isEmpty()) {
+
+            int n = q.size();
+            List<Integer> temp = new ArrayList<>(n);
+            for (int i = 0; i < n; i++) {
+
+                BinaryTreeNode curr = q.poll();
+
+                if (curr.left != null) {
+                    q.add(curr.left);
+                }
+
+                if (curr.right != null) {
+                    q.add(curr.right);
+                }
+
+                if (leftToRight)
+                    temp.add(curr.data);
+                else
+                    temp.add(0, curr.data);
+            }
+            leftToRight = !leftToRight;
+            list.addAll(temp);
+        }
+        return list;
+
+    }
+
+
+    public void verticalSumHelper(BinaryTreeNode root, Map<Integer, Integer> map, int c) {
+
+        if(root.left != null) {
+            verticalSumHelper(root.left, map, c-1);
+        }
+        if(root.right != null) {
+            verticalSumHelper(root.right, map, c+1);
+        }
+
+        int data = 0;
+        if(map.containsKey(c)) {
+            data = map.get(c);
+        }
+        map.put(c, data+root.data);
+
+    }
+    public void verticalSum(BinaryTreeNode root) {
+        Map<Integer, Integer> map = new HashMap<>();
+        verticalSumHelper(root, map, 0);
+        for(int i : map.keySet()) {
+            System.out.println(i + "-->" + map.get(i));
+        }
+    }
+
     public static void main(String[] args) {
 
         /*
@@ -873,14 +957,20 @@ public class Questions {
          * System.out.println(questions.minDepthOfBinaryTree(root));
          */
 
-        BinaryTreeNode root = new BinaryTreeNode(1);
-        root.left = new BinaryTreeNode(2);
-        root.right = new BinaryTreeNode(3);
-        root.left.left = new BinaryTreeNode(4);
-        root.left.right = new BinaryTreeNode(5);
-
-        Questions questions = new Questions();
-        System.out.println(questions.hasPathSum(root, 8));
+        /*
+         * BinaryTreeNode root = new BinaryTreeNode(1);
+         * root.left = new BinaryTreeNode(2);
+         * root.right = new BinaryTreeNode(3);
+         * root.left.left = new BinaryTreeNode(4);
+         * root.left.right = new BinaryTreeNode(5);
+         * root.right.left = new BinaryTreeNode(6);
+         * root.right.right = new BinaryTreeNode(7);
+         * 
+         * 
+         * Questions questions = new Questions();
+         * System.out.println(questions.lca(root, root.left.right,
+         * root.right.left).data);
+         */
 
         /*
          * BinaryTreeNode root1 = new BinaryTreeNode(1);
@@ -898,6 +988,22 @@ public class Questions {
          * // Assert that isIdentical returns true for identical trees
          * System.out.println(questions.isIdenticalStructurally(root1, root2));
          */
+
+        BinaryTreeNode root = new BinaryTreeNode(1);
+        root.left = new BinaryTreeNode(2);
+        root.right = new BinaryTreeNode(3);
+        root.left.left = new BinaryTreeNode(4);
+        root.left.right = new BinaryTreeNode(5);
+        root.right.left = new BinaryTreeNode(6);
+        root.right.right = new BinaryTreeNode(7);
+
+        // Step 2: Create an instance of the class containing zigZagTraversal
+        Questions questions = new Questions();
+
+        // Step 3: Call zigZagTraversal and print the result
+        // List<Integer> result = questions.zigZagTraversal(root);
+        // System.out.println(result); // Exp
+        questions.verticalSum(root);
 
     }
 

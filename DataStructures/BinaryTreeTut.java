@@ -376,6 +376,7 @@ public class BinaryTreeTut {
         if (rightLca == null) {
             return leftLca;
         }
+        
         if (leftLca == null) {
             return rightLca;
         }
