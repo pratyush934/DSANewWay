@@ -878,7 +878,7 @@ public class Questions {
     }
 
     public List<Integer> zigZagTraversal(BinaryTreeNode root) {
-        
+
         if (root == null) {
             return null;
         }
@@ -888,7 +888,7 @@ public class Questions {
         boolean leftToRight = true;
 
         List<Integer> list = new ArrayList<>();
-       
+
         while (!q.isEmpty()) {
 
             int n = q.size();
@@ -917,30 +917,61 @@ public class Questions {
 
     }
 
-
     public void verticalSumHelper(BinaryTreeNode root, Map<Integer, Integer> map, int c) {
 
-        if(root.left != null) {
-            verticalSumHelper(root.left, map, c-1);
+        if (root.left != null) {
+            verticalSumHelper(root.left, map, c - 1);
         }
-        if(root.right != null) {
-            verticalSumHelper(root.right, map, c+1);
+        if (root.right != null) {
+            verticalSumHelper(root.right, map, c + 1);
         }
 
         int data = 0;
-        if(map.containsKey(c)) {
+        if (map.containsKey(c)) {
             data = map.get(c);
         }
-        map.put(c, data+root.data);
+        map.put(c, data + root.data);
 
     }
+
     public void verticalSum(BinaryTreeNode root) {
         Map<Integer, Integer> map = new HashMap<>();
         verticalSumHelper(root, map, 0);
-        for(int i : map.keySet()) {
+        for (int i : map.keySet()) {
             System.out.println(i + "-->" + map.get(i));
         }
     }
+
+    public BinaryTreeNode buildTreeFromPreOrder(int[] A, int i) {
+        /*
+         * ILILL -> 10100
+         * tee ke liye preOrder/postOrder ke saath Inorder bhi chaiye
+         * lekin isme do nodes honge compulsory
+         */
+        if (A == null) {
+            return null;
+        }
+        if (A.length == i) {
+            return null;
+        }
+        BinaryTreeNode node = new BinaryTreeNode();
+        node.data = A[i];
+        node.left = null;
+        node.right = null;
+
+        if (A[i] == 0) {
+            return node;
+        }
+        i++;
+        node.left = buildTreeFromPreOrder(A, i);
+        i++;
+        node.right = buildTreeFromPreOrder(A, i);
+
+        return node;
+
+    }
+
+    
 
     public static void main(String[] args) {
 
