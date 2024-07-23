@@ -11,7 +11,9 @@ public class BSTNode {
         this.left = null;
         this.right = null;
     }
-
+    public BSTNode() {
+        
+    }
     public int getData() {
         return data;
     }
