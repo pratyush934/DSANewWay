@@ -2,14 +2,14 @@ package DSA_BOOK.Tree;
 
 public class BSTNode {
 
-    private int data;
-    private BSTNode left;
-    private BSTNode right;
+    public int data;
+    public BSTNode left;
+    public BSTNode right;
 
-    public BSTNode(int data, BSTNode left, BSTNode right) {
+    public BSTNode(int data) {
         this.data = data;
-        this.left = left;
-        this.right = right;
+        this.left = null;
+        this.right = null;
     }
 
     public int getData() {

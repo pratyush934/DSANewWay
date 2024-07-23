@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "BSTQuestions",
+      "request": "launch",
+      "mainClass": "DSA_BOOK.Tree.BSTQuestions",
+      "projectName": "DSANewWay_61b602b0"
+    },
+    {
+      "type": "java",
       "name": "Questions",
       "request": "launch",
       "mainClass": "DSA_BOOK.Tree.Questions",
