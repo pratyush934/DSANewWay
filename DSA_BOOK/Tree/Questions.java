@@ -386,9 +386,7 @@ public class Questions {
                 s.push(temp.right);
             }
         }
-
         return list;
-
     }
 
     public int maxDepthInBinaryTree(BinaryTreeNode root) {
@@ -971,7 +969,7 @@ public class Questions {
 
     }
 
-    
+
 
     public static void main(String[] args) {
 

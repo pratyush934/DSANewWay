@@ -1,7 +1,5 @@
 package DSA_BOOK.Tree;
 
-import java.util.Queue;
-
 public class BSTQuestions {
 
     public BSTNode find(BSTNode root, int k) {
@@ -97,6 +95,48 @@ public class BSTQuestions {
         return root;
     }
 
+    // Bahut Important hai isse jyada kya hi kehna
+    public BSTNode deleteNode(BSTNode root, int val) {
+        if (root.data < val) {
+            root.right = deleteNode(root.right, val);
+        } else if (root.data > val) {
+            root.left = deleteNode(root.left, val);
+        } else {
+            // pakda gaya
+
+            // no child
+            if (root.left == null && root.right == null) {
+                return null;
+            }
+
+            // one child
+            if (root.left == null) {
+                root = root.right;
+            } else if (root.right == null) {
+                root = root.left;
+            }
+
+            // both the child
+            BSTNode IS = inOrderSuccessor(root.right);
+            root.data = IS.data;
+            root.right = deleteNode(root.right, IS.data);
+        }
+
+        return root;
+
+    }
+
+    public BSTNode inOrderSuccessor(BSTNode root) {
+        if (root == null) {
+            return null;
+        }
+        while (root.left != null) {
+            root = root.left;
+        }
+        return root;
+    }
+
+    
 
     public static void main(String[] args) {
         BSTNode root = new BSTNode(10);
@@ -108,10 +148,12 @@ public class BSTQuestions {
         root.right.right = new BSTNode(18);
 
         BSTQuestions bstQuestions = new BSTQuestions();
-        System.out.println(bstQuestions.deleteNode(root, 2));
-        BSTNode result = bstQuestions.findMaxIterative(root);
+        BSTNode result1 = bstQuestions.find(root, 12);
+        System.out.println(bstQuestions.deleteNode(root, 12));
+        BSTNode result2 = bstQuestions.find(root, 12);
 
-        System.out.println(result.data);
+        System.out.println(result1.data);
+        System.out.println(result2);
     }
 
 }
