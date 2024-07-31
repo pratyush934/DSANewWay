@@ -136,7 +136,43 @@ public class BSTQuestions {
         return root;
     }
 
-    
+    public BSTNode lcaClassical(BSTNode root, BSTNode a, BSTNode b) {
+
+        if (root == null) {
+            return root;
+        }
+
+        if (root == a || root == b) {
+            return root;
+        }
+
+        BSTNode left = lcaClassical(root.left, a, b);
+        BSTNode right = lcaClassical(root.right, a, b);
+
+        if (root.left != null && root.right != null) {
+            return root;
+        }
+
+        return left != null ? left : right;
+
+    }
+
+    public BSTNode lcaInBST(BSTNode root, BSTNode a, BSTNode b) {
+        if (root == null) {
+            return root;
+        }
+
+        if (root == a || root == b) {
+            return root;
+        }
+        if (Math.max(a.data, b.data) < root.data) {
+            return lcaInBST(root.left, a, b);
+        } else if (Math.max(a.data, b.data) > root.data) {
+            return lcaInBST(root.right, a, b);
+        } else {
+            return root;
+        }
+    }
 
     public static void main(String[] args) {
         BSTNode root = new BSTNode(10);
@@ -148,12 +184,7 @@ public class BSTQuestions {
         root.right.right = new BSTNode(18);
 
         BSTQuestions bstQuestions = new BSTQuestions();
-        BSTNode result1 = bstQuestions.find(root, 12);
-        System.out.println(bstQuestions.deleteNode(root, 12));
-        BSTNode result2 = bstQuestions.find(root, 12);
-
-        System.out.println(result1.data);
-        System.out.println(result2);
+        System.out.println(bstQuestions.lcaInBST(root, root.left.left, root.left.right).data );
     }
 
 }
