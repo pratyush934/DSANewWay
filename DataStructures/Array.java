@@ -203,6 +203,34 @@ public class Array {
     }
 
     public static void printSpiral(int arr[][]) {
+        /*
+         * 
+         * ArrayList<Integer> ans = new ArrayList<>();
+         * int rows = matrix.length;
+         * int cols = matrix[0].length;
+         * 
+         * int top = 0 , bottom = rows - 1 , left = 0 , right = cols - 1;
+         * 
+         * while(top <= bottom && left <= right){
+         * for(int i = left ; i <= right ; i++)
+         * ans.add(matrix[top][i]);
+         * top++;
+         * for(int i = top ; i <= bottom ; i++)
+         * ans.add(matrix[i][right]);
+         * right--;
+         * if(top <= bottom)
+         * for(int i = right ; i >= left ; i--)
+         * ans.add(matrix[bottom][i]);
+         * bottom--;
+         * if(left <= right)
+         * for(int i = bottom ; i >= top ; i--)
+         * ans.add(matrix[i][left]);
+         * left++;
+         * }
+         * 
+         * return ans;
+         */
+
         int startRow = 0;
         int startCol = 0;
         int endRow = arr.length;
@@ -232,7 +260,6 @@ public class Array {
         }
         System.out.println();
     }
-
 
     public static int diagonalSum(int arr[][]) {
         int sum = 0;
